@@ -9,11 +9,9 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
+
   // Ensure sitemap is treated as dynamic
-  output: 'standalone',
+  output: "standalone",
 };
 
 export default nextConfig;
