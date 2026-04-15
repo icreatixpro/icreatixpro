@@ -172,7 +172,7 @@ const generateAdvancedTitles = (keyword: string, tone: string): TitleData[] => {
   
   const selectedTemplates = templates2026[tone as keyof typeof templates2026] || templates2026.professional;
   
-  return selectedTemplates.map((title, index) => {
+  return selectedTemplates.map((title) => {
     const score = calculateAdvancedScore(title, k);
     return {
       id: generateId(),
@@ -556,32 +556,29 @@ export default function AITitleGeneratorPage() {
         )}
 
         {/* Filter Tabs */}
-        if (titles.length > 0) {
-          return (
-            <div className="flex gap-1 p-1 bg-white/40 backdrop-blur-xl rounded-full border border-white/50 w-fit mt-6 mb-4">
-              {[
-                { id: "all" as const, label: "✨ All Titles", icon: "📚" },
-                { id: "top" as const, label: "🏆 Top 5 by Score", icon: "⭐" },
-                { id: "saved" as const, label: `📌 Saved (${savedTitles.length})`, icon: "💾" }
-              ].map((filter) => (
-                <motion.button
-                  key={filter.id}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={() => setActiveFilter(filter.id)}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 flex items-center gap-1 ${
-                    activeFilter === filter.id
-                      ? "bg-white/70 shadow-sm text-[#1A394E]"
-                      : "text-[#1A394E]/60 hover:text-[#1A394E]"
-                  }`}
-                >
-                  <span>{filter.icon}</span> {filter.label}
-                </motion.button>
-              ))}
-            </div>
-          );
-        }
-        return null;
+        {titles.length > 0 && (
+          <div className="flex gap-1 p-1 bg-white/40 backdrop-blur-xl rounded-full border border-white/50 w-fit mt-6 mb-4">
+            {[
+              { id: "all" as const, label: "✨ All Titles", icon: "📚" },
+              { id: "top" as const, label: "🏆 Top 5 by Score", icon: "⭐" },
+              { id: "saved" as const, label: `📌 Saved (${savedTitles.length})`, icon: "💾" }
+            ].map((filter) => (
+              <motion.button
+                key={filter.id}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => setActiveFilter(filter.id)}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 flex items-center gap-1 ${
+                  activeFilter === filter.id
+                    ? "bg-white/70 shadow-sm text-[#1A394E]"
+                    : "text-[#1A394E]/60 hover:text-[#1A394E]"
+                }`}
+              >
+                <span>{filter.icon}</span> {filter.label}
+              </motion.button>
+            ))}
+          </div>
+        )}
 
         {/* Loading State */}
         <AnimatePresence>
