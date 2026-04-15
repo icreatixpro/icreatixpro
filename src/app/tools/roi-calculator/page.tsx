@@ -582,7 +582,3 @@ export default function ROICalculator() {
     </>
   );
 }
-
-
-
-
