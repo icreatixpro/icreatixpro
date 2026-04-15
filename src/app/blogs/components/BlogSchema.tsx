@@ -16,7 +16,7 @@ export default function BlogSchema({ blog, url }: BlogSchemaProps) {
     "description": blog.description,
     "image": blog.image,
     "datePublished": blog.date,
-    "dateModified": blog.updatedDate || blog.date,
+    "dateModified": blog.date, // ✅ FIXED: removed updatedDate, using date instead
     "author": {
       "@type": "Person",
       "name": blog.author,
@@ -34,8 +34,8 @@ export default function BlogSchema({ blog, url }: BlogSchemaProps) {
       "@type": "WebPage",
       "@id": url,
     },
-    "keywords": blog.keywords.join(", "),
-    "wordCount": blog.wordCount,
+    "keywords": blog.keywords?.join(", ") || "",
+    "wordCount": blog.wordCount || 0,
     "timeRequired": blog.readingTime,
   };
 
