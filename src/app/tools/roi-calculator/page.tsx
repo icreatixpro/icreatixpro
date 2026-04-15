@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
 import ROILayout from "./layout";
-import { ToolLoader, ToolCTA } from "@/components/tools";
 import AdsenseAd from "@/components/AdsenseAd";
 import Head from "next/head";
 
@@ -552,7 +551,7 @@ export default function ROICalculator() {
 
         {/* CTA Section */}
         <div className="mt-8">
-          <ToolCTA text="Run More Campaign Analysis" />
+          <Link href="/contact"><button className="w-full py-3 bg-gradient-to-r from-[#2C727B] to-[#1A394E] text-white rounded-xl font-semibold hover:shadow-lg transition-all">Run More Campaign Analysis</button></Link>
         </div>
 
         {/* Mini Blog Grid */}
@@ -583,5 +582,7 @@ export default function ROICalculator() {
     </>
   );
 }
+
+
 
 
