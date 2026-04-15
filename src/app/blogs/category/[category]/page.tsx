@@ -19,12 +19,15 @@ export async function generateMetadata({ params }: { params: Promise<{ category:
     return { title: "Category Not Found" };
   }
   
+  // Create a description dynamically since categoryData doesn't have description
+  const categoryDescription = `Explore our collection of ${categoryData.name} articles. Learn expert strategies, best practices, and actionable tips to improve your ${categoryData.name.toLowerCase()} efforts.`;
+  
   return {
     title: `${categoryData.name} Articles | iCreatixPRO Blog`,
-    description: categoryData.description,
+    description: categoryDescription, // ✅ FIXED: Use dynamic description instead of categoryData.description
     openGraph: {
       title: `${categoryData.name} | iCreatixPRO Blog`,
-      description: categoryData.description,
+      description: categoryDescription, // ✅ FIXED: Use dynamic description
       type: "website",
     },
   };
@@ -44,6 +47,9 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
   // Get posts for this category
   const categoryBlogs = getAllBlogs().filter(blog => blog.category === category);
   
+  // Create a description dynamically
+  const categoryDescription = `Explore our collection of ${categoryData.name} articles. Learn expert strategies, best practices, and actionable tips to improve your ${categoryData.name.toLowerCase()} efforts.`;
+  
   return (
     <main className="min-h-screen bg-white">
       
@@ -62,7 +68,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
             <span className="text-4xl">{categoryData.icon}</span>
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900">{categoryData.name}</h1>
           </div>
-          <p className="text-gray-600 max-w-2xl">{categoryData.description}</p>
+          <p className="text-gray-600 max-w-2xl">{categoryDescription}</p> {/* ✅ FIXED: Use dynamic description */}
           <div className="flex items-center gap-2 mt-3 text-sm text-gray-500">
             <FolderOpen className="w-4 h-4" />
             <span>{categoryBlogs.length} articles</span>
@@ -90,7 +96,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
                 <div className="relative h-48 overflow-hidden bg-gray-100">
                   <Image
                     src={post.image}
-                    alt={post.imageAlt}
+                    alt={post.imageAlt || post.title}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                   />
