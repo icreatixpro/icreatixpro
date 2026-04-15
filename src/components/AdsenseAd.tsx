@@ -3,17 +3,27 @@
 import { useEffect } from "react";
 
 type Props = {
-  adClient: string;
-  adSlot: string;
+  adClient?: string;
+  adSlot?: string;
   className?: string;
 };
 
 export default function AdsenseAd({ adClient, adSlot, className }: Props) {
   useEffect(() => {
-    try {
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-    } catch (e) {}
-  }, []);
+    // Only push to adsense if we have the required props
+    if (adClient && adSlot) {
+      try {
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+      } catch (e) {
+        console.error('Adsense error:', e);
+      }
+    }
+  }, [adClient, adSlot]);
+
+  // Don't render anything if no adClient or adSlot provided
+  if (!adClient || !adSlot) {
+    return null;
+  }
 
   return (
     <div className={`my-6 flex justify-center ${className || ""}`}>
