@@ -4,7 +4,7 @@ import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { searchPosts, getAllBlogs, BlogPost } from "@/lib/blog-data";
+import { searchPosts, getAllBlogs, BlogPost } from "@/lib/blogs";
 import { Calendar, Clock, Search as SearchIcon, ArrowLeft } from "lucide-react";
 
 function SearchResultsContent() {
