@@ -18,28 +18,22 @@ import {
   Linkedin, 
   Facebook,
   Sparkles,
-  Zap,
-  ChevronRight,
   TrendingUp,
   BookOpen,
   List,
   Hash,
   Quote,
   Link as LinkIcon,
-  Mail,
   Send,
   FacebookIcon,
   Instagram,
   Youtube,
   CheckCircle,
   ArrowRight as ArrowRightIcon,
-  Star,
   Trophy,
-  Crown,
   Rocket,
   Target,
   Layers,
-  BarChart3,
   MessageCircle,
   Share2,
   ThumbsUp
@@ -65,7 +59,6 @@ export async function generateMetadata(
   const previousImages = (await parent).openGraph?.images || [];
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://icreatixpro.com';
   
-  // META TITLE: Ensure 50-60 characters
   let metaTitle = `${blog.title} | iCreatixPRO`;
   if (metaTitle.length > 60) {
     const maxTitleLength = 55;
@@ -73,7 +66,6 @@ export async function generateMetadata(
     metaTitle = `${truncatedTitle}... | iCreatixPRO`;
   }
   
-  // META DESCRIPTION: Ensure 150-160 characters
   let metaDescription = blog.description;
   if (metaDescription.length > 160) {
     metaDescription = metaDescription.substring(0, 157) + '...';
@@ -110,7 +102,7 @@ export async function generateMetadata(
       url: `${baseUrl}/blogs/${blog.slug}`,
       type: "article",
       publishedTime: blog.date,
-      modifiedTime: blog.date, // Fixed: removed updatedDate reference
+      modifiedTime: blog.date,
       authors: [blog.author],
       images: [blog.image, ...previousImages],
       siteName: 'iCreatixPRO',
@@ -149,7 +141,7 @@ export default async function BlogPage({ params }: { params: Promise<{ slug: str
     "description": blog.description,
     "image": blog.image,
     "datePublished": blog.date,
-    "dateModified": blog.date, // Fixed: removed updatedDate reference
+    "dateModified": blog.date,
     "author": {
       "@type": "Person",
       "name": blog.author,
@@ -202,7 +194,6 @@ export default async function BlogPage({ params }: { params: Promise<{ slug: str
     day: "numeric",
   });
   
-  // Extract table of contents from headings
   const extractTOC = (content: string) => {
     const headingRegex = /^##+\s+(.+)$/gm;
     const matches = [];
@@ -385,58 +376,48 @@ export default async function BlogPage({ params }: { params: Promise<{ slug: str
                   rehypePlugins={[rehypeSlug, [rehypeAutolinkHeadings, { behavior: "append" }]]}
                   components={{
                     ul: ({ children }) => <ul className="space-y-3">{children}</ul>,
-                    li: ({ children, checked }) => {
-                      if (checked !== undefined) {
-                        return (
-                          <li className="flex items-start gap-2">
-                            <CheckCircle className="w-5 h-5 text-[#2C727B] flex-shrink-0 mt-0.5" />
-                            <span className="text-gray-600">{children}</span>
-                          </li>
-                        );
-                      }
-                      return (
-                        <li className="flex items-start gap-2">
-                          <div className="w-1.5 h-1.5 rounded-full bg-[#2C727B] flex-shrink-0 mt-2" />
-                          <span className="text-gray-600">{children}</span>
-                        </li>
-                      );
-                    },
-                    h2: ({ children, id }) => (
+                    li: ({ children }: any) => (
+                      <li className="flex items-start gap-2">
+                        <div className="w-1.5 h-1.5 rounded-full bg-[#2C727B] flex-shrink-0 mt-2" />
+                        <span className="text-gray-600">{children}</span>
+                      </li>
+                    ),
+                    h2: ({ children, id }: any) => (
                       <h2 id={id} className="group flex items-center gap-2">
                         <Hash className="w-5 h-5 text-[#2C727B] opacity-0 group-hover:opacity-100 transition-opacity" />
                         {children}
                       </h2>
                     ),
-                    h3: ({ children, id }) => (
+                    h3: ({ children, id }: any) => (
                       <h3 id={id} className="group flex items-center gap-2">
                         <ArrowRightIcon className="w-4 h-4 text-[#2C727B] opacity-0 group-hover:opacity-100 transition-opacity" />
                         {children}
                       </h3>
                     ),
-                    blockquote: ({ children }) => (
+                    blockquote: ({ children }: any) => (
                       <blockquote className="relative">
                         <Quote className="w-8 h-8 text-[#2C727B]/20 absolute -top-3 -left-2" />
                         <div className="relative z-10">{children}</div>
                       </blockquote>
                     ),
-                    table: ({ children }) => (
+                    table: ({ children }: any) => (
                       <div className="overflow-x-auto my-8 rounded-xl border border-gray-200 shadow-lg">
                         <table className="min-w-full divide-y divide-gray-200">
                           {children}
-                         </table>
+                        </table>
                       </div>
                     ),
-                    thead: ({ children }) => (
+                    thead: ({ children }: any) => (
                       <thead className="bg-gradient-to-r from-[#2C727B] to-[#1A394E]">
                         {children}
                       </thead>
                     ),
-                    th: ({ children }) => (
+                    th: ({ children }: any) => (
                       <th className="px-5 py-3.5 text-left text-sm font-semibold text-white">
                         {children}
                       </th>
                     ),
-                    td: ({ children }) => (
+                    td: ({ children }: any) => (
                       <td className="px-5 py-3.5 text-sm text-gray-600 border-b border-gray-100">
                         {children}
                       </td>
@@ -452,13 +433,13 @@ export default async function BlogPage({ params }: { params: Promise<{ slug: str
                         </div>
                       </div>
                     ),
-                    a: ({ href, children }) => (
+                    a: ({ href, children }: any) => (
                       <a href={href} className="inline-flex items-center gap-1 group">
                         {children}
                         <LinkIcon className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity" />
                       </a>
                     ),
-                    strong: ({ children }) => (
+                    strong: ({ children }: any) => (
                       <strong className="bg-gradient-to-r from-[#2C727B] to-[#1A394E] bg-clip-text text-transparent font-bold">
                         {children}
                       </strong>
