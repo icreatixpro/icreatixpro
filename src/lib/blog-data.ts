@@ -1,4 +1,6 @@
 // src/lib/blog-data.ts
+
+// Author interface
 export interface BlogAuthor {
   name: string;
   avatar: string;
@@ -9,16 +11,32 @@ export interface BlogAuthor {
   email?: string;
 }
 
-// Optional: Export some default authors if you want
+// Blog Post interface
+export interface BlogPost {
+  slug: string;
+  title: string;
+  description: string;
+  date: string;
+  author: string;
+  image: string;
+  imageAlt?: string;
+  category: string;
+  tags: string[];
+  readingTime: string;
+  content: string;
+  views?: number;
+  keywords?: string[];
+  wordCount?: number;
+}
+
+// Default authors
 export const defaultAuthors: Record<string, BlogAuthor> = {
-  // Add your authors here
-  "John Doe": {
-    name: "John Doe",
-    avatar: "/authors/default.jpg",
-    bio: "SEO expert with 10+ years of experience helping businesses grow online.",
-    twitter: "https://twitter.com/johndoe",
-    linkedin: "https://linkedin.com/in/johndoe",
-    website: "https://johndoe.com",
+  "default": {
+    name: "iCreatixPRO Team",
+    avatar: "",
+    bio: "Expert SEO consultants helping businesses dominate search results with AI-powered strategies.",
+    twitter: "https://x.com/iCreatixPRO",
+    linkedin: "https://www.linkedin.com/company/icreatixpro/",
+    website: "https://icreatixpro.com",
   },
-  // Add more authors as needed
 };
