@@ -345,12 +345,12 @@ export default function AboutClient() {
           
           <motion.div 
             animate={{ x: [0, 100, 0], y: [0, 50, 0] }}
-            transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+            transition={{ duration: 25 as const, repeat: Infinity, ease: "linear" }}
             className="absolute w-[600px] h-[600px] bg-[#2C727B]/10 blur-[120px] rounded-full top-[-200px] left-[-200px]"
           />
           <motion.div 
             animate={{ x: [0, -80, 0], y: [0, -40, 0] }}
-            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+            transition={{ duration: 20 as const, repeat: Infinity, ease: "linear" }}
             className="absolute w-[500px] h-[500px] bg-[#1A394E]/10 blur-[120px] rounded-full bottom-[-150px] right-[-150px]"
           />
           
