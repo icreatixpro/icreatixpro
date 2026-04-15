@@ -2,6 +2,9 @@
 import fs from 'fs'
 import path from 'path'
 
+// Define the allowed change frequencies as a type
+type ChangeFrequency = 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never'
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://icreatixpro.com'
   
@@ -22,14 +25,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   return allRoutes.map((route) => ({
     url: baseUrl + route.path,
     lastModified: route.lastModified || new Date(),
-    changeFrequency: route.changeFrequency || 'weekly',
+    changeFrequency: (route.changeFrequency || 'weekly') as ChangeFrequency,
     priority: route.priority || 0.7,
   }))
 }
 
 async function getStaticRoutes() {
   const appDir = path.join(process.cwd(), 'src/app')
-  const routes: { path: string; priority: number; changeFrequency: string; lastModified?: Date }[] = []
+  const routes: { path: string; priority: number; changeFrequency: ChangeFrequency; lastModified?: Date }[] = []
   
   function scanDirectory(dir: string, basePath: string = '') {
     if (!fs.existsSync(dir)) return
@@ -50,7 +53,7 @@ async function getStaticRoutes() {
           routes.push({
             path: routePath,
             priority: getPriority(item.name),
-            changeFrequency: 'monthly',
+            changeFrequency: 'monthly' as ChangeFrequency,
             lastModified: stats.mtime,
           })
         }
@@ -80,7 +83,7 @@ async function getStaticRoutes() {
     routes.push({
       path: '',
       priority: 1.0,
-      changeFrequency: 'daily',
+      changeFrequency: 'daily' as ChangeFrequency,
       lastModified: new Date(),
     })
   }
@@ -90,7 +93,7 @@ async function getStaticRoutes() {
 
 async function getBlogRoutes() {
   const contentDir = path.join(process.cwd(), 'src/content/blogs')
-  const routes: { path: string; priority: number; changeFrequency: string; lastModified?: Date }[] = []
+  const routes: { path: string; priority: number; changeFrequency: ChangeFrequency; lastModified?: Date }[] = []
   
   if (fs.existsSync(contentDir)) {
     const files = fs.readdirSync(contentDir)
@@ -104,7 +107,7 @@ async function getBlogRoutes() {
         routes.push({
           path: '/blogs/' + slug,
           priority: 0.8,
-          changeFrequency: 'weekly',
+          changeFrequency: 'weekly' as ChangeFrequency,
           lastModified: stats.mtime,
         })
       }
@@ -116,7 +119,7 @@ async function getBlogRoutes() {
 
 async function getServiceRoutes() {
   const servicesDir = path.join(process.cwd(), 'src/app/services')
-  const routes: { path: string; priority: number; changeFrequency: string; lastModified?: Date }[] = []
+  const routes: { path: string; priority: number; changeFrequency: ChangeFrequency; lastModified?: Date }[] = []
   
   if (fs.existsSync(servicesDir)) {
     const items = fs.readdirSync(servicesDir, { withFileTypes: true })
@@ -129,7 +132,7 @@ async function getServiceRoutes() {
           routes.push({
             path: '/services/' + item.name,
             priority: 0.8,
-            changeFrequency: 'weekly',
+            changeFrequency: 'weekly' as ChangeFrequency,
             lastModified: stats.mtime,
           })
         }
@@ -142,7 +145,7 @@ async function getServiceRoutes() {
 
 async function getToolRoutes() {
   const toolsDir = path.join(process.cwd(), 'src/app/tools')
-  const routes: { path: string; priority: number; changeFrequency: string; lastModified?: Date }[] = []
+  const routes: { path: string; priority: number; changeFrequency: ChangeFrequency; lastModified?: Date }[] = []
   
   if (fs.existsSync(toolsDir)) {
     const items = fs.readdirSync(toolsDir, { withFileTypes: true })
@@ -155,7 +158,7 @@ async function getToolRoutes() {
           routes.push({
             path: '/tools/' + item.name,
             priority: 0.7,
-            changeFrequency: 'monthly',
+            changeFrequency: 'monthly' as ChangeFrequency,
             lastModified: stats.mtime,
           })
         }
