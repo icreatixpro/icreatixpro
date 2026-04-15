@@ -16,7 +16,7 @@ const dropdowns = {
     { title: "Technical SEO", href: "/services/technical-seo", description: "Fix site issues and improve core web vitals.", icon: Wrench },
   ],
   tools: [
-    { title: "LLM.txt Generator", href: "/tools/llm-generator", icon: Brain, isNew: true },  // ← ADDED - NEW TOOL
+    { title: "LLM.txt Generator", href: "/tools/llm-generator", icon: Brain, isNew: true },
     { title: "Keyword Density Checker", href: "/tools/keyword-density-checker", icon: Search },
     { title: "Meta Tag Generator", href: "/tools/meta-tag-generator", icon: Settings },
     { title: "ROI Calculator", href: "/tools/roi-calculator", icon: DollarSign },
@@ -149,7 +149,7 @@ export default function Navbar() {
                                     </span>
                                   )}
                                 </div>
-                                {item.description && (
+                                {'description' in item && item.description && (
                                   <p className="text-gray-500 text-[12px] mt-0.5 line-clamp-1">{item.description}</p>
                                 )}
                               </div>

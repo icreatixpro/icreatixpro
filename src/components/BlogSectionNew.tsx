@@ -1,10 +1,10 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 import Image from "next/image";
 import { getAllBlogs } from "@/lib/blog-helpers";
 import { Calendar, Clock, ArrowRight, Sparkles, Eye, TrendingUp, Zap, BookOpen } from "lucide-react";
 
 export default async function BlogSectionNew() {
-  let posts = [];
+  let posts: any[] = [];
   try {
     const allPosts = getAllBlogs();
     posts = allPosts.slice(0, 6);
@@ -216,3 +216,4 @@ export default async function BlogSectionNew() {
     </section>
   );
 }
+

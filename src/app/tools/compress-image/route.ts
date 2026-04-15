@@ -20,7 +20,7 @@ export async function POST(req: Request) {
     const originalSize = buffer.length / 1024;
     const compressedSize = compressed.length / 1024;
 
-    return new NextResponse(compressed, {
+    return new NextResponse(compressed as any, {
       headers: {
         "Content-Type": "image/jpeg",
         "X-Original-Size": originalSize.toFixed(2),
@@ -32,3 +32,4 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Compression failed" });
   }
 }
+

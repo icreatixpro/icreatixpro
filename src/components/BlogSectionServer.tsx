@@ -3,9 +3,10 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { getAllBlogs } from '@/lib/blog-helpers';
+import { BlogPost } from '@/lib/blog-data';
 
 export default function BlogSectionServer() {
-  const [allPosts, setAllPosts] = useState([]);
+  const [allPosts, setAllPosts] = useState<BlogPost[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -53,7 +54,7 @@ export default function BlogSectionServer() {
               <span className="text-xs text-[#2C727B] font-semibold uppercase">Featured</span>
               <h3 className="text-xl font-bold text-[#1A394E] mt-1">{featuredPost.title}</h3>
               <p className="mt-2 text-gray-600">{featuredPost.description}</p>
-              <Link href={/blogs/}>
+              <Link href={`/blogs/${featuredPost.slug}`}>
                 <button className="mt-4 px-4 py-2 bg-[#2C727B] text-white rounded-lg text-sm hover:bg-[#1A394E] transition">
                   Read More →
                 </button>
@@ -65,7 +66,7 @@ export default function BlogSectionServer() {
         {/* Posts Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {recentPosts.map((post) => (
-            <Link key={post.slug} href={/blogs/}>
+            <Link key={post.slug} href={`/blogs/${post.slug}`}>
               <div className="bg-white rounded-xl p-5 shadow-md hover:shadow-lg transition cursor-pointer">
                 <h3 className="font-bold text-[#1A394E] line-clamp-2">{post.title}</h3>
                 <p className="mt-2 text-gray-500 text-sm line-clamp-2">{post.description}</p>

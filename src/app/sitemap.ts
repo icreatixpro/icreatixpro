@@ -1,4 +1,4 @@
-﻿import { MetadataRoute } from 'next'
+import { MetadataRoute } from 'next'
 import fs from 'fs'
 import path from 'path'
 
@@ -22,7 +22,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   
   const allRoutes = [...staticRoutes, ...blogRoutes, ...serviceRoutes, ...toolRoutes]
   
-  return allRoutes.map((route) => ({
+  return allRoutes.map((route): any => ({
     url: baseUrl + route.path,
     lastModified: route.lastModified || new Date(),
     changeFrequency: (route.changeFrequency || 'weekly') as ChangeFrequency,
@@ -168,3 +168,4 @@ async function getToolRoutes() {
   
   return routes
 }
+
