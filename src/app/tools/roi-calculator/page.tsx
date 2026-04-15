@@ -3,8 +3,8 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
 import ROILayout from "./layout";
-import AdsenseAd from "@/components/AdsenseAd";
-import Head from "next/head";
+// import AdsenseAd from "@/components/AdsenseAd";
+import Head from "next/head";`nimport Link from "next/link";
 
 // --- Animation variants ---
 const fadeInUp = {
@@ -317,7 +317,7 @@ export default function ROICalculator() {
                       exit={{ opacity: 0, y: -10 }}
                       className="mt-6"
                     >
-                      <ToolLoader />
+                      <div className="flex justify-center py-4"><div className="w-8 h-8 border-2 border-[#2C727B] border-t-transparent rounded-full animate-spin" /></div>
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -582,3 +582,5 @@ export default function ROICalculator() {
     </>
   );
 }
+
+
