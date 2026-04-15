@@ -42,7 +42,7 @@ import {
   Search,
   Database,
   Cpu,
-  Infinity,
+  // Infinity - REMOVED: This conflicts with JavaScript's Infinity
   Crown,
   Gem,
   BadgeCheck,
@@ -331,17 +331,6 @@ export default function AboutClient() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Define animation configs outside to avoid type issues
-  const floatingAnimation = {
-    animate: { x: [0, 100, 0], y: [0, 50, 0] },
-    transition: { duration: 25, repeat: Infinity, ease: "linear" as const }
-  };
-
-  const floatingAnimation2 = {
-    animate: { x: [0, -80, 0], y: [0, -40, 0] },
-    transition: { duration: 20, repeat: Infinity, ease: "linear" as const }
-  };
-
   return (
     <main className="relative overflow-x-hidden bg-gradient-to-b from-white via-[#F5F7FA] to-white">
       
@@ -355,11 +344,13 @@ export default function AboutClient() {
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_30%,rgba(44,114,123,0.08),transparent_50%),radial-gradient(ellipse_at_80%_70%,rgba(26,57,78,0.06),transparent_50%)]" />
           
           <motion.div 
-            {...floatingAnimation}
+            animate={{ x: [0, 100, 0], y: [0, 50, 0] }}
+            transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
             className="absolute w-[600px] h-[600px] bg-[#2C727B]/10 blur-[120px] rounded-full top-[-200px] left-[-200px]"
           />
           <motion.div 
-            {...floatingAnimation2}
+            animate={{ x: [0, -80, 0], y: [0, -40, 0] }}
+            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
             className="absolute w-[500px] h-[500px] bg-[#1A394E]/10 blur-[120px] rounded-full bottom-[-150px] right-[-150px]"
           />
           
