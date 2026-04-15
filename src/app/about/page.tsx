@@ -68,7 +68,7 @@ export const metadata: Metadata = {
   verification: {
     google: "google-site-verification-code",
     yandex: "yandex-verification-code",
-    bing: "bing-verification-code",
+    // bing: "bing-verification-code", // REMOVED - 'bing' is not a valid property in Next.js verification
   },
   
   category: "technology",
