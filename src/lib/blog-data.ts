@@ -1,5 +1,16 @@
 // src/lib/blog-data.ts
 
+// Brand colors
+export const brandColors = {
+  primary: "#2C727B",
+  primaryDark: "#1A394E",
+  primaryLight: "#4A9BA6",
+  secondary: "#F5F7FA",
+  accent: "#E8F4F2",
+  text: "#1F2937",
+  textLight: "#6B7280",
+};
+
 // Author interface
 export interface BlogAuthor {
   name: string;
