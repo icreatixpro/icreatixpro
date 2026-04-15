@@ -306,7 +306,7 @@ export default function ROICalculator() {
 
                 {/* Ad Top */}
                 <div className="my-6">
-                  <AdsenseAd />
+                  {/* <AdsenseAd adClient="ca-pub-xxx" adSlot="xxx" /> */}
                 </div>
 
                 {/* Loader */}
@@ -552,7 +552,7 @@ export default function ROICalculator() {
 
         {/* CTA Section */}
         <div className="mt-8">
-          <ToolCTA>Run More Campaign Analysis</ToolCTA>
+          <ToolCTA text="Run More Campaign Analysis" />
         </div>
 
         {/* Mini Blog Grid */}
@@ -577,9 +577,11 @@ export default function ROICalculator() {
 
         {/* Ad Bottom */}
         <div className="my-6">
-          <AdsenseAd />
+          {/* <AdsenseAd adClient="ca-pub-xxx" adSlot="xxx" /> */}
         </div>
       </ROILayout>
     </>
   );
 }
+
+
