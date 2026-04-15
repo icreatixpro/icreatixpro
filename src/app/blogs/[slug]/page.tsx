@@ -32,7 +32,7 @@ import {
   Instagram,
   Youtube,
   CheckCircle,
-  ArrowRight,
+  ArrowRight as ArrowRightIcon,
   Star,
   Trophy,
   Crown,
@@ -110,7 +110,7 @@ export async function generateMetadata(
       url: `${baseUrl}/blogs/${blog.slug}`,
       type: "article",
       publishedTime: blog.date,
-      modifiedTime: blog.updatedDate || blog.date,
+      modifiedTime: blog.date, // Fixed: removed updatedDate reference
       authors: [blog.author],
       images: [blog.image, ...previousImages],
       siteName: 'iCreatixPRO',
@@ -149,7 +149,7 @@ export default async function BlogPage({ params }: { params: Promise<{ slug: str
     "description": blog.description,
     "image": blog.image,
     "datePublished": blog.date,
-    "dateModified": blog.updatedDate || blog.date,
+    "dateModified": blog.date, // Fixed: removed updatedDate reference
     "author": {
       "@type": "Person",
       "name": blog.author,
@@ -409,7 +409,7 @@ export default async function BlogPage({ params }: { params: Promise<{ slug: str
                     ),
                     h3: ({ children, id }) => (
                       <h3 id={id} className="group flex items-center gap-2">
-                        <ArrowRight className="w-4 h-4 text-[#2C727B] opacity-0 group-hover:opacity-100 transition-opacity" />
+                        <ArrowRightIcon className="w-4 h-4 text-[#2C727B] opacity-0 group-hover:opacity-100 transition-opacity" />
                         {children}
                       </h3>
                     ),
@@ -423,7 +423,7 @@ export default async function BlogPage({ params }: { params: Promise<{ slug: str
                       <div className="overflow-x-auto my-8 rounded-xl border border-gray-200 shadow-lg">
                         <table className="min-w-full divide-y divide-gray-200">
                           {children}
-                        </table>
+                         </table>
                       </div>
                     ),
                     thead: ({ children }) => (
