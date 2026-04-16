@@ -4,8 +4,8 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
 import ROILayout from "./layout";
 import AdsenseAd from "@/components/AdsenseAd";
-import Head from "next/head";`nimport Link from "next/link";
-import Link from "next/link"; 
+import Head from "next/head";
+import Link from "next/link";
 
 // --- Animation variants ---
 const fadeInUp = {
@@ -78,31 +78,31 @@ export default function ROICalculator() {
       if (roi > 50) {
         status = "Exceptional";
         statusColor = "text-emerald-600";
-        recommendation = "✅ Scale this campaign aggressively. Your ROI indicates strong product-market fit.";
+        recommendation = "Scale this campaign aggressively. Your ROI indicates strong product-market fit.";
         gradientFrom = "#2C727B";
         gradientTo = "#1A394E";
       } else if (roi > 20) {
         status = "Strong";
         statusColor = "text-emerald-500";
-        recommendation = "📈 Good results! Consider increasing budget by 15-20% for this ad set.";
+        recommendation = "Good results! Consider increasing budget by 15-20% for this ad set.";
         gradientFrom = "#2C727B";
         gradientTo = "#689A9A";
       } else if (roi > 0) {
         status = "Moderate";
         statusColor = "text-yellow-600";
-        recommendation = "⚠️ Break-even territory. Optimize ad copy, targeting, or landing page.";
+        recommendation = "Break-even territory. Optimize ad copy, targeting, or landing page.";
         gradientFrom = "#689A9A";
         gradientTo = "#AEC7C8";
       } else if (roi > -30) {
         status = "Needs Work";
         statusColor = "text-orange-500";
-        recommendation = "🔧 Pause underperforming ads. Test new creatives and audiences.";
+        recommendation = "Pause underperforming ads. Test new creatives and audiences.";
         gradientFrom = "#7C3AED";
         gradientTo = "#6366F1";
       } else {
         status = "Critical";
         statusColor = "text-red-500";
-        recommendation = "🚨 Stop spending immediately. Reevaluate your entire funnel.";
+        recommendation = "Stop spending immediately. Reevaluate your entire funnel.";
         gradientFrom = "#ef4444";
         gradientTo = "#dc2626";
       }
@@ -118,7 +118,7 @@ export default function ROICalculator() {
 
   const copyResults = () => {
     if (!result) return;
-    const text = `📊 ROI Report\n━━━━━━━━━━━━━━━━\n💰 Ad Spend: $${formatNumber(spend)}\n📈 Revenue: $${formatNumber(revenue)}\n💵 Profit: $${result.profit.toFixed(2)}\n🎯 ROI: ${result.roi}%\n📊 ROAS: ${result.roas}x\n⭐ Status: ${result.status}\n━━━━━━━━━━━━━━━━\n#iCreatixPRO`;
+    const text = `ROI Report\n--------------------\nAd Spend: $${formatNumber(spend)}\nRevenue: $${formatNumber(revenue)}\nProfit: $${result.profit.toFixed(2)}\nROI: ${result.roi}%\nROAS: ${result.roas}x\nStatus: ${result.status}\n--------------------\n#iCreatixPRO`;
     navigator.clipboard.writeText(text);
     setCopySuccess(true);
     setTimeout(() => setCopySuccess(false), 2000);
@@ -288,7 +288,7 @@ export default function ROICalculator() {
                         className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full mx-auto"
                       />
                     ) : (
-                      "Calculate ROI →"
+                      "Calculate ROI ->"
                     )}
                   </motion.button>
                   
@@ -318,6 +318,9 @@ export default function ROICalculator() {
                       exit={{ opacity: 0, y: -10 }}
                       className="mt-6"
                     >
+                      <div className="flex justify-center py-4">
+                        <div className="w-8 h-8 border-2 border-[#2C727B] border-t-transparent rounded-full animate-spin" />
+                      </div>
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -422,22 +425,6 @@ export default function ROICalculator() {
                           onClick={copyResults}
                           className="flex-1 py-2.5 rounded-lg bg-white/40 backdrop-blur-sm border border-white/60 text-[#1A394E]/70 hover:text-[#1A394E] text-sm font-medium transition-all duration-200 flex items-center justify-center gap-2"
                         >
-                          <AnimatePresence mode="wait">
-                            {copySuccess ? (
-                              <motion.span
-                                key="check"
-                                initial={{ scale: 0 }}
-                                animate={{ scale: 1 }}
-                                exit={{ scale: 0 }}
-                              >
-                                ✓
-                              </motion.span>
-                            ) : (
-                              <motion.span key="copy" initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }}>
-                                📋
-                              </motion.span>
-                            )}
-                          </AnimatePresence>
                           {copySuccess ? "Copied!" : "Copy Report"}
                         </motion.button>
                       </div>
@@ -551,7 +538,11 @@ export default function ROICalculator() {
 
         {/* CTA Section */}
         <div className="mt-8">
-          <Link href="/contact"><button className="w-full py-3 bg-gradient-to-r from-[#2C727B] to-[#1A394E] text-white rounded-xl font-semibold hover:shadow-lg transition-all">Run More Campaign Analysis</button></Link>
+          <Link href="/contact">
+            <button className="w-full py-3 bg-gradient-to-r from-[#2C727B] to-[#1A394E] text-white rounded-xl font-semibold hover:shadow-lg transition-all">
+              Run More Campaign Analysis
+            </button>
+          </Link>
         </div>
 
         {/* Mini Blog Grid */}
@@ -582,6 +573,3 @@ export default function ROICalculator() {
     </>
   );
 }
-
-
-
