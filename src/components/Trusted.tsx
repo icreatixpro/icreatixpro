@@ -1,6 +1,7 @@
-﻿"use client"
+﻿"use client";
 
-import Image from "next/image"
+import Image from "next/image";
+import { useEffect, useState } from "react";
 
 const logos = [
   { name: "Google", src: "/google.svg" },
@@ -9,11 +10,19 @@ const logos = [
   { name: "Shopify", src: "/shopify.svg" },
   { name: "WordPress", src: "/wordpress.svg" },
   { name: "HubSpot", src: "/hubspot.svg" },
-  { name: "Salesforce", src: "/salesforce.svg" },
-  { name: "Microsoft", src: "/microsoft.svg" }
-]
+];
 
 export default function Trusted() {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  }
+
   return (
     <section className="py-16 bg-gradient-to-b from-white to-gray-50/50 overflow-hidden">
       <div className="max-w-7xl mx-auto text-center mb-10">
@@ -26,13 +35,13 @@ export default function Trusted() {
       </div>
 
       <div className="relative">
-        {/* Gradient Overlays */}
+        {/* Gradient Overlays for fade effect */}
         <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-white to-transparent z-10" />
         <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-white to-transparent z-10" />
         
-        {/* Marquee */}
+        {/* Marquee Animation */}
         <div className="overflow-hidden">
-          <div className="flex animate-marquee whitespace-nowrap gap-12 py-4">
+          <div className="flex animate-marquee whitespace-nowrap gap-8 py-4">
             {[...logos, ...logos].map((logo, i) => (
               <div
                 key={i}
@@ -44,12 +53,32 @@ export default function Trusted() {
                   width={100}
                   height={40}
                   className="opacity-70 hover:opacity-100 transition-opacity duration-300"
+                  priority={i < 6}
                 />
               </div>
             ))}
           </div>
         </div>
       </div>
+
+      {/* Add this CSS for marquee animation if not already present */}
+      <style jsx>{`
+        @keyframes marquee {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-50%);
+          }
+        }
+        .animate-marquee {
+          animation: marquee 25s linear infinite;
+          width: fit-content;
+        }
+        .animate-marquee:hover {
+          animation-play-state: paused;
+        }
+      `}</style>
     </section>
-  )
+  );
 }
