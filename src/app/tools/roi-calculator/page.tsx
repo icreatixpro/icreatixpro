@@ -4,7 +4,8 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
 import ROILayout from "./layout";
 import AdsenseAd from "@/components/AdsenseAd";
-import Head from "next/head";
+import Head from "next/head";`nimport Link from "next/link";
+import Link from "next/link"; 
 
 // --- Animation variants ---
 const fadeInUp = {
@@ -581,5 +582,6 @@ export default function ROICalculator() {
     </>
   );
 }
+
 
 
