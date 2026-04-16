@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer/Footer";
+import { SpeedInsights } from "@vercel/speed-insights/next";  // ✅ ADD THIS LINE
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -63,9 +64,9 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body
-  suppressHydrationWarning
-  className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-gray-900`}
->
+        suppressHydrationWarning
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-gray-900`}
+      >
         {/* 🔥 GLOBAL BACKGROUND */}
         <div className="fixed inset-0 -z-10">
           <div className="absolute w-[600px] h-[600px] bg-[var(--primary-color)] opacity-20 blur-[150px] rounded-full top-[-150px] left-[-150px]" />
@@ -82,6 +83,9 @@ export default function RootLayout({
 
         {/* 🔥 Footer */}
         <Footer />
+
+        {/* 🔥 Vercel Speed Insights */}
+        <SpeedInsights />
 
         {/* 🔥 GLOBAL SCHEMA */}
         <script
