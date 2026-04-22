@@ -27,7 +27,7 @@ export const metadata: Metadata = {
 
   // ✅ GSC VERIFICATION
   verification: {
-    google: "qQCmoe9-_2cbY00xoWAadpfMYkCUl1X0P2pgviHdL2w",
+    google: "google-site-verification=qQCmoe9-_2cbY00xoWAadpfMYkCUl1X0P2pgviHdL2w",
   },
 
   title: {
