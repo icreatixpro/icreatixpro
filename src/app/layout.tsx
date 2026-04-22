@@ -76,7 +76,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
 
-      {/* ✅ GTM HEAD SCRIPT */}
+      {/* 🔥 GTM HEAD SCRIPT */}
       <head>
         <Script id="gtm-head" strategy="afterInteractive">
           {`
@@ -93,7 +93,7 @@ export default function RootLayout({
         suppressHydrationWarning
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-gray-900`}
       >
-        {/* ✅ GTM NOSCRIPT (BODY START) */}
+        {/* 🔥 GTM NOSCRIPT */}
         <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-MN22Z8R2"
@@ -102,6 +102,21 @@ export default function RootLayout({
             style={{ display: "none", visibility: "hidden" }}
           />
         </noscript>
+
+        {/* 🔥 GOOGLE ANALYTICS (GA4) */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-DYT83YMFXV"
+          strategy="afterInteractive"
+        />
+        <Script id="ga4-script" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-DYT83YMFXV');
+          `}
+        </Script>
 
         {/* 🔥 GLOBAL BACKGROUND */}
         <div className="fixed inset-0 -z-10">
