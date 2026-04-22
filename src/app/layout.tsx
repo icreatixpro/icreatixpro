@@ -20,18 +20,12 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://icreatixpro.com"),
 
-  // ✅ CANONICAL
   alternates: {
     canonical: "https://icreatixpro.com",
   },
 
-  // ✅ GOOGLE SEARCH CONSOLE VERIFICATION (FIXED)
-  verification: {
-    google: "qQCmoe9-_2cbY00xoWAadpfMYkCUl1X0P2pgviHdL2w",
-  },
-
   title: {
-    default: "AI SEO, AEO & GEO Services for Business Growth",
+    default: "AI SEO, AEO & GEO Services for Business Growth | iCreatixPRO",
     template: "%s | iCreatixPRO",
   },
 
@@ -44,6 +38,8 @@ export const metadata: Metadata = {
     "AEO optimization",
     "GEO SEO",
     "technical SEO",
+    "digital marketing agency",
+    "search engine optimization services",
   ],
 
   robots: {
@@ -52,7 +48,7 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    title: "iCreatixPRO",
+    title: "iCreatixPRO - AI SEO Agency",
     description:
       "AI-powered SEO and digital growth systems for modern businesses.",
     url: "https://icreatixpro.com",
@@ -62,7 +58,7 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "iCreatixPRO",
+    title: "iCreatixPRO - AI SEO Agency",
     description:
       "AI SEO agency helping businesses grow with scalable strategies.",
   },
@@ -113,7 +109,9 @@ export default function RootLayout({
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-DYT83YMFXV');
+            gtag('config', 'G-DYT83YMFXV', {
+              page_path: window.location.pathname,
+            });
           `}
         </Script>
 
