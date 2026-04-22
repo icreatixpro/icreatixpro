@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer/Footer";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { Analytics } from "@vercel/analytics/next";  // ✅ ADDED Analytics
+import { Analytics } from "@vercel/analytics/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,6 +19,16 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://icreatixpro.com"),
+
+  // ✅ CANONICAL
+  alternates: {
+    canonical: "https://icreatixpro.com",
+  },
+
+  // ✅ GSC VERIFICATION
+  verification: {
+    google: "qQCmoe9-_2cbY00xoWAadpfMYkCUl1X0P2pgviHdL2w",
+  },
 
   title: {
     default: "AI SEO, AEO & GEO Services for Business Growth",
@@ -64,10 +75,34 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="scroll-smooth">
+
+      {/* ✅ GTM HEAD SCRIPT */}
+      <head>
+        <Script id="gtm-head" strategy="afterInteractive">
+          {`
+            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-MN22Z8R2');
+          `}
+        </Script>
+      </head>
+
       <body
         suppressHydrationWarning
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-gray-900`}
       >
+        {/* ✅ GTM NOSCRIPT (BODY START) */}
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-MN22Z8R2"
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          />
+        </noscript>
+
         {/* 🔥 GLOBAL BACKGROUND */}
         <div className="fixed inset-0 -z-10">
           <div className="absolute w-[600px] h-[600px] bg-[var(--primary-color)] opacity-20 blur-[150px] rounded-full top-[-150px] left-[-150px]" />
@@ -87,7 +122,7 @@ export default function RootLayout({
 
         {/* 🔥 Vercel Speed Insights */}
         <SpeedInsights />
-        
+
         {/* 🔥 Vercel Analytics */}
         <Analytics />
 
