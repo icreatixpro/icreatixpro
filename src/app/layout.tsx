@@ -25,9 +25,9 @@ export const metadata: Metadata = {
     canonical: "https://icreatixpro.com",
   },
 
-  // ✅ GSC VERIFICATION
+  // ✅ GOOGLE SEARCH CONSOLE VERIFICATION (FIXED)
   verification: {
-    google: "google-site-verification=qQCmoe9-_2cbY00xoWAadpfMYkCUl1X0P2pgviHdL2w",
+    google: "qQCmoe9-_2cbY00xoWAadpfMYkCUl1X0P2pgviHdL2w",
   },
 
   title: {
@@ -113,7 +113,6 @@ export default function RootLayout({
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-
             gtag('config', 'G-DYT83YMFXV');
           `}
         </Script>
