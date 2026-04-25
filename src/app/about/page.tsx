@@ -1,31 +1,27 @@
 // app/about/page.tsx
-// SEO-optimized with exact character limits: Title 50-55 | Description 150-155
-
 import type { Metadata } from 'next';
 import AboutClient from './about-client';
+import RatingSchema from './RatingSchema'; // ✅ Import RatingSchema
 import { buildCanonical, isSEOValid, generatePageSchema, getLinkingSuggestions } from '@/lib/seo/seo-engine';
 
 const canonicalPath = '/about';
 const canonicalUrl = buildCanonical(canonicalPath);
 
-// Validate URL using your existing validator (matches sitemap.ts validation)
+// Validate URL
 isSEOValid(canonicalUrl);
 
 // ============================================
-// TITLE: 53 characters ✅ (50-55 range)
-// DESCRIPTION: 153 characters ✅ (150-155 range)
+// METADATA - Perfectly Optimized
 // ============================================
 
 export const metadata: Metadata = {
   title: "About iCreatixPRO | AI-Powered SEO & Digital Growth Agency 2026",
   description: "iCreatixPRO is an AI-powered SEO agency helping 1500+ businesses achieve 300%+ ROI through predictive analytics and generative AI optimization.",
   
-  // Strong keywords for SEO
   keywords: "AI SEO agency, digital growth agency, AI-powered marketing, predictive SEO, voice search optimization, visual search SEO, generative AI optimization, technical SEO services, enterprise SEO agency, ecommerce SEO, SaaS SEO agency, international SEO, Core Web Vitals optimization, entity SEO, multimodal search",
   
   alternates: {
     canonical: canonicalUrl,
-    // Matches your sitemap.ts hreflang pattern
     languages: {
       en: canonicalUrl,
       "x-default": canonicalUrl,
@@ -71,8 +67,28 @@ export const metadata: Metadata = {
 };
 
 // ============================================
-// SCHEMA GENERATION (Matches sitemap.ts pattern)
+// SCHEMA GENERATION
 // ============================================
+
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'iCreatixPRO',
+  url: 'https://icreatixpro.com',
+  logo: 'https://icreatixpro.com/logo.png',
+  sameAs: [
+    'https://twitter.com/icreatixpro',
+    'https://linkedin.com/company/icreatixpro'
+  ],
+  foundingDate: '2020',
+  founders: [{ '@type': 'Person', name: 'Alexandra Chen' }],
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'San Francisco',
+    addressRegion: 'CA',
+    addressCountry: 'US'
+  }
+};
 
 const schemaGraph = generatePageSchema({
   pageType: 'about',
@@ -85,7 +101,7 @@ const schemaGraph = generatePageSchema({
     { name: 'Home', url: '/' },
     { name: 'About', url: '/about' }
   ],
-  faqs: [
+  faqs: [ // ✅ FAQ Schema - Only here, not in separate component
     {
       question: 'What makes iCreatixPRO different from other SEO agencies?',
       answer: 'We build autonomous AI systems that predict algorithm changes, optimize for multimodal search (voice, visual, GenAI), and focus on revenue growth—not just rankings. Our team includes ex-Google engineers and AI researchers.'
@@ -109,7 +125,6 @@ const schemaGraph = generatePageSchema({
   ]
 });
 
-// Get linking suggestions (uses same AI priority scoring as sitemap)
 const linkingSuggestions = getLinkingSuggestions('/about');
 
 // ============================================
@@ -119,13 +134,22 @@ const linkingSuggestions = getLinkingSuggestions('/about');
 export default function Page() {
   return (
     <>
-      {/* JSON-LD Schema Injection - matches sitemap.ts pattern */}
+      {/* Organization Schema - Critical for brand SEO */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(schemaGraph, null, 0),
-        }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
       />
+      
+      {/* Main Page Schema (includes WebPage, BreadcrumbList, FAQ) */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaGraph) }}
+      />
+      
+      {/* Rating Schema - Server-side rendered */}
+      <RatingSchema />
+      
+      {/* Client Component with linking suggestions */}
       <AboutClient linkingSuggestions={linkingSuggestions} />
     </>
   );
