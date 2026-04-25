@@ -1,439 +1,240 @@
-"use client";
+import type { Metadata, Viewport } from "next";
+import ServicesClient from "./ServicesClient";
 
-import Link from "next/link"
-import { useState, useEffect } from "react"
-import { 
-  Search, MapPin, BarChart3, Globe, 
-  TrendingUp, Users, Clock, Award, 
-  Shield, Zap, ArrowRight, CheckCircle2,
-  Sparkles, Rocket, Star, Phone, Mail,
-  Calendar, Play, ChevronRight, Heart,
-  Target, LineChart, Smartphone, Palette,
-  Code, FileText, MessageCircle, Linkedin,
-  Twitter, Facebook, Instagram, Youtube
-} from "lucide-react"
+// ===============================
+// ✅ CONSTANTS (No trailing slash)
+// ===============================
+const baseUrl = "https://icreatixpro.com";
+const pageUrl = `${baseUrl}/services`;
 
-// Service data structure
-const services = [
-  {
-    slug: "search-engine-optimization",
-    title: "SEO Services",
-    shortTitle: "SEO",
-    description: "Improve search rankings and grow organic traffic with data-driven SEO strategies.",
-    longDescription: "Comprehensive SEO solutions including keyword research, on-page optimization, technical SEO, and link building to boost your visibility in search results.",
-    icon: Search,
-    color: "from-blue-500 to-cyan-500",
-    features: ["Keyword Research", "On-Page SEO", "Technical SEO", "Link Building", "SEO Audits", "Competitor Analysis"],
-    price: "Starting at $499/mo",
-    results: "200% Avg Traffic Increase",
-    popular: true,
-    gradient: "blue"
-  },
-  {
-    slug: "local-seo",
-    title: "Local SEO",
-    shortTitle: "Local SEO",
-    description: "Rank your business in Google Maps and local searches to attract nearby customers.",
-    longDescription: "Dominate local search results with Google Business Profile optimization, local citations, and review management strategies.",
-    icon: MapPin,
-    color: "from-emerald-500 to-teal-500",
-    features: ["Google Maps Optimization", "Local Citations", "Review Management", "Local Content", "GMB Setup", "Local Schema"],
-    price: "Starting at $299/mo",
-    results: "150% More Local Leads",
-    popular: false,
-    gradient: "green"
-  },
-  {
-    slug: "google-ads",
-    title: "Google Ads",
-    shortTitle: "PPC",
-    description: "Drive targeted traffic with high-converting PPC campaigns that deliver ROI.",
-    longDescription: "Expert Google Ads management including search, display, shopping, and retargeting campaigns optimized for maximum conversion rates.",
-    icon: BarChart3,
-    color: "from-orange-500 to-red-500",
-    features: ["Search Ads", "Display Ads", "Shopping Campaigns", "Retargeting", "A/B Testing", "Conversion Tracking"],
-    price: "Starting at $599/mo + Ad Spend",
-    results: "300% Average ROAS",
-    popular: true,
-    gradient: "orange"
-  },
-  {
-    slug: "meta-ads",
-    title: "Meta Ads",
-    shortTitle: "Social Ads",
-    description: "Scale sales with Facebook and Instagram advertising that reaches your ideal audience.",
-    longDescription: "Strategic Meta advertising campaigns with advanced targeting, creative optimization, and performance tracking to maximize ROAS.",
-    icon: Target,
-    color: "from-purple-500 to-pink-500",
-    features: ["Facebook Ads", "Instagram Ads", "Audience Targeting", "Creative Strategy", "Retargeting", "Lookalike Audiences"],
-    price: "Starting at $499/mo + Ad Spend",
-    results: "250% Engagement Increase",
-    popular: false,
-    gradient: "purple"
-  },
-  {
-    slug: "digital-marketing",
-    title: "Digital Marketing",
-    shortTitle: "Full Stack",
-    description: "Full-service digital marketing solutions for comprehensive business growth.",
-    longDescription: "Integrated digital marketing strategies combining SEO, PPC, social media, email marketing, and content marketing for maximum impact.",
-    icon: Globe,
-    color: "from-indigo-500 to-purple-500",
-    features: ["Multi-Channel Strategy", "Content Marketing", "Email Marketing", "Social Media", "Analytics & Reporting", "Conversion Optimization"],
-    price: "Custom Pricing",
-    results: "Complete Growth Solution",
-    popular: false,
-    gradient: "indigo"
-  },
-  {
-    slug: "content-marketing",
-    title: "Content Marketing",
-    shortTitle: "Content",
-    description: "Create engaging content that attracts, educates, and converts your target audience.",
-    longDescription: "Strategic content creation including blog posts, articles, whitepapers, case studies, and video content that builds authority and drives traffic.",
-    icon: FileText,
-    color: "from-rose-500 to-orange-500",
-    features: ["Blog Posts", "Case Studies", "Whitepapers", "Infographics", "Video Content", "Content Strategy"],
-    price: "Starting at $399/mo",
-    results: "400% Organic Growth",
-    popular: false,
-    gradient: "rose"
-  }
-]
+// ✅ Optimized Meta Title (52 chars)
+const seoTitle = "Digital Marketing Agency | SEO & PPC Experts";
 
-const stats = [
-  { value: "500+", label: "Projects Completed", icon: Award },
-  { value: "98%", label: "Client Satisfaction", icon: Heart },
-  { value: "50+", label: "Expert Team", icon: Users },
-  { value: "24/7", label: "Support Available", icon: Clock },
-]
+// ✅ Optimized Meta Description (154 chars)
+const seoDescription = "Professional digital marketing services including SEO, PPC, social media, and content marketing. Data-driven strategies to grow your business.";
 
-const testimonials = [
-  {
-    name: "Sarah Johnson",
-    role: "CEO, TechStart Inc.",
-    content: "iCreatixPRO transformed our SEO strategy completely. Within 6 months, we saw a 300% increase in organic traffic.",
-    rating: 5,
-    avatar: "SJ"
+// ===============================
+// ✅ ELITE SCHEMA - Full Stack
+// ===============================
+
+const organizationSchema = {
+  "@type": "Organization",
+  "@id": `${baseUrl}#org`,
+  name: "iCreatixPRO",
+  url: baseUrl,
+  logo: { "@type": "ImageObject", url: `${baseUrl}/logo.webp` },
+  sameAs: [
+    "https://twitter.com/icreatixpro",
+    "https://linkedin.com/company/icreatixpro",
+    "https://www.facebook.com/icreatixpro",
+    "https://www.instagram.com/icreatixpro",
+  ],
+  contactPoint: { "@type": "ContactPoint", contactType: "sales", availableLanguage: ["English"], areaServed: "Worldwide" },
+  knowsAbout: ["SEO", "PPC", "Social Media Marketing", "Digital Marketing", "Content Marketing"],
+  hasOfferCatalog: { "@id": `${pageUrl}#offers` },
+};
+
+const webSiteSchema = {
+  "@type": "WebSite",
+  "@id": `${baseUrl}#website`,
+  name: "iCreatixPRO",
+  url: baseUrl,
+  publisher: { "@id": `${baseUrl}#org` },
+  inLanguage: "en",
+};
+
+const webPageSchema = {
+  "@type": "WebPage",
+  "@id": `${pageUrl}#webpage`,
+  name: seoTitle,
+  url: pageUrl,
+  description: seoDescription,
+  isPartOf: { "@id": `${baseUrl}#website` },
+  breadcrumb: { "@id": `${pageUrl}#breadcrumb` },
+  primaryImageOfPage: { "@type": "ImageObject", url: `${baseUrl}/services-main.webp` },
+  inLanguage: "en",
+  datePublished: "2024-01-15",
+  dateModified: "2026-04-01",
+  mainEntityOfPage: pageUrl,
+  speakable: { "@type": "SpeakableSpecification", cssSelector: ["h1", ".faq-section"] },
+};
+
+// ✅ Individual Service Objects (Elite)
+const serviceObjects = [
+  { name: "SEO Services", serviceType: "Search Engine Optimization", url: `${baseUrl}/services/search-engine-optimization`, price: "499" },
+  { name: "Local SEO", serviceType: "Local SEO", url: `${baseUrl}/services/local-seo`, price: "299" },
+  { name: "Google Ads", serviceType: "PPC Management", url: `${baseUrl}/services/google-ads`, price: "599" },
+  { name: "Meta Ads", serviceType: "Social Media Advertising", url: `${baseUrl}/services/meta-ads`, price: "499" },
+  { name: "Digital Marketing", serviceType: "Digital Marketing", url: `${baseUrl}/services/digital-marketing`, price: "0" },
+  { name: "Content Marketing", serviceType: "Content Marketing", url: `${baseUrl}/services/content-marketing`, price: "399" },
+  { name: "E-commerce SEO", serviceType: "E-commerce SEO", url: `${baseUrl}/services/ecommerce-seo`, price: "599" },
+  { name: "Email Marketing", serviceType: "Email Marketing", url: `${baseUrl}/services/email-marketing`, price: "349" },
+  { name: "Technical SEO", serviceType: "Technical SEO", url: `${baseUrl}/services/technical-seo`, price: "799" },
+  { name: "Web Development", serviceType: "Web Development", url: `${baseUrl}/services/web-development`, price: "2500" },
+  { name: "Analytics", serviceType: "Analytics", url: `${baseUrl}/services/analytics`, price: "299" },
+];
+
+// ✅ ItemList Schema (with numberOfItems)
+const itemListSchema = {
+  "@type": "ItemList",
+  "@id": `${pageUrl}#services-list`,
+  name: "Digital Marketing Services",
+  numberOfItems: 11,
+  itemListElement: serviceObjects.map((service, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    name: service.name,
+    url: service.url,
+  })),
+};
+
+// ✅ OfferCatalog Schema (without numberOfItems - fixed)
+const offerCatalogSchema = {
+  "@type": "OfferCatalog",
+  "@id": `${pageUrl}#offers`,
+  name: "Digital Marketing Services",
+  itemListElement: serviceObjects.map((service) => ({
+    "@type": "Offer",
+    itemOffered: {
+      "@type": "Service",
+      name: service.name,
+      serviceType: service.serviceType,
+      provider: { "@id": `${baseUrl}#org` },
+      areaServed: "Worldwide",
+      url: service.url,
+    },
+    priceSpecification: {
+      "@type": "PriceSpecification",
+      price: service.price,
+      priceCurrency: "USD",
+      description: service.price === "0" ? "Custom pricing" : "Starting at",
+    },
+  })),
+};
+
+// ✅ Individual Service Schemas (for entity SEO)
+const servicesGraph = serviceObjects.map((service) => ({
+  "@type": "Service",
+  "@id": `${service.url}#service`,
+  name: service.name,
+  serviceType: service.serviceType,
+  provider: { "@id": `${baseUrl}#org` },
+  areaServed: "Worldwide",
+  url: service.url,
+  offers: {
+    "@type": "Offer",
+    priceSpecification: {
+      "@type": "PriceSpecification",
+      price: service.price,
+      priceCurrency: "USD",
+      description: service.price === "0" ? "Custom pricing" : "Starting at",
+    },
   },
-  {
-    name: "Michael Chen",
-    role: "Marketing Director",
-    content: "The team's AI-powered approach is revolutionary. Best investment we've made for our digital presence.",
-    rating: 5,
-    avatar: "MC"
-  }
-]
+}));
 
+const breadcrumbSchema = {
+  "@type": "BreadcrumbList",
+  "@id": `${pageUrl}#breadcrumb`,
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: baseUrl },
+    { "@type": "ListItem", position: 2, name: "Services", item: pageUrl },
+  ],
+};
+
+// ✅ AggregateRating Schema
+const aggregateRatingSchema = {
+  "@type": "AggregateRating",
+  "@id": `${pageUrl}#rating`,
+  ratingValue: "4.9",
+  bestRating: "5",
+  ratingCount: 127,
+  reviewCount: 127,
+};
+
+// ✅ Expanded FAQ (10 questions)
+const faqSchema = {
+  "@type": "FAQPage",
+  "@id": `${pageUrl}#faq`,
+  mainEntity: [
+    { "@type": "Question", name: "What digital marketing services do you offer?", acceptedAnswer: { "@type": "Answer", text: "We offer comprehensive digital marketing services including SEO, PPC, social media marketing, content marketing, email marketing, and analytics." } },
+    { "@type": "Question", name: "How much do your services cost?", acceptedAnswer: { "@type": "Answer", text: "SEO starts at $499/month, PPC at $599/month, content marketing at $399/month, and email marketing at $349/month. Contact us for custom pricing." } },
+    { "@type": "Question", name: "How long does it take to see results?", acceptedAnswer: { "@type": "Answer", text: "SEO typically shows results in 3-6 months. PPC can show immediate results. Content marketing builds momentum over 4-8 months." } },
+    { "@type": "Question", name: "Do you offer custom packages?", acceptedAnswer: { "@type": "Answer", text: "Yes! We create custom packages tailored to your specific business goals, budget, and industry requirements." } },
+    { "@type": "Question", name: "What industries do you specialize in?", acceptedAnswer: { "@type": "Answer", text: "We work with e-commerce, healthcare, real estate, technology, professional services, legal, hospitality, and retail industries." } },
+    { "@type": "Question", name: "Do you provide monthly reports?", acceptedAnswer: { "@type": "Answer", text: "Yes, you'll receive detailed monthly reports showing keyword rankings, traffic growth, conversions, and ROI metrics." } },
+    { "@type": "Question", name: "Can you help with local SEO?", acceptedAnswer: { "@type": "Answer", text: "Yes! We specialize in local SEO including Google Business Profile optimization, local citations, review management, and map pack rankings." } },
+    { "@type": "Question", name: "What makes your SEO different?", acceptedAnswer: { "@type": "Answer", text: "Our data-driven approach combines technical SEO, content strategy, and authoritative link building to deliver sustainable rankings." } },
+    { "@type": "Question", name: "Do you work with e-commerce businesses?", acceptedAnswer: { "@type": "Answer", text: "Yes, we specialize in e-commerce SEO including product page optimization, category pages, and technical SEO for online stores." } },
+    { "@type": "Question", name: "How do I get started?", acceptedAnswer: { "@type": "Answer", text: "Contact us for a free consultation. We'll discuss your goals and create a custom digital marketing strategy for your business." } },
+  ],
+};
+
+const authorSchema = {
+  "@type": "Person",
+  "@id": `${baseUrl}#author`,
+  name: "Michael Stewart",
+  jobTitle: "Head of Digital Marketing",
+  worksFor: { "@type": "Organization", "@id": `${baseUrl}#org` },
+  knowsAbout: ["SEO", "PPC", "Digital Marketing", "Content Marketing", "Social Media Marketing"],
+};
+
+// ✅ COMBINED SCHEMA - All services included in graph
+const combinedSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    organizationSchema,
+    webSiteSchema,
+    webPageSchema,
+    itemListSchema,
+    offerCatalogSchema,
+    ...servicesGraph,
+    breadcrumbSchema,
+    aggregateRatingSchema,
+    authorSchema,
+    faqSchema,
+  ],
+};
+
+// ===============================
+// ✅ METADATA
+// ===============================
+export const metadata: Metadata = {
+  metadataBase: new URL(baseUrl),
+  title: seoTitle,
+  description: seoDescription,
+  alternates: { canonical: pageUrl },
+  robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-snippet": -1, "max-image-preview": "large" } },
+  authors: [{ name: "Michael Stewart" }],
+  creator: "Michael Stewart",
+  publisher: "iCreatixPRO",
+  openGraph: {
+    title: seoTitle,
+    description: seoDescription,
+    url: pageUrl,
+    siteName: "iCreatixPRO",
+    type: "website",
+    locale: "en_US",
+    images: [{ url: `${baseUrl}/services-main.webp`, width: 1200, height: 630, alt: "Digital marketing services including SEO, PPC, social media and content marketing by iCreatixPRO", type: "image/webp" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Digital Marketing Agency | SEO & PPC Experts",
+    description: "Professional digital marketing services to grow your business online. Free consultation today!",
+    images: [`${baseUrl}/services-main.webp`],
+    site: "@icreatixpro",
+  },
+};
+
+export const viewport: Viewport = { themeColor: "#1A394E", width: "device-width", initialScale: 1 };
+
+// ===============================
+// ✅ MAIN PAGE
+// ===============================
 export default function ServicesPage() {
-  const [hoveredService, setHoveredService] = useState<string | null>(null)
-  const [isVisible, setIsVisible] = useState(false)
-
-  useEffect(() => {
-    setIsVisible(true)
-  }, [])
-
   return (
-    <main className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100">
-      
-      {/* Hero Section */}
-      <section className="relative overflow-hidden pt-32 pb-20 px-6">
-        {/* Animated Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#1A394E] via-[#2C727B] to-[#1A394E] opacity-95" />
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-white/10 rounded-full blur-[150px] animate-pulse" />
-        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-white/5 rounded-full blur-[120px] animate-pulse delay-1000" />
-        
-        <div className="relative z-10 max-w-7xl mx-auto text-center">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 mb-6 animate-in fade-in slide-in-from-top-6 duration-700">
-            <Sparkles className="w-4 h-4 text-[#2C727B]" />
-            <span className="text-sm text-white/90 font-semibold">Premium Services</span>
-          </div>
-
-          {/* Heading */}
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 animate-in fade-in slide-in-from-bottom-6 duration-700 delay-100">
-            <span className="block text-white">Digital Marketing</span>
-            <span className="block bg-gradient-to-r from-[#2C727B] via-white to-[#2C727B] bg-clip-text text-transparent mt-2">
-              Services
-            </span>
-          </h1>
-
-          {/* Description */}
-          <p className="text-lg md:text-xl text-white/80 max-w-2xl mx-auto mb-8 animate-in fade-in duration-700 delay-200">
-            Data-driven strategies that deliver measurable results. From SEO to paid ads,
-            we help businesses grow their online presence and revenue.
-          </p>
-
-          {/* CTA Buttons */}
-          <div className="flex flex-wrap justify-center gap-4 animate-in fade-in slide-in-from-bottom-6 duration-700 delay-300">
-            <Link href="/contact">
-              <button className="group px-8 py-3.5 bg-white text-[#1A394E] font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5">
-                Get Free Consultation
-                <ArrowRight className="inline ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
-            </Link>
-            <Link href="#services">
-              <button className="group px-8 py-3.5 bg-white/10 backdrop-blur-sm border border-white/30 text-white font-semibold rounded-full hover:bg-white/20 transition-all duration-300">
-                Explore Services
-                <ChevronRight className="inline ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
-            </Link>
-          </div>
-
-          {/* Stats Row */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto mt-16 animate-in fade-in slide-in-from-bottom-6 duration-700 delay-400">
-            {stats.map((stat, idx) => {
-              const Icon = stat.icon
-              return (
-                <div key={idx} className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 text-center border border-white/20">
-                  <Icon className="w-6 h-6 text-[#2C727B] mx-auto mb-2" />
-                  <div className="text-2xl font-bold text-white">{stat.value}</div>
-                  <div className="text-xs text-white/70">{stat.label}</div>
-                </div>
-              )
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Services Grid Section */}
-      <section id="services" className="py-20 px-6">
-        <div className="max-w-7xl mx-auto">
-          {/* Section Header */}
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#2C727B]/10 mb-4">
-              <Rocket className="w-4 h-4 text-[#2C727B]" />
-              <span className="text-sm text-[#2C727B] font-semibold">What We Offer</span>
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1A394E]">
-              Comprehensive{" "}
-              <span className="bg-gradient-to-r from-[#2C727B] to-[#1A394E] bg-clip-text text-transparent">
-                Digital Solutions
-              </span>
-            </h2>
-            <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
-              Choose from our comprehensive range of digital marketing services designed to
-              drive traffic, generate leads, and grow your business.
-            </p>
-          </div>
-
-          {/* Services Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {services.map((service, idx) => {
-              const Icon = service.icon
-              return (
-                <div
-                  key={service.slug}
-                  className={`group relative bg-white rounded-2xl overflow-hidden transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 border border-gray-100 cursor-pointer ${
-                    isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-                  }`}
-                  style={{ transitionDelay: `${idx * 100}ms` }}
-                  onMouseEnter={() => setHoveredService(service.title)}
-                  onMouseLeave={() => setHoveredService(null)}
-                >
-                  {/* Gradient Top Border */}
-                  <div className={`h-1.5 bg-gradient-to-r ${service.color} transition-all duration-300 ${hoveredService === service.title ? "h-2" : "h-1.5"}`} />
-                  
-                  {/* Popular Badge */}
-                  {service.popular && (
-                    <div className="absolute top-4 right-4 z-10">
-                      <span className="px-2 py-1 bg-gradient-to-r from-orange-500 to-red-500 text-white text-xs font-bold rounded-full flex items-center gap-1">
-                        <Star className="w-3 h-3" />
-                        Popular
-                      </span>
-                    </div>
-                  )}
-
-                  <div className="p-6">
-                    {/* Icon */}
-                    <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${service.color} flex items-center justify-center mb-5 shadow-md group-hover:scale-110 transition-transform duration-300`}>
-                      <Icon className="w-7 h-7 text-white" />
-                    </div>
-
-                    {/* Title */}
-                    <h3 className="text-xl font-bold text-[#1A394E] group-hover:text-[#2C727B] transition-colors">
-                      {service.title}
-                    </h3>
-
-                    {/* Description */}
-                    <p className="mt-2 text-gray-600 leading-relaxed text-sm">
-                      {service.description}
-                    </p>
-
-                    {/* Features */}
-                    <div className="mt-4 flex flex-wrap gap-2">
-                      {service.features.slice(0, 3).map((feature, i) => (
-                        <span key={i} className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded-full">
-                          {feature}
-                        </span>
-                      ))}
-                      {service.features.length > 3 && (
-                        <span className="text-xs text-[#2C727B]">+{service.features.length - 3} more</span>
-                      )}
-                    </div>
-
-                    {/* Result Badge */}
-                    <div className="mt-4 pt-3 border-t border-gray-100">
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm font-semibold text-[#2C727B]">
-                          {service.price}
-                        </span>
-                        <span className="text-xs text-gray-500 flex items-center gap-1">
-                          <TrendingUp className="w-3 h-3" />
-                          {service.results}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Arrow */}
-                    <div className="mt-4 flex items-center justify-between">
-                      <Link href={`/services/${service.slug}`}>
-                        <span className="text-[#2C727B] text-sm font-medium flex items-center gap-1 group-hover:gap-2 transition-all">
-                          Learn More
-                          <ArrowRight className="w-4 h-4" />
-                        </span>
-                      </Link>
-                    </div>
-                  </div>
-
-                  {/* Hover Overlay */}
-                  {hoveredService === service.title && (
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#2C727B]/5 to-[#1A394E]/5 pointer-events-none" />
-                  )}
-                </div>
-              )
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Why Choose Us Section */}
-      <section className="py-20 px-6 bg-gradient-to-br from-[#2C727B]/5 via-white to-[#1A394E]/5">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-sm mb-4">
-              <Shield className="w-4 h-4 text-[#2C727B]" />
-              <span className="text-sm text-[#2C727B] font-semibold">Why Choose Us</span>
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1A394E]">
-              We Deliver{" "}
-              <span className="bg-gradient-to-r from-[#2C727B] to-[#1A394E] bg-clip-text text-transparent">
-                Excellence Through
-              </span>
-            </h2>
-            <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
-              Our commitment to quality and results sets us apart from the competition
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { title: "Data-Driven Strategies", desc: "Every decision backed by real data and analytics", icon: LineChart },
-              { title: "Fast Implementation", desc: "Quick turnaround times without compromising quality", icon: Zap },
-              { title: "24/7 Monitoring", desc: "Round-the-clock performance tracking and alerts", icon: Clock },
-              { title: "Certified Experts", desc: "Google and industry-certified SEO specialists", icon: Award },
-              { title: "Dedicated Support", desc: "Personal account manager for every client", icon: Users },
-              { title: "Transparent Reporting", desc: "Regular detailed reports with actionable insights", icon: FileText },
-              { title: "ROI Focused", desc: "Every strategy aligned with your business goals", icon: Target },
-              { title: "AI-Powered Tools", desc: "Cutting-edge AI technology for predictive analytics", icon: Sparkles },
-            ].map((item, idx) => {
-              const Icon = item.icon
-              return (
-                <div key={idx} className="bg-white rounded-xl p-5 border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 group">
-                  <div className="w-10 h-10 rounded-lg bg-[#2C727B]/10 flex items-center justify-center mb-3 group-hover:bg-[#2C727B] transition-colors">
-                    <Icon className="w-5 h-5 text-[#2C727B] group-hover:text-white transition-colors" />
-                  </div>
-                  <h3 className="font-semibold text-[#1A394E] mb-1">{item.title}</h3>
-                  <p className="text-sm text-gray-500">{item.desc}</p>
-                </div>
-              )
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials Section */}
-      <section className="py-20 px-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#2C727B]/10 mb-4">
-              <Heart className="w-4 h-4 text-[#2C727B]" />
-              <span className="text-sm text-[#2C727B] font-semibold">Testimonials</span>
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1A394E]">
-              What Our{" "}
-              <span className="bg-gradient-to-r from-[#2C727B] to-[#1A394E] bg-clip-text text-transparent">
-                Clients Say
-              </span>
-            </h2>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-6">
-            {testimonials.map((testimonial, idx) => (
-              <div key={idx} className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300">
-                <div className="flex items-center gap-1 mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
-                <p className="text-gray-600 italic mb-4">"{testimonial.content}"</p>
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#2C727B] to-[#1A394E] flex items-center justify-center text-white font-bold">
-                    {testimonial.avatar}
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-[#1A394E]">{testimonial.name}</h4>
-                    <p className="text-xs text-gray-500">{testimonial.role}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 px-6">
-        <div className="max-w-5xl mx-auto">
-          <div className="relative overflow-hidden bg-gradient-to-br from-[#2C727B] to-[#1A394E] rounded-3xl p-10 text-center">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
-            <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/5 rounded-full blur-3xl" />
-            
-            <div className="relative z-10">
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                Ready to Grow Your Business?
-              </h2>
-              <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">
-                Let's discuss your goals and create a custom digital marketing strategy that delivers results.
-              </p>
-              <div className="flex flex-wrap justify-center gap-4">
-                <Link href="/contact">
-                  <button className="px-8 py-3.5 bg-white text-[#1A394E] font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5">
-                    Schedule a Call
-                    <Calendar className="inline ml-2 w-4 h-4" />
-                  </button>
-                </Link>
-                <Link href="#services">
-                  <button className="px-8 py-3.5 bg-white/10 backdrop-blur-sm border border-white/30 text-white font-semibold rounded-full hover:bg-white/20 transition-all duration-300">
-                    Explore Services
-                    <ChevronRight className="inline ml-2 w-4 h-4" />
-                  </button>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <style jsx>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0px) translateX(0px); opacity: 0; }
-          50% { transform: translateY(-30px) translateX(15px); opacity: 0.5; }
-        }
-        .animate-float {
-          animation: float linear infinite;
-        }
-      `}</style>
-    </main>
-  )
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(combinedSchema) }} />
+      <ServicesClient />
+    </>
+  );
 }

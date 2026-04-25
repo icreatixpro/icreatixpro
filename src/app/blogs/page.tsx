@@ -33,21 +33,45 @@ import {
 import Script from "next/script";
 
 export const metadata: Metadata = {
-  title: "iCreatixPRO Blog | AI-Powered SEO Insights & Digital Growth Hub",
-  description: "Enterprise-grade SEO insights, AI marketing strategies, and data-driven growth tactics. Trusted by 500+ businesses worldwide.",
-  keywords: "AI SEO, enterprise SEO, digital marketing, content strategy, technical SEO, voice search, visual search",
+  title: "AI SEO Strategies to Boost Rankings & Website Growth",
+  description:
+    "Explore AI SEO strategies, technical SEO tips, and data-driven insights to boost Google rankings, increase organic traffic, and grow your website fast.",
+  keywords:
+    "AI SEO, SEO strategies, content marketing, technical SEO, growth marketing, digital marketing blog",
+
+  alternates: {
+    canonical: "https://icreatixpro.com/blogs/",
+  },
+robots: {
+  index: true,
+  follow: true,
+  googleBot: {
+    index: true,
+    follow: true,
+  },
+},
+
   openGraph: {
-    title: "iCreatixPRO Blog | AI-Powered SEO Insights",
-    description: "Enterprise-grade SEO insights and digital growth strategies",
-    url: "https://icreatixpro.com/blogs",
+    title: "AI SEO Blog & Digital Marketing Insights Hub | AI SEO",
+    description:
+      "Discover expert SEO strategies, AI marketing insights, and proven growth tactics to scale your business online with AI-driven SEO tips & growth guide.",
+url: "https://icreatixpro.com/blogs/",
     siteName: "iCreatixPRO",
-    images: [{ url: "https://icreatixpro.com/og-blog.jpg", width: 1200, height: 630 }],
+    images: [
+      {
+        url: "https://icreatixpro.com/og-blog.jpg",
+        width: 1200,
+        height: 630,
+      },
+    ],
     type: "website",
   },
+
   twitter: {
     card: "summary_large_image",
-    title: "iCreatixPRO Blog",
-    description: "Enterprise SEO insights",
+    title: "AI SEO Blog & Digital Marketing Insights",
+    description:
+      "Learn SEO, AI marketing, and growth strategies to improve rankings and traffic.",
     creator: "@icreatixpro",
   },
 };
@@ -59,30 +83,56 @@ export default function BlogsPage() {
   const hasBlogs = allPosts.length > 0;
   
   // JSON-LD Schema for Blog
-  const blogSchema = {
+ const blogSchema = {
     "@context": "https://schema.org",
     "@type": "Blog",
-    "name": "iCreatixPRO Blog",
-    "description": "Enterprise-grade AI SEO insights and digital growth strategies",
-    "url": "https://icreatixpro.com/blogs",
-    "publisher": {
+    name: "iCreatixPRO Blog",
+    url: "https://icreatixpro.com/blogs/",
+    description:
+      "AI SEO insights, digital marketing strategies, and growth-focused content.",
+    publisher: {
       "@type": "Organization",
-      "name": "iCreatixPRO",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://icreatixpro.com/logo.png"
-      }
-    }
+      name: "iCreatixPRO",
+      url: "https://icreatixpro.com",
+      
+    },
   };
+
+  // Breadcrumb Schema
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "@id": "https://icreatixpro.com/blogs/#breadcrumb",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: "https://icreatixpro.com/",
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Blog",
+      item: "https://icreatixpro.com/blogs/",
+    },
+  ],
+};
   
-  return (
+return (
     <>
+      {/* SCHEMA */}
       <Script
         id="blog-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(blogSchema) }}
       />
-      
+      <Script
+        id="breadcrumb-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+
       <main className="min-h-screen bg-white">
         
         {/* ============================================ */}
@@ -153,17 +203,24 @@ export default function BlogsPage() {
                 </div>
                 
                 {/* Search Bar */}
-                <div className="mt-8">
-                  <form action="/blogs/search" method="GET" className="relative group">
-                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-[#2C727B] transition-colors" />
-                    <input
-                      type="text"
-                      name="q"
-                      placeholder="Search 500+ articles, guides, and tutorials..."
-                      className="w-full pl-12 pr-4 py-3.5 text-gray-900 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#2C727B] focus:border-transparent shadow-sm"
-                    />
+                  <div className="mt-8">
+                  <form
+                    action="/blogs/search/"
+                    method="GET"
+                    className="relative group"
+                  >
+                    <div className="relative">
+                      <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-[#2C727B] transition-colors" />
+
+                      <input
+                        type="search"
+                        name="q"
+                        placeholder="Search 500+ articles, guides, and tutorials..."
+                        className="w-full pl-12 pr-4 py-3.5 text-gray-900 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#2C727B] focus:border-transparent shadow-sm"
+                      />
+                    </div>
                   </form>
-                </div>
+                  </div>
               </div>
               
               {/* Right - Feature Cards Grid */}
@@ -204,7 +261,7 @@ export default function BlogsPage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex overflow-x-auto py-3 gap-1 scrollbar-hide">
               <Link
-                href="/blogs"
+                href="/blogs/"
                 className="flex-shrink-0 px-4 py-2 rounded-lg bg-[#2C727B] text-white text-sm font-medium"
               >
                 All Posts
@@ -314,7 +371,7 @@ export default function BlogsPage() {
               <h2 className="text-2xl font-bold text-gray-900">Latest Articles</h2>
               <p className="text-gray-500 text-sm mt-1">Fresh insights delivered weekly</p>
             </div>
-            <Link href="/blogs/archive" className="text-sm text-[#2C727B] font-medium hover:underline flex items-center gap-1">
+            <Link href="/blogs/archive/" className="text-sm text-[#2C727B] font-medium hover:underline flex items-center gap-1">
               View archive <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>

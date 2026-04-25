@@ -1,17 +1,46 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from "next"
 
 const nextConfig: NextConfig = {
+  // =========================
+  // PERFORMANCE BOOST
+  // =========================
+  reactStrictMode: true,
+  swcMinify: true,
+  compress: true,
+
+  // =========================
+  // IMAGES OPTIMIZATION
+  // =========================
   images: {
+    formats: ["image/avif", "image/webp"],
+
+    // ⚡ SAFE remote patterns (better than **)
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "**",
+        hostname: "images.unsplash.com",
+      },
+      {
+        protocol: "https",
+        hostname: "cdn.*",
       },
     ],
   },
 
-  // Ensure sitemap is treated as dynamic
-  output: "standalone",
-};
+  // =========================
+  // SEO CONTROL (IMPORTANT)
+  // =========================
+  trailingSlash: false, // ⚠️ recommended for SEO consistency
 
-export default nextConfig;
+  // =========================
+  // DEPLOYMENT OPTIMIZATION
+  // =========================
+  output: "standalone",
+
+  // =========================
+  // OPTIONAL (BEST PRACTICE)
+  // =========================
+  poweredByHeader: false,
+}
+
+export default nextConfig
