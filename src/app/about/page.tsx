@@ -1,17 +1,18 @@
 // app/about/page.tsx
 import type { Metadata } from 'next';
 import AboutClient from './about-client';
-import RatingSchema from './RatingSchema'; // ✅ Import RatingSchema
+import RatingSchema from './RatingSchema';
 import { buildCanonical, isSEOValid, generatePageSchema, getLinkingSuggestions } from '@/lib/seo/seo-engine';
 
 const canonicalPath = '/about';
 const canonicalUrl = buildCanonical(canonicalPath);
 
-// Validate URL
+// Validate URL using your existing validator
 isSEOValid(canonicalUrl);
 
 // ============================================
 // METADATA - Perfectly Optimized
+// Title: 53 characters ✅ | Description: 153 characters ✅
 // ============================================
 
 export const metadata: Metadata = {
@@ -67,7 +68,7 @@ export const metadata: Metadata = {
 };
 
 // ============================================
-// SCHEMA GENERATION
+// ORGANIZATION SCHEMA (Critical for Brand SEO)
 // ============================================
 
 const organizationSchema = {
@@ -81,14 +82,29 @@ const organizationSchema = {
     'https://linkedin.com/company/icreatixpro'
   ],
   foundingDate: '2020',
-  founders: [{ '@type': 'Person', name: 'Alexandra Chen' }],
+  founders: [
+    {
+      '@type': 'Person',
+      name: 'Alexandra Chen'
+    }
+  ],
   address: {
     '@type': 'PostalAddress',
     addressLocality: 'San Francisco',
     addressRegion: 'CA',
     addressCountry: 'US'
+  },
+  contactPoint: {
+    '@type': 'ContactPoint',
+    contactType: 'customer support',
+    email: 'hello@icreatixpro.com',
+    availableLanguage: ['English']
   }
 };
+
+// ============================================
+// MAIN PAGE SCHEMA (WebPage + BreadcrumbList + FAQ)
+// ============================================
 
 const schemaGraph = generatePageSchema({
   pageType: 'about',
@@ -101,7 +117,7 @@ const schemaGraph = generatePageSchema({
     { name: 'Home', url: '/' },
     { name: 'About', url: '/about' }
   ],
-  faqs: [ // ✅ FAQ Schema - Only here, not in separate component
+  faqs: [
     {
       question: 'What makes iCreatixPRO different from other SEO agencies?',
       answer: 'We build autonomous AI systems that predict algorithm changes, optimize for multimodal search (voice, visual, GenAI), and focus on revenue growth—not just rankings. Our team includes ex-Google engineers and AI researchers.'
@@ -125,6 +141,7 @@ const schemaGraph = generatePageSchema({
   ]
 });
 
+// Get linking suggestions (uses AI priority scoring)
 const linkingSuggestions = getLinkingSuggestions('/about');
 
 // ============================================
@@ -134,7 +151,7 @@ const linkingSuggestions = getLinkingSuggestions('/about');
 export default function Page() {
   return (
     <>
-      {/* Organization Schema - Critical for brand SEO */}
+      {/* Organization Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
@@ -146,10 +163,10 @@ export default function Page() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaGraph) }}
       />
       
-      {/* Rating Schema - Server-side rendered */}
+      {/* Rating Schema */}
       <RatingSchema />
       
-      {/* Client Component with linking suggestions */}
+      {/* Client Component */}
       <AboutClient linkingSuggestions={linkingSuggestions} />
     </>
   );

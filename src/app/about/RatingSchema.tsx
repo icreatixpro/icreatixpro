@@ -1,3 +1,4 @@
+// app/about/RatingSchema.tsx
 export default function RatingSchema() {
   const ratingSchema = {
     '@context': 'https://schema.org',
