@@ -1,4 +1,6 @@
-﻿import Hero from "@/components/Hero"
+﻿import type { Metadata } from "next";
+
+import Hero from "@/components/Hero"
 import Trusted from "@/components/Trusted"
 import Services from "@/components/Services"
 import ToolsRibbon from "@/components/ToolsRibbon"
@@ -13,6 +15,16 @@ import FAQ from "@/components/FAQ"
 import CTA from "@/components/CTA"
 import FloatingWhatsApp from "@/components/FloatingWhatsApp"
 import ScrollToTop from "@/components/ScrollToTop"
+
+export const metadata: Metadata = {
+  title: "AI SEO Agency for Google & AI Growth | iCreatixPRO",
+  description:
+  "Rank higher on Google & AI search with advanced SEO, AEO and GEO strategies. Drive targeted traffic, leads and business growth through smart optimization.",
+
+  alternates: {
+    canonical: "https://icreatixpro.com",
+  },
+};
 
 export default function Home() {
   return (

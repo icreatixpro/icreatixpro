@@ -131,25 +131,20 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Main Heading */}
-        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mt-12">
-          Strategies to Rank Your
-          <br />
-          Business in{" "}
-          <span className="bg-gradient-to-r from-[#2C727B] via-[#1A394E] to-[#2C727B] bg-clip-text text-transparent relative">
-            Google, AI & Generative Search
-            <svg className="absolute -bottom-2 left-0 w-full" height="4" viewBox="0 0 200 4" xmlns="http://www.w3.org/2000/svg">
-              <path d="M0 2 L200 2" stroke="url(#gradient)" strokeWidth="4" strokeDasharray="8 8" />
-              <defs>
-                <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#2C727B" />
-                  <stop offset="50%" stopColor="#1A394E" />
-                  <stop offset="100%" stopColor="#2C727B" />
-                </linearGradient>
-              </defs>
-            </svg>
-          </span>
-        </h1>
+<h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mt-12">
+  
+  <span className="block text-[#1A394E]">
+    iCreatixPRO – AI SEO Agency
+  </span>
+
+  <span className="block mt-4">
+    Strategies to Rank Your Business in{" "}
+    <span className="bg-gradient-to-r from-[#2C727B] via-[#1A394E] to-[#2C727B] bg-clip-text text-transparent relative">
+      Google, AI & Generative Search
+    </span>
+  </span>
+
+</h1>
 
         <p className="mt-6 text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
           We combine AI-powered SEO, high-converting websites, and data-driven ad campaigns 

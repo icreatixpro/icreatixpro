@@ -7,9 +7,6 @@ import Footer from "@/components/Footer/Footer";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
 
-// 🔥 SEO ADDITION (ADDED ONLY)
-import { getCanonical } from "@/lib/seo/canonical";
-
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -23,30 +20,28 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://icreatixpro.com"),
 
-  alternates: {
-    canonical: "https://icreatixpro.com",
-  },
-
-  // ✅ CLEAN TITLE
-  title: "iCreatixPRO | AI SEO, AEO & GEO Agency",
+  title: "AI SEO Agency | AEO, GEO & Digital Growth Experts",
 
   description:
-    "AI-powered SEO, AEO and GEO services to boost rankings, drive organic traffic, and grow your business visibility in search results.",
-
-  keywords: [
-    "AI SEO agency",
-    "SEO services",
-    "AEO optimization",
-    "GEO SEO",
-    "digital marketing agency",
-    "search engine optimization services",
-  ],
+    "Rank higher in Google and AI search with AI-powered SEO, AEO and GEO services designed to increase traffic, leads, conversions, and long-term growth.",
+keywords: [
+  "AI SEO agency",
+  "AI SEO services",
+  "AEO optimization services",
+  "Answer Engine Optimization agency",
+  "Generative Engine Optimization services",
+  "GEO SEO services",
+  "digital marketing agency",
+  "SEO agency for Google ranking",
+  "AI search optimization",
+  "local SEO and AI SEO services",
+  "organic traffic growth services",
+  "lead generation SEO agency"
+],
 
   robots: {
     index: true,
     follow: true,
-
-    // 🔥 ADDED (SAFE EXTENSION)
     googleBot: {
       index: true,
       follow: true,
@@ -54,7 +49,7 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    title: "iCreatixPRO | AI SEO Agency",
+    title: "AI SEO Agency | AEO, GEO & Digital Growth Experts",
     description:
       "AI-powered SEO and digital growth systems for modern businesses.",
     url: "https://icreatixpro.com",
@@ -64,9 +59,9 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "iCreatixPRO | AI SEO Agency",
+    title: "AI SEO Agency | AEO, GEO & Digital Growth Experts",
     description:
-      "AI SEO agency helping businesses grow with scalable strategies.",
+      "Rank higher in Google and AI search with AI-powered SEO, AEO and GEO services designed to increase traffic, leads, conversions, and long-term growth.",
   },
 };
 
@@ -143,6 +138,7 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Organization",
               name: "iCreatixPRO",
+              alternateName: "iCreatixPro",
               url: "https://icreatixpro.com",
               logo: "https://icreatixpro.com/logo.png",
             }),
