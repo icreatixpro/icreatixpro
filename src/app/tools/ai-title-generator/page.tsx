@@ -1,8 +1,4 @@
 // app/tools/ai-title-generator/page.tsx
-// ─────────────────────────────────────────────────────────────
-// PROFESSIONAL AI TITLE GENERATOR - Reset Button + Strong H1
-// 50-55 Char Optimal | Fresh Generation Mode
-// ─────────────────────────────────────────────────────────────
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
