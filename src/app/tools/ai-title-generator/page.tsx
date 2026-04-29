@@ -1,6 +1,7 @@
 // app/tools/ai-title-generator/page.tsx
 "use client";
 
+import { Suspense } from "react";
 import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
@@ -354,8 +355,8 @@ function SectionH2({ id, children }: { id: string; children: React.ReactNode }) 
   return <h2 id={id} className="text-lg font-bold text-[#1A394E] mb-3 scroll-mt-6">{children}</h2>;
 }
 
-// ─── Main Page ────────────────────────────────────────────────
-export default function AITitleGeneratorPage() {
+// ─── Main Content Component (uses useSearchParams) ───────────────────
+function TitleGeneratorContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -421,7 +422,6 @@ export default function AITitleGeneratorPage() {
     }, 400);
   }, [keyword, selectedTone, count]);
 
-  // Reset everything for new keyword - clears all state
   const resetForNewKeyword = () => {
     setKeyword("");
     setTitles([]);
@@ -487,11 +487,11 @@ export default function AITitleGeneratorPage() {
             <span className="text-[10px] font-mono text-emerald-600 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">⭐ 50-55 Char Optimal</span>
           </div>
           
-<h1 className="text-3xl md:text-4xl font-bold text-[#1A394E] tracking-tight leading-tight">
-  AI Title Generator 
-  <span className="text-[#2C727B]"> That Gets Clicks</span>
-  <span className="block text-base md:text-lg font-medium text-gray-500 mt-1">Rank Higher • Drive More Traffic in 2026</span>
-</h1>
+          <h1 className="text-3xl md:text-4xl font-bold text-[#1A394E] tracking-tight leading-tight">
+            AI Title Generator 
+            <span className="text-[#2C727B]"> That Gets Clicks</span>
+            <span className="block text-base md:text-lg font-medium text-gray-500 mt-1">Rank Higher • Drive More Traffic in 2026</span>
+          </h1>
           
           <p className="text-gray-500 text-sm mt-3 max-w-2xl leading-relaxed">
             Generate high-CTR, SEO-optimized blog titles with our advanced AI. Get real-time SEO scoring, 
@@ -563,7 +563,6 @@ export default function AITitleGeneratorPage() {
                     <p className="text-[9px] font-mono text-gray-400">{keyword.length}/120</p>
                   </div>
                 </div>
-                {/* Reset Button - New Keyword */}
                 <button 
                   onClick={resetForNewKeyword}
                   className="mt-0 px-4 h-[46px] rounded-xl bg-amber-50 border border-amber-200 text-amber-700 hover:bg-amber-100 hover:text-amber-800 transition-all flex items-center gap-1.5 text-sm font-medium shrink-0"
@@ -670,7 +669,6 @@ export default function AITitleGeneratorPage() {
               ))}
             </div>
             
-            {/* Fresh Generation Button */}
             <button 
               onClick={generateFresh}
               className="w-full mt-2 py-2.5 rounded-xl bg-gray-100 border border-gray-200 text-gray-600 hover:text-[#2C727B] hover:bg-gray-200 text-sm font-medium transition-all flex items-center justify-center gap-2"
@@ -737,5 +735,21 @@ export default function AITitleGeneratorPage() {
 
       </div>
     </div>
+  );
+}
+
+// ─── Main Export with Suspense Boundary ─────────────────────────
+export default function AITitleGeneratorPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#F5F7FA] to-white">
+        <div className="text-center">
+          <div className="w-10 h-10 border-3 border-[#2C727B] border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <p className="text-gray-500 text-sm">Loading AI Title Generator...</p>
+        </div>
+      </div>
+    }>
+      <TitleGeneratorContent />
+    </Suspense>
   );
 }
