@@ -1,0 +1,168 @@
+import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
+import "./globals.css";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer/Footer";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/next";
+
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+export const metadata: Metadata = {
+  metadataBase: new URL("https://icreatixpro.com"),
+
+  title: "AI SEO Agency | AEO, GEO & Digital Growth Experts",
+
+  description:
+    "Rank higher in Google and AI search with AI-powered SEO, AEO and GEO services designed to increase traffic, leads, conversions, and long-term growth.",
+keywords: [
+  "AI SEO agency",
+  "AI SEO services",
+  "AEO optimization services",
+  "Answer Engine Optimization agency",
+  "Generative Engine Optimization services",
+  "GEO SEO services",
+  "digital marketing agency",
+  "SEO agency for Google ranking",
+  "AI search optimization",
+  "local SEO and AI SEO services",
+  "organic traffic growth services",
+  "lead generation SEO agency"
+],
+
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
+  },
+
+  openGraph: {
+    title: "AI SEO Agency | AEO, GEO & Digital Growth Experts",
+    description:
+      "AI-powered SEO and digital growth systems for modern businesses.",
+    url: "https://icreatixpro.com",
+    siteName: "iCreatixPRO",
+    type: "website",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "AI SEO Agency | AEO, GEO & Digital Growth Experts",
+    description:
+      "Rank higher in Google and AI search with AI-powered SEO, AEO and GEO services designed to increase traffic, leads, conversions, and long-term growth.",
+  },
+};
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="en" className="scroll-smooth">
+      <body
+        suppressHydrationWarning
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-gray-900`}
+      >
+        {/* 🔥 GTM SCRIPT */}
+        <Script id="gtm-script" strategy="afterInteractive">
+          {`
+            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;
+            f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-MN22Z8R2');
+          `}
+        </Script>
+
+        {/* 🔥 GTM NOSCRIPT */}
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-MN22Z8R2"
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          />
+        </noscript>
+
+        {/* 🔥 GA4 */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-DYT83YMFXV"
+          strategy="afterInteractive"
+        />
+        <Script id="ga4" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-DYT83YMFXV');
+          `}
+        </Script>
+
+        {/* 🔥 BACKGROUND EFFECT */}
+        <div className="fixed inset-0 -z-10">
+          <div className="absolute w-[600px] h-[600px] bg-[var(--primary-color)] opacity-20 blur-[150px] rounded-full top-[-150px] left-[-150px]" />
+          <div className="absolute w-[500px] h-[500px] bg-[var(--accent-color)] opacity-20 blur-[150px] rounded-full bottom-[-120px] right-[-120px]" />
+        </div>
+
+        {/* 🔥 SITE LAYOUT */}
+        <Navbar />
+
+        <main className="pt-16 px-6 max-w-7xl mx-auto">
+          {children}
+        </main>
+
+        <Footer />
+
+        <SpeedInsights />
+        <Analytics />
+
+        {/* 🔥 ORGANIZATION SCHEMA */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "iCreatixPRO",
+              alternateName: "iCreatixPro",
+              url: "https://icreatixpro.com",
+              logo: "https://icreatixpro.com/logo.png",
+            }),
+          }}
+        />
+
+        {/* 🔥 WEBSITE SCHEMA (ADDED ONLY) */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: "iCreatixPRO",
+              url: "https://icreatixpro.com",
+              potentialAction: {
+                "@type": "SearchAction",
+                target: "https://icreatixpro.com/search?q={query}",
+                "query-input": "required name=query",
+              },
+            }),
+          }}
+        />
+      </body>
+    </html>
+  );
+}

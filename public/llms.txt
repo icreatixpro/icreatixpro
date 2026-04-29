@@ -1,0 +1,28 @@
+# iCreatixPRO
+
+iCreatixPRO is a full-service digital marketing and SEO agency helping businesses grow online through data-driven strategies, technical optimization, and performance marketing.
+
+Core Services:
+- Search Engine Optimization (SEO)
+- Technical SEO audits & fixes
+- Local SEO optimization
+- E-commerce SEO strategies
+- Content marketing & blogging
+- Google Ads (PPC) management
+- Meta/Facebook Ads campaigns
+- Web development (Next.js, React, Node.js)
+- Analytics & conversion tracking
+
+Tools & Resources:
+We also provide free SEO and marketing tools including keyword analysis, meta tag generation, ROI calculators, and AI-powered content tools.
+
+Important Pages:
+https://icreatixpro.com/tools
+https://icreatixpro.com/blogs
+https://icreatixpro.com/services
+https://icreatixpro.com/contact
+https://icreatixpro.com/case-studies
+https://icreatixpro.com/sitemap.xml
+
+AI Usage Guidance:
+This website contains SEO educational content, service offerings, and tools designed to help businesses improve visibility, traffic, and conversions.
