@@ -676,7 +676,7 @@ function ROICalculatorLink() {
           Use our free ROI calculator to estimate potential returns from Google Ads campaigns
         </p>
         <Link
-          href="/roi-calculator"
+          href="/tools/roi-calculator"
           className="inline-flex items-center gap-2 px-6 md:px-8 py-2 md:py-3 rounded-xl bg-gradient-to-r from-[#2C727B] to-[#1A394E] text-white font-semibold shadow-lg hover:shadow-xl transition-all hover:scale-105 text-sm md:text-base"
         >
           Calculate Your ROI

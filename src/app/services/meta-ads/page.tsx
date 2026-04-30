@@ -554,7 +554,7 @@ function BenchmarkSection() {
       <div className="mt-6 bg-gradient-to-r from-[#1A394E] to-[#2C727B] rounded-xl p-6 text-center text-white">
         <h3 className="text-lg font-bold mb-2">Download Our Complete Meta Ads Benchmark Report</h3>
         <p className="text-white/80 text-sm mb-4">50+ pages of industry benchmarks, creative examples, and optimization strategies.</p>
-        <Link href="/resources/meta-ads-benchmark-report-2026.pdf" className="inline-flex items-center gap-2 bg-white text-[#1A394E] px-5 py-2 rounded-lg font-semibold hover:bg-white/90 transition-all text-sm">
+        <Link href="/downloads/meta-ads-benchmark-report-2026.pdf" className="inline-flex items-center gap-2 bg-white text-[#1A394E] px-5 py-2 rounded-lg font-semibold hover:bg-white/90 transition-all text-sm">
           <Download className="w-4 h-4" />
           Download Free PDF Report
         </Link>
@@ -562,7 +562,6 @@ function BenchmarkSection() {
     </section>
   );
 }
-
 function EntitySections() {
   return (
     <>
