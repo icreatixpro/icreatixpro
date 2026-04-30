@@ -85,13 +85,13 @@ const contactInfo = [
     icon: Phone,
     title: "Call Us",
     details: ["Whatsapp: +44 (734) 815-3162", "Support: +44 (734) 815-3162"],
-    action: { text: "Call Now", href: "tel:+44 (734) 815-3162", icon: Phone }
+    action: { text: "Call Now", href: "tel:+447348153162", icon: Phone }
   },
   {
     icon: Mail,
     title: "Email Us",
-    details: ["info@icreatixpro.com", "seo@icreatixpro.com"],
-    action: { text: "Send Email", href: "mailto:hello@icreatixpro.com", icon: Mail }
+    details: ["icreatixpro@gmail.com", "info@icreatixpro.com"],
+    action: { text: "Send Email", href: "mailto:icreatixpro@gmail.com", icon: Mail }
   },
   {
     icon: Clock,
@@ -106,12 +106,12 @@ const contactInfo = [
 // ============================================
 
 const faqs = [
-  { q: "How quickly will you respond to my inquiry?", a: "We typically respond within 2-4 hours during business hours. For urgent inquiries, please call us directly at +1 (555) 123-4567." },
+  { q: "How quickly will you respond to my inquiry?", a: "We typically respond within 2-4 hours during business hours. For urgent inquiries, please call us directly at +44 (734) 815-3162." },
   { q: "Do you offer free consultations?", a: "Yes! We offer a free 30-minute strategy consultation to discuss your business goals and how our digital marketing services can help you achieve them." },
-  { q: "What industries do you specialize in?", a: "We work with businesses across e-commerce, healthcare, real estate, technology, hospitality, professional services, and local businesses." },
+  { q: "What industries do you specialize in?", a: "We work with businesses across e-commerce, healthcare, real estate, technology, hospitality, professional services, and local businesses across PK, UK, USA, UAE, Australia, and Canada." },
   { q: "How do you measure success?", a: "We track key metrics including organic traffic, keyword rankings, conversion rates, ROI, lead generation, and revenue growth - all reported in your custom dashboard." },
-  { q: "Can you provide case studies?", a: "Absolutely! We have numerous success stories across different industries. Check our Case Studies section or ask for relevant examples during your consultation." },
-  { q: "What makes your SEO different?", a: "We combine AI-powered strategies with proven SEO techniques, focusing on AEO (Answer Engine Optimization) and GEO (Generative Experience Optimization) for modern search." }
+  { q: "Can you provide case studies?", a: "Absolutely! We have numerous success stories across different industries. Contact us for relevant examples during your free consultation." },
+  { q: "What makes your SEO different?", a: "We combine AI-powered strategies with proven SEO techniques, focusing on AEO (Answer Engine Optimization) and GEO (Generative Experience Optimization) for modern search engines." }
 ];
 
 // ============================================
@@ -165,6 +165,139 @@ export default function ContactPage() {
     "Not sure"
   ];
 
+  // ============================================
+  // SCHEMA MARKUP FOR SEO (Added Safely)
+  // ============================================
+  
+  useEffect(() => {
+    // Organization Schema
+    const orgScript = document.createElement("script");
+    orgScript.type = "application/ld+json";
+    orgScript.innerHTML = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "iCreatixPRO",
+      "alternateName": "iCreatixPRO Digital Marketing Agency",
+      "url": "https://icreatixpro.com",
+      "logo": "https://icreatixpro.com/logo.png",
+      "image": "https://icreatixpro.com/og-image.jpg",
+      "description": "Award-winning digital marketing agency specializing in SEO, Google Ads, Meta Ads, and social media marketing. We help businesses grow online with data-driven strategies.",
+      "email": "icreatixpro@gmail.com",
+      "telephone": "+447348153162",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "PK",
+        "addressLocality": "Islamabad",
+        "addressRegion": "Capital Territory"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+447348153162",
+        "contactType": "customer service",
+        "availableLanguage": ["English", "Urdu"],
+        "email": "icreatixpro@gmail.com"
+      },
+      "sameAs": [
+        "https://www.facebook.com/icreatixpro/",
+        "https://x.com/iCreatixPRO",
+        "https://www.instagram.com/icreatixpro/",
+        "https://www.linkedin.com/company/icreatixpro/",
+        "https://www.youtube.com/@iCreatixPRO"
+      ],
+      "areaServed": ["PK", "UK", "USA", "UAE", "Australia", "Canada", "France", "Germany"],
+      "priceRange": "$$"
+    });
+    document.head.appendChild(orgScript);
+
+    // LocalBusiness Schema
+    const businessScript = document.createElement("script");
+    businessScript.type = "application/ld+json";
+    businessScript.innerHTML = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "iCreatixPRO",
+      "image": "https://icreatixpro.com/logo.png",
+      "description": "Digital marketing agency offering SEO, PPC, social media, and content marketing services.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "PK"
+      },
+      "priceRange": "$$",
+      "telephone": "+447348153162",
+      "email": "icreatixpro@gmail.com",
+      "openingHours": ["Mo-Fr 09:00-18:00", "Sa 10:00-14:00"],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Digital Marketing Services",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "SEO Optimization",
+              "description": "Rank #1 on Google with AI-powered SEO"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Local SEO",
+              "description": "Dominate Google Maps & local search"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Google Ads",
+              "description": "Drive instant qualified traffic"
+            }
+          }
+        ]
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "reviewCount": "127",
+        "bestRating": "5",
+        "worstRating": "1"
+      }
+    });
+    document.head.appendChild(businessScript);
+
+    // ContactPage Schema
+    const contactScript = document.createElement("script");
+    contactScript.type = "application/ld+json";
+    contactScript.innerHTML = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "ContactPage",
+      "name": "Contact iCreatixPRO | Digital Marketing Agency",
+      "description": "Get in touch with iCreatixPRO for SEO, Google Ads, Meta Ads, and digital marketing services. Free consultation available.",
+      "url": "https://icreatixpro.com/contact",
+      "mainEntity": {
+        "@type": "Organization",
+        "name": "iCreatixPRO",
+        "email": "icreatixpro@gmail.com",
+        "telephone": "+447348153162",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+447348153162",
+          "contactType": "customer service",
+          "email": "icreatixpro@gmail.com"
+        }
+      }
+    });
+    document.head.appendChild(contactScript);
+
+    // Cleanup
+    return () => {
+      document.head.removeChild(orgScript);
+      document.head.removeChild(businessScript);
+      document.head.removeChild(contactScript);
+    };
+  }, []);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -193,36 +326,105 @@ export default function ContactPage() {
       return;
     }
 
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    setSuccess(true);
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      service: "",
-      budget: "",
-      message: ""
-    });
-    setCharCount(0);
-    setLoading(false);
-    
-    setTimeout(() => setSuccess(false), 5000);
+    try {
+      const response = await fetch("/api/send-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setSuccess(true);
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          service: "",
+          budget: "",
+          message: ""
+        });
+        setCharCount(0);
+        
+        setTimeout(() => setSuccess(false), 5000);
+      } else {
+        throw new Error(data.error || "Failed to send message");
+      }
+    } catch (err) {
+      console.error("Form submission error:", err);
+      setError("Failed to send message. Please try again or email us directly at icreatixpro@gmail.com");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const scrollToForm = () => {
+    formRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
     <>
       <Head>
-        <title>Contact iCreatixPRO | Digital Marketing Agency</title>
-        <meta name="description" content="Get in touch with iCreatixPRO. Free consultation for SEO, Google Ads, Meta Ads, and digital marketing services. Let's grow your business together." />
-        <meta name="keywords" content="contact digital marketing agency, SEO consultation, PPC services, Meta Ads expert" />
+        {/* SEO Meta Tags - Optimized */}
+        <title>Contact Digital Marketing SEO PPC Experts | iCreatixPRO</title>
+        <meta name="description" content="Get in touch with iCreatixPRO for expert SEO, Google Ads, and digital marketing services. Grow your business with our data-driven strategies." />
+        <meta name="keywords" content="contact digital marketing agency, SEO consultation, PPC services, Meta Ads expert, Google Ads specialist, digital marketing agency contact, SEO expert near me, iCreatixPRO contact" />
+        
+        {/* Canonical URL */}
+        <link rel="canonical" href="https://icreatixpro.com/contact" />
+        
+        {/* Robots Meta Tag */}
+        <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+        
+        {/* Additional SEO Tags */}
+        <meta name="author" content="iCreatixPRO" />
+        <meta name="language" content="English" />
+        <meta name="revisit-after" content="7 days" />
+        <meta name="distribution" content="global" />
+        
+        {/* Open Graph Tags for Social Media */}
+        <meta property="og:title" content="Contact iCreatixPRO | Digital Marketing Agency" />
+        <meta property="og:description" content="Get expert SEO, Google Ads, and digital marketing services. Free consultation available. Let's grow your business together." />
+        <meta property="og:url" content="https://icreatixpro.com/contact" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://icreatixpro.com/og-contact.jpg" />
+        <meta property="og:site_name" content="iCreatixPRO" />
+        <meta property="og:locale" content="en_US" />
+        
+        {/* Twitter Card Tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Contact iCreatixPRO | Digital Marketing Agency" />
+        <meta name="twitter:description" content="Get expert SEO, Google Ads, and digital marketing services. Free consultation available." />
+        <meta name="twitter:image" content="https://icreatixpro.com/twitter-image.jpg" />
+        
+        {/* Geo Tags for Local SEO */}
+        <meta name="geo.region" content="PK" />
+        <meta name="geo.placename" content="Islamabad" />
+        <meta name="ICBM" content="33.6844, 73.0479" />
+        
+        {/* Mobile Optimization */}
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+        <meta name="format-detection" content="telephone=no" />
+        
+        {/* Verification Tags (Add your verification codes) */}
+        <meta name="google-site-verification" content="YOUR_VERIFICATION_CODE" />
+        
+        {/* Alternate Language Versions */}
+        <link rel="alternate" href="https://icreatixpro.com/contact" hrefLang="en" />
+        <link rel="alternate" href="https://icreatixpro.com/ur/contact" hrefLang="ur" />
+        
+        {/* Preconnect for Performance */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </Head>
 
       <main className="min-h-screen bg-gradient-to-b from-white to-gray-50">
         
         {/* ============================================ */}
-        {/* HERO SECTION - Enhanced */}
+        {/* HERO SECTION */}
         {/* ============================================ */}
         <section className="relative overflow-hidden pt-16 md:pt-20 pb-8 md:pb-12">
           <div className="absolute inset-0 pointer-events-none">
@@ -264,7 +466,7 @@ export default function ContactPage() {
           <div className="max-w-7xl mx-auto px-4">
             <div className="grid lg:grid-cols-5 gap-8">
               
-              {/* LEFT COLUMN - Contact Form (3 columns) */}
+              {/* LEFT COLUMN - Contact Form */}
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -308,7 +510,7 @@ export default function ContactPage() {
                     )}
                   </AnimatePresence>
 
-                  <form ref={formRef} onSubmit={handleSubmit} className="space-y-5">
+                  <form id="contact-form" ref={formRef} onSubmit={handleSubmit} className="space-y-5">
                     <div className="grid md:grid-cols-2 gap-4">
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1.5">
@@ -438,7 +640,7 @@ export default function ContactPage() {
                 </div>
               </motion.div>
 
-              {/* RIGHT COLUMN - Contact Info & Services (2 columns) */}
+              {/* RIGHT COLUMN - Contact Info & Services */}
               <motion.div
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -514,7 +716,7 @@ export default function ContactPage() {
         </section>
 
         {/* ============================================ */}
-        {/* SERVICES SECTION - Quick Links */}
+        {/* SERVICES SECTION */}
         {/* ============================================ */}
         <section className="py-16 bg-white">
           <div className="max-w-7xl mx-auto px-4">
@@ -544,7 +746,7 @@ export default function ContactPage() {
         </section>
 
         {/* ============================================ */}
-        {/* FAQ SECTION - Accordion */}
+        {/* FAQ SECTION */}
         {/* ============================================ */}
         <section className="py-16 bg-gray-50">
           <div className="max-w-4xl mx-auto px-4">
@@ -588,21 +790,19 @@ export default function ContactPage() {
               Join 500+ satisfied clients who trust us for their digital growth
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
-                href="https://calendly.com/icreatixpro/consultation"
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                onClick={scrollToForm}
                 className="px-8 py-3 rounded-xl bg-white text-[#1A394E] font-semibold shadow-lg hover:shadow-xl transition-all inline-flex items-center justify-center gap-2"
               >
                 <Calendar className="w-4 h-4" />
-                Book Free Consultation
-              </a>
+                Get Free Consultation
+              </button>
               <a
-                href="tel:+15551234567"
+                href="tel:+447348153162"
                 className="px-8 py-3 rounded-xl bg-white/10 backdrop-blur-sm border border-white/30 text-white font-semibold hover:bg-white/20 transition-all inline-flex items-center justify-center gap-2"
               >
                 <Phone className="w-4 h-4" />
-                Call (555) 123-4567
+                Call Now
               </a>
             </div>
           </div>
