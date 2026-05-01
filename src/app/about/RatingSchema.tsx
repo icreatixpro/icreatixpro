@@ -15,7 +15,10 @@ export default function RatingSchema() {
     review: [
       {
         '@type': 'Review',
-        author: 'Sarah Johnson',
+        author: {
+          '@type': 'Person',
+          name: 'Sarah Johnson',
+        },
         reviewRating: {
           '@type': 'Rating',
           ratingValue: '5',
@@ -23,7 +26,10 @@ export default function RatingSchema() {
       },
       {
         '@type': 'Review',
-        author: 'Michael Brown',
+        author: {
+          '@type': 'Person',
+          name: 'Michael Brown',
+        },
         reviewRating: {
           '@type': 'Rating',
           ratingValue: '5',
@@ -31,7 +37,10 @@ export default function RatingSchema() {
       },
       {
         '@type': 'Review',
-        author: 'Emily Davis',
+        author: {
+          '@type': 'Person',
+          name: 'Emily Davis',
+        },
         reviewRating: {
           '@type': 'Rating',
           ratingValue: '5',
@@ -39,14 +48,17 @@ export default function RatingSchema() {
       },
       {
         '@type': 'Review',
-        author: 'Dr. Robert Chen',
+        author: {
+          '@type': 'Person',
+          name: 'Dr. Robert Chen',
+        },
         reviewRating: {
           '@type': 'Rating',
           ratingValue: '5',
         },
       },
     ],
-  };
+  }; // ✅ IMPORTANT: object closed here
 
   return (
     <script

@@ -100,20 +100,6 @@ const socialLinks = [
     color: "#FF0000",
     hoverColor: "hover:bg-[#FF0000]"
   },
-  {
-    name: "WhatsApp",
-    icon: MessageCircle,
-    url: "https://wa.me/447348153162",
-    color: "#25D366",
-    hoverColor: "hover:bg-[#25D366]"
-  },
-  {
-    name: "GitHub",
-    icon: Github,
-    url: "https://github.com/icreatixpro",
-    color: "#333333",
-    hoverColor: "hover:bg-[#333333]"
-  }
 ];
 
 // ============================================
@@ -215,11 +201,11 @@ export default function Footer() {
                   </div>
                   <div className="flex items-center gap-2 text-xs text-[#1A394E]/60">
                     <Mail className="w-3.5 h-3.5" />
-                    <span>info@icreatixpro.com</span>
+                    <span>icreatixpro@gmail.com</span>
                   </div>
                   <div className="flex items-center gap-2 text-xs text-[#1A394E]/60">
                     <MapPin className="w-3.5 h-3.5" />
-                    <span>PK, UK, USA, UAE, Australia, Canada </span>
+                    <span>USA, UK, UAE, Australia, Canada, Germany, France</span>
                   </div>
                   <div className="flex items-center gap-2 text-xs text-[#1A394E]/60">
                     <Clock className="w-3.5 h-3.5" />

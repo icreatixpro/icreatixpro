@@ -60,7 +60,7 @@ export default function Hero() {
   ]
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center px-6 pt-20 pb-24 overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center px-6 pt-28 md:pt-36 pb-24 overflow-hidden">
       
       {/* Animated Background Effects */}
       <div className="absolute inset-0 -z-10">
