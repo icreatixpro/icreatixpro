@@ -1,4 +1,5 @@
 // app/about/page.tsx
+import { Suspense } from 'react';                     // ✅ ADDED: Required for useSearchParams()
 import type { Metadata } from 'next';
 import AboutClient from './about-client';
 import RatingSchema from './RatingSchema';
@@ -145,7 +146,7 @@ const schemaGraph = generatePageSchema({
 const linkingSuggestions = getLinkingSuggestions('/about');
 
 // ============================================
-// PAGE COMPONENT
+// PAGE COMPONENT (with Suspense fix)
 // ============================================
 
 export default function Page() {
@@ -166,8 +167,10 @@ export default function Page() {
       {/* Rating Schema */}
       <RatingSchema />
       
-      {/* Client Component */}
-      <AboutClient linkingSuggestions={linkingSuggestions} />
+      {/* ✅ Wrapped with Suspense to prevent useSearchParams() build error */}
+      <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+        <AboutClient linkingSuggestions={linkingSuggestions} />
+      </Suspense>
     </>
   );
 }

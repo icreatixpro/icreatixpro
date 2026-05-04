@@ -141,7 +141,9 @@ const breadcrumbSchema = {
   ],
 };
 
-// ✅ AggregateRating Schema
+// ================================================
+// ✅ FIXED: Added missing 'itemReviewed' to AggregateRating
+// ================================================
 const aggregateRatingSchema = {
   "@type": "AggregateRating",
   "@id": `${pageUrl}#rating`,
@@ -149,6 +151,7 @@ const aggregateRatingSchema = {
   bestRating: "5",
   ratingCount: 127,
   reviewCount: 127,
+  itemReviewed: { "@id": `${baseUrl}#org` },   // ← This fixes the GSC error
 };
 
 // ✅ Expanded FAQ (10 questions)
