@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
+import { Suspense } from "react"; // ✅ ADDED
 import "./globals.css";
 import NProgressBar from "@/components/NProgressBar";
 import Navbar from "@/components/navbar";
@@ -88,7 +89,12 @@ export default function RootLayout({
             })(window,document,'script','dataLayer','GTM-MN22Z8R2');
           `}
         </Script>
-        <NProgressBar /> 
+
+        {/* ✅ FIXED: NProgressBar wrapped in Suspense */}
+        <Suspense fallback={null}>
+          <NProgressBar />
+        </Suspense>
+
         {/* 🔥 GTM NOSCRIPT */}
         <noscript>
           <iframe
@@ -112,6 +118,7 @@ export default function RootLayout({
             gtag('config', 'G-DYT83YMFXV');
           `}
         </Script>
+
         {/* 🔥 BACKGROUND EFFECT */}
         <div className="fixed inset-0 -z-20 pointer-events-none">
           <div className="absolute w-[600px] h-[600px] bg-[var(--primary-color)] opacity-20 blur-[150px] rounded-full top-[-150px] left-[-150px]" />
