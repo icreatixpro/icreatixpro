@@ -19,7 +19,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
-        hostname: "**.cdn.*", // Fixed pattern
+        hostname: "**.cdn.*",
       },
     ],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
@@ -42,7 +42,7 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
 
   // =========================
-  // SECURITY HEADERS (to fix Best Practices)
+  // SECURITY HEADERS
   // =========================
   async headers() {
     return [
@@ -81,7 +81,6 @@ const nextConfig: NextConfig = {
   // =========================
   // BUNDLE OPTIMIZATION
   // =========================
-  swcMinify: true,
   compiler: {
     removeConsole: process.env.NODE_ENV === "production" ? { exclude: ["error", "warn"] } : false,
   },
