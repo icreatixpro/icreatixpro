@@ -17,6 +17,9 @@ interface DesktopDropdownProps {
   items: DropdownItem[];
   viewAllLink: string;
   description: string;
+  open: boolean;               // ← required
+  onMouseEnter: () => void;    // ← required
+  onMouseLeave: () => void;    // ← required
 }
 
 export default function DesktopDropdown({
@@ -24,16 +27,18 @@ export default function DesktopDropdown({
   items,
   viewAllLink,
   description,
+  open,
+  onMouseEnter,
+  onMouseLeave,
 }: DesktopDropdownProps) {
-  const [open, setOpen] = useState(false);
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
   const isServices = title === "Services";
 
   return (
     <div
       className="relative"
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => setOpen(false)}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
     >
       <button
         aria-expanded={open}
@@ -46,7 +51,6 @@ export default function DesktopDropdown({
         />
       </button>
 
-      {/* Dropdown panel with CSS transition instead of framer-motion */}
       <div
         className={`absolute top-full left-0 mt-3 w-[520px] rounded-2xl bg-white/95 backdrop-blur-xl border border-white/40 shadow-2xl overflow-hidden transition-all duration-200 origin-top z-50 ${
           open
