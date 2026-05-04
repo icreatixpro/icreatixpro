@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
+import NProgressBar from "@/components/NProgressBar";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/Footer/Footer";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -76,8 +77,8 @@ export default function RootLayout({
         suppressHydrationWarning
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-gray-900`}
       >
-        {/* 🔥 GTM SCRIPT */}
-        <Script id="gtm-script" strategy="afterInteractive">
+        {/* 🔥 GTM SCRIPT - NOW lazyOnload */}
+        <Script id="gtm-script" strategy="lazyOnload">
           {`
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
             new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -87,7 +88,7 @@ export default function RootLayout({
             })(window,document,'script','dataLayer','GTM-MN22Z8R2');
           `}
         </Script>
-
+        <NProgressBar /> 
         {/* 🔥 GTM NOSCRIPT */}
         <noscript>
           <iframe
@@ -98,12 +99,12 @@ export default function RootLayout({
           />
         </noscript>
 
-        {/* 🔥 GA4 */}
+        {/* 🔥 GA4 - NOW lazyOnload */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-DYT83YMFXV"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
-        <Script id="ga4" strategy="afterInteractive">
+        <Script id="ga4" strategy="lazyOnload">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
@@ -111,26 +112,6 @@ export default function RootLayout({
             gtag('config', 'G-DYT83YMFXV');
           `}
         </Script>
-
-        {/* 🔥 READER REVENUE MANAGER (SWG) */}
-          <Script
-            src="https://news.google.com/swg/js/v1/swg-basic.js"
-            strategy="afterInteractive"
-          />
-
-          <Script id="swg-init" strategy="afterInteractive">
-            {`
-              (self.SWG_BASIC = self.SWG_BASIC || []).push(function(basicSubscriptions) {
-                basicSubscriptions.init({
-                  type: "NewsArticle",
-                  isPartOfType: ["Product"],
-                  isPartOfProductId: "CAowiLTGDA:openaccess",
-                  clientOptions: { theme: "light", lang: "en-GB" },
-                });
-              });
-            `}
-          </Script>
-
         {/* 🔥 BACKGROUND EFFECT */}
         <div className="fixed inset-0 -z-20 pointer-events-none">
           <div className="absolute w-[600px] h-[600px] bg-[var(--primary-color)] opacity-20 blur-[150px] rounded-full top-[-150px] left-[-150px]" />

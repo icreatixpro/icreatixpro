@@ -397,3 +397,7 @@ html {
   background-size: 200% auto;
   animation: gradientMove 6s linear infinite;
 }
+#nprogress .bar {
+  background: linear-gradient(90deg, #2C727B, #1A394E) !important;
+  height: 3px !important;
+}

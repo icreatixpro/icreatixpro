@@ -45,6 +45,7 @@ export default function FloatingWhatsApp() {
       
       <button
         onClick={() => setIsOpen(!isOpen)}
+        aria-label={isOpen ? "Close WhatsApp chat" : "Open WhatsApp chat"}
         className="relative w-14 h-14 rounded-full bg-gradient-to-br from-[#25D366] to-[#128C7E] shadow-lg flex items-center justify-center hover:scale-110 transition-transform duration-300"
       >
         {isOpen ? (
@@ -104,6 +105,7 @@ export default function FloatingWhatsApp() {
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               placeholder="Type your message..."
+              aria-label="Your message"
               className="w-full p-3 text-sm border border-gray-200 rounded-xl focus:outline-none focus:border-[#25D366] resize-none"
               rows={3}
             />
@@ -112,6 +114,7 @@ export default function FloatingWhatsApp() {
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Send message on WhatsApp (opens in new tab)"
               className="mt-3 w-full py-3 bg-gradient-to-r from-[#25D366] to-[#128C7E] text-white rounded-xl font-semibold flex items-center justify-center gap-2 hover:shadow-lg transition-all duration-300"
             >
               <Send className="w-4 h-4" />

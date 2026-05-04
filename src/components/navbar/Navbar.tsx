@@ -55,6 +55,7 @@ export default function Navbar() {
               alt="iCreatixPRO"
               width={110}
               height={40}
+              priority
               className="transition-transform duration-300 group-hover:scale-105"
               onError={(e) => {
                 const target = e.target as HTMLImageElement;

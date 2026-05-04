@@ -1,8 +1,8 @@
 "use client";
 
-import { ChevronDown, Zap } from "lucide-react";
-import Link from "next/link";
 import { useState } from "react";
+import Link from "next/link";
+import { ChevronDown, Zap } from "lucide-react";
 
 interface DropdownItem {
   title: string;
@@ -17,9 +17,6 @@ interface DesktopDropdownProps {
   items: DropdownItem[];
   viewAllLink: string;
   description: string;
-  open: boolean;
-  onMouseEnter: () => void;
-  onMouseLeave: () => void;
 }
 
 export default function DesktopDropdown({
@@ -27,35 +24,34 @@ export default function DesktopDropdown({
   items,
   viewAllLink,
   description,
-  open,
-  onMouseEnter,
-  onMouseLeave,
 }: DesktopDropdownProps) {
+  const [open, setOpen] = useState(false);
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
   const isServices = title === "Services";
 
   return (
     <div
       className="relative"
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
     >
       <button
+        aria-expanded={open}
+        aria-haspopup="true"
         className="nav-link text-gray-700 hover:text-[#2C727B] transition-colors duration-300 flex items-center gap-1 group"
       >
         {title}
         <ChevronDown
-          className={`w-4 h-4 transition-all duration-300 ${
-            open ? "rotate-180 text-[#2C727B]" : "group-hover:text-[#2C727B]"
-          }`}
+          className={`w-4 h-4 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
         />
       </button>
 
+      {/* Dropdown panel with CSS transition instead of framer-motion */}
       <div
-        className={`absolute top-full left-0 mt-3 w-[520px] rounded-2xl bg-white/95 backdrop-blur-xl border border-white/40 shadow-2xl overflow-hidden transition-all duration-300 transform origin-top ${
+        className={`absolute top-full left-0 mt-3 w-[520px] rounded-2xl bg-white/95 backdrop-blur-xl border border-white/40 shadow-2xl overflow-hidden transition-all duration-200 origin-top z-50 ${
           open
             ? "opacity-100 visible translate-y-0 scale-100"
-            : "opacity-0 invisible -translate-y-4 scale-95"
+            : "opacity-0 invisible -translate-y-2 scale-95"
         }`}
       >
         <div className="px-5 pt-4 pb-2 border-b border-gray-100">
@@ -78,7 +74,7 @@ export default function DesktopDropdown({
               >
                 <Link
                   href={item.href}
-                  className={`block p-3 rounded-xl transition-all duration-300 ${
+                  className={`block p-3 rounded-xl transition-all duration-200 ${
                     hoveredItem === item.title
                       ? "bg-gradient-to-r from-[#2C727B]/10 to-[#1A394E]/10 transform translate-x-1 shadow-sm"
                       : "hover:bg-white/60"
@@ -86,7 +82,7 @@ export default function DesktopDropdown({
                 >
                   <div className="flex items-start gap-3">
                     <div
-                      className={`w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-300 flex-shrink-0 ${
+                      className={`w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-200 flex-shrink-0 ${
                         hoveredItem === item.title
                           ? "bg-gradient-to-br from-[#2C727B] to-[#1A394E] text-white"
                           : "bg-gray-100 text-[#2C727B]"
@@ -112,7 +108,7 @@ export default function DesktopDropdown({
                       )}
                     </div>
                     {hoveredItem === item.title && (
-                      <Zap className="w-3 h-3 text-[#2C727B] animate-pulse flex-shrink-0" />
+                      <Zap className="w-3 h-3 text-[#2C727B] flex-shrink-0" />
                     )}
                   </div>
                 </Link>
