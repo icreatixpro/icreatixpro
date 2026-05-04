@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/navbar";
 import Footer from "@/components/Footer/Footer";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
@@ -24,20 +24,20 @@ export const metadata: Metadata = {
 
   description:
     "Rank higher in Google and AI search with AI-powered SEO, AEO and GEO services designed to increase traffic, leads, conversions, and long-term growth.",
-keywords: [
-  "AI SEO agency",
-  "AI SEO services",
-  "AEO optimization services",
-  "Answer Engine Optimization agency",
-  "Generative Engine Optimization services",
-  "GEO SEO services",
-  "digital marketing agency",
-  "SEO agency for Google ranking",
-  "AI search optimization",
-  "local SEO and AI SEO services",
-  "organic traffic growth services",
-  "lead generation SEO agency"
-],
+  keywords: [
+    "AI SEO agency",
+    "AI SEO services",
+    "AEO optimization services",
+    "Answer Engine Optimization agency",
+    "Generative Engine Optimization services",
+    "GEO SEO services",
+    "digital marketing agency",
+    "SEO agency for Google ranking",
+    "AI search optimization",
+    "local SEO and AI SEO services",
+    "organic traffic growth services",
+    "lead generation SEO agency",
+  ],
 
   robots: {
     index: true,
@@ -112,8 +112,27 @@ export default function RootLayout({
           `}
         </Script>
 
+        {/* 🔥 READER REVENUE MANAGER (SWG) */}
+          <Script
+            src="https://news.google.com/swg/js/v1/swg-basic.js"
+            strategy="afterInteractive"
+          />
+
+          <Script id="swg-init" strategy="afterInteractive">
+            {`
+              (self.SWG_BASIC = self.SWG_BASIC || []).push(function(basicSubscriptions) {
+                basicSubscriptions.init({
+                  type: "NewsArticle",
+                  isPartOfType: ["Product"],
+                  isPartOfProductId: "CAowiLTGDA:openaccess",
+                  clientOptions: { theme: "light", lang: "en-GB" },
+                });
+              });
+            `}
+          </Script>
+
         {/* 🔥 BACKGROUND EFFECT */}
-        <div className="fixed inset-0 -z-10">
+        <div className="fixed inset-0 -z-20 pointer-events-none">
           <div className="absolute w-[600px] h-[600px] bg-[var(--primary-color)] opacity-20 blur-[150px] rounded-full top-[-150px] left-[-150px]" />
           <div className="absolute w-[500px] h-[500px] bg-[var(--accent-color)] opacity-20 blur-[150px] rounded-full bottom-[-120px] right-[-120px]" />
         </div>
@@ -121,7 +140,8 @@ export default function RootLayout({
         {/* 🔥 SITE LAYOUT */}
         <Navbar />
 
-        <main className="pt-16 px-6 max-w-7xl mx-auto">
+        {/* ✅ Fixed spacing: changed from pt-24 to pt-16 to remove huge gap */}
+        <main className="pt-0 px-6 max-w-7xl mx-auto">
           {children}
         </main>
 

@@ -60,7 +60,7 @@ export default function Hero() {
   ]
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center px-6 pt-28 md:pt-36 pb-24 overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center px-6 pt-8 md:pt-12 pb-24 overflow-hidden">
       
       {/* Animated Background Effects */}
       <div className="absolute inset-0 -z-10">
@@ -131,20 +131,18 @@ export default function Hero() {
           </div>
         </div>
 
-<h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mt-12">
-  
-  <span className="block text-[#1A394E]">
-    iCreatixPRO – AI SEO Agency
-  </span>
-
-  <span className="block mt-4">
-    Strategies to Rank Your Business in{" "}
-    <span className="bg-gradient-to-r from-[#2C727B] via-[#1A394E] to-[#2C727B] bg-clip-text text-transparent relative">
-      Google, AI & Generative Search
-    </span>
-  </span>
-
-</h1>
+        {/* Fixed heading margin: mt-0 instead of mt-12 */}
+        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mt-0">
+          <span className="block text-[#1A394E]">
+            iCreatixPRO – AI SEO Agency
+          </span>
+          <span className="block mt-4">
+            Strategies to Rank Your Business in{" "}
+            <span className="bg-gradient-to-r from-[#2C727B] via-[#1A394E] to-[#2C727B] bg-clip-text text-transparent relative">
+              Google, AI & Generative Search
+            </span>
+          </span>
+        </h1>
 
         <p className="mt-6 text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
           We combine AI-powered SEO, high-converting websites, and data-driven ad campaigns 
