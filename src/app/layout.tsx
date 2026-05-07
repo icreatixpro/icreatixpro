@@ -1,69 +1,44 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
-import { Suspense } from "react"; // ✅ ADDED
+import { Suspense, lazy } from "react";
 import "./globals.css";
 import NProgressBar from "@/components/NProgressBar";
-import Navbar from "@/components/navbar";
 import Footer from "@/components/Footer/Footer";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
 
+// 🔥 LAZY LOAD NAVBAR (reduces initial JS)
+const Navbar = lazy(() => import("@/components/navbar"));
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://icreatixpro.com"),
-
   title: "AI SEO Agency | AEO, GEO & Digital Growth Experts",
-
   description:
     "Rank higher in Google and AI search with AI-powered SEO, AEO and GEO services designed to increase traffic, leads, conversions, and long-term growth.",
   keywords: [
     "AI SEO agency",
     "AI SEO services",
     "AEO optimization services",
-    "Answer Engine Optimization agency",
-    "Generative Engine Optimization services",
+    "Generative Engine Optimization",
     "GEO SEO services",
-    "digital marketing agency",
     "SEO agency for Google ranking",
-    "AI search optimization",
-    "local SEO and AI SEO services",
-    "organic traffic growth services",
-    "lead generation SEO agency",
   ],
-
   robots: {
     index: true,
     follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-    },
-  },
-
-  openGraph: {
-    title: "AI SEO Agency | AEO, GEO & Digital Growth Experts",
-    description:
-      "AI-powered SEO and digital growth systems for modern businesses.",
-    url: "https://icreatixpro.com",
-    siteName: "iCreatixPRO",
-    type: "website",
-  },
-
-  twitter: {
-    card: "summary_large_image",
-    title: "AI SEO Agency | AEO, GEO & Digital Growth Experts",
-    description:
-      "Rank higher in Google and AI search with AI-powered SEO, AEO and GEO services designed to increase traffic, leads, conversions, and long-term growth.",
   },
 };
 
@@ -78,24 +53,27 @@ export default function RootLayout({
         suppressHydrationWarning
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-gray-900`}
       >
-        {/* 🔥 GTM SCRIPT - NOW lazyOnload */}
-        <Script id="gtm-script" strategy="lazyOnload">
+
+        {/* 🚀 NON-BLOCKING GTM */}
+        <Script
+          id="gtm"
+          strategy="afterInteractive"
+        >
           {`
-            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-            'https://www.googletagmanager.com/gtm.js?id='+i+dl;
-            f.parentNode.insertBefore(j,f);
+            window.dataLayer = window.dataLayer || [];
+            (function(w,d,s,l,i){
+              w[l]=w[l]||[];
+              w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});
+              var f=d.getElementsByTagName(s)[0],
+              j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
+              j.async=true;
+              j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+              f.parentNode.insertBefore(j,f);
             })(window,document,'script','dataLayer','GTM-MN22Z8R2');
           `}
         </Script>
 
-        {/* ✅ FIXED: NProgressBar wrapped in Suspense */}
-        <Suspense fallback={null}>
-          <NProgressBar />
-        </Suspense>
-
-        {/* 🔥 GTM NOSCRIPT */}
+        {/* GTM NOSCRIPT */}
         <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-MN22Z8R2"
@@ -105,40 +83,51 @@ export default function RootLayout({
           />
         </noscript>
 
-        {/* 🔥 GA4 - NOW lazyOnload */}
+        {/* GA4 NON-BLOCKING */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-DYT83YMFXV"
-          strategy="lazyOnload"
+          strategy="afterInteractive"
         />
-        <Script id="ga4" strategy="lazyOnload">
+
+        <Script id="ga4" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-DYT83YMFXV');
+            gtag('config', 'G-DYT83YMFXV', {
+              send_page_view: true
+            });
           `}
         </Script>
 
-        {/* 🔥 BACKGROUND EFFECT */}
+        {/* 🔥 PERFORMANCE FIXED BACKGROUND (LESS BLUR = BETTER INP) */}
         <div className="fixed inset-0 -z-20 pointer-events-none">
-          <div className="absolute w-[600px] h-[600px] bg-[var(--primary-color)] opacity-20 blur-[150px] rounded-full top-[-150px] left-[-150px]" />
-          <div className="absolute w-[500px] h-[500px] bg-[var(--accent-color)] opacity-20 blur-[150px] rounded-full bottom-[-120px] right-[-120px]" />
+          <div className="absolute w-[500px] h-[500px] bg-[var(--primary-color)] opacity-15 blur-[100px] rounded-full top-[-120px] left-[-120px]" />
+          <div className="absolute w-[400px] h-[400px] bg-[var(--accent-color)] opacity-15 blur-[100px] rounded-full bottom-[-100px] right-[-100px]" />
         </div>
 
-        {/* 🔥 SITE LAYOUT */}
-        <Navbar />
+        {/* PROGRESS BAR (KEEP) */}
+        <Suspense fallback={null}>
+          <NProgressBar />
+        </Suspense>
 
-        {/* ✅ Fixed spacing: changed from pt-24 to pt-16 to remove huge gap */}
+        {/* NAVBAR (lazy loaded) */}
+        <Suspense fallback={null}>
+          <Navbar />
+        </Suspense>
+
+        {/* MAIN */}
         <main className="pt-0 px-6 max-w-7xl mx-auto">
           {children}
         </main>
 
+        {/* FOOTER (can stay static) */}
         <Footer />
 
         <SpeedInsights />
         <Analytics />
 
-        {/* 🔥 ORGANIZATION SCHEMA */}
+        {/* ORGANIZATION SCHEMA */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -146,14 +135,13 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Organization",
               name: "iCreatixPRO",
-              alternateName: "iCreatixPro",
               url: "https://icreatixpro.com",
               logo: "https://icreatixpro.com/logo.png",
             }),
           }}
         />
 
-        {/* 🔥 WEBSITE SCHEMA (ADDED ONLY) */}
+        {/* WEBSITE SCHEMA */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
