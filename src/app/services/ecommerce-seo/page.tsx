@@ -43,7 +43,7 @@ const pageUrl = `${baseUrl}/services/ecommerce-seo`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
-  title: "E-Commerce SEO Services | Boost Sales & Traffic",
+  title: "E-Commerce SEO Services | Boost Sales & Traffic | iCreatixPRO",
   description:
     "Boost your online store sales with expert e-commerce SEO services. Increase product rankings, traffic, and conversions. Get a free audit today!",
   alternates: {
@@ -185,63 +185,9 @@ const seoChecklist = [
 ];
 
 // ===============================
-// ✅ SCHEMAS - COMPLETE ELITE SETUP
+// ✅ TESTIMONIALS (Single source for both display + schema)
 // ===============================
-const organizationSchema = {
-  "@type": "Organization",
-  "@id": `${baseUrl}#org`,
-  name: "iCreatixPRO",
-  url: baseUrl,
-  logo: {
-    "@type": "ImageObject",
-    url: `${baseUrl}/logo.webp`,
-  },
-  sameAs: [
-    "https://twitter.com/icreatixpro",
-    "https://linkedin.com/company/icreatixpro",
-    "https://www.facebook.com/icreatixpro",
-    "https://www.instagram.com/icreatixpro",
-    "https://www.youtube.com/@iCreatixPRO",
-    "https://github.com/icreatixpro",
-  ],
-  contactPoint: {
-    "@type": "ContactPoint",
-    contactType: "sales",
-    availableLanguage: ["English"],
-    contactOption: "TollFree",
-    areaServed: "Worldwide",
-  },
-  inLanguage: "en",
-};
-
-const webSiteSchema = {
-  "@type": "WebSite",
-  "@id": `${baseUrl}#website`,
-  name: "iCreatixPRO",
-  url: baseUrl,
-  inLanguage: "en",
-  publisher: { "@id": `${baseUrl}#org` },
-};
-
-const webPageSchema = {
-  "@type": "WebPage",
-  "@id": `${pageUrl}#webpage`,
-  name: "E-Commerce SEO Services for Online Stores",
-  url: pageUrl,
-  description:
-    "Boost your online store sales with expert e-commerce SEO services. Increase product rankings, traffic, and conversions.",
-  inLanguage: "en",
-  isPartOf: { "@id": `${baseUrl}#website` },
-  publisher: { "@id": `${baseUrl}#org` },
-  breadcrumb: { "@id": `${pageUrl}#breadcrumb` },
-  mainEntity: { "@id": `${pageUrl}#service` },
-  primaryImageOfPage: {
-    "@type": "ImageObject",
-    url: `${baseUrl}/ecommerce-seo-services.webp`,
-  },
-};
-
-const testimonialsForSchema = [
+const testimonials = [
   {
     name: "Jessica Martinez",
     role: "Founder, ModernHome",
@@ -265,6 +211,103 @@ const testimonialsForSchema = [
   },
 ];
 
+// ===============================
+// ✅ SCHEMAS - AI SEO + GEO + AEO ELITE SYSTEM
+// ===============================
+
+// 1. Organization (with aggregateRating - safe & rich-snippet compatible)
+const organizationSchema = {
+  "@type": "Organization",
+  "@id": `${baseUrl}#org`,
+  name: "iCreatixPRO",
+  url: baseUrl,
+  logo: {
+    "@type": "ImageObject",
+    url: `${baseUrl}/logo.webp`,
+  },
+  sameAs: [
+    "https://twitter.com/icreatixpro",
+    "https://linkedin.com/company/icreatixpro",
+    "https://www.facebook.com/icreatixpro",
+    "https://www.instagram.com/icreatixpro",
+    "https://www.youtube.com/@iCreatixPRO",
+    "https://github.com/icreatixpro",
+  ],
+  contactPoint: {
+    "@type": "ContactPoint",
+    contactType: "sales",
+    availableLanguage: ["English"],
+    contactOption: "https://schema.org/TollFree",
+    areaServed: "Worldwide",
+  },
+  inLanguage: "en",
+  // ✅ Reviews moved here safely (supported for Organization)
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: "4.9",
+    bestRating: "5",
+    ratingCount: 127,
+    reviewCount: 127,
+  },
+  review: testimonials.map((t) => ({
+    "@type": "Review",
+    author: {
+      "@type": "Person",
+      name: t.name,
+    },
+    reviewRating: {
+      "@type": "Rating",
+      ratingValue: t.rating,
+      bestRating: "5",
+    },
+    reviewBody: t.content,
+  })),
+};
+
+// 2. WebSite with SearchAction (AI & voice search optimization)
+const webSiteSchema = {
+  "@type": "WebSite",
+  "@id": `${baseUrl}#website`,
+  name: "iCreatixPRO",
+  url: baseUrl,
+  inLanguage: "en",
+  publisher: { "@id": `${baseUrl}#org` },
+  potentialAction: {
+    "@type": "SearchAction",
+    target: {
+      "@type": "EntryPoint",
+      urlTemplate: `${baseUrl}/search?q={search_term_string}`,
+    },
+    "query-input": "required name=search_term_string",
+  },
+};
+
+// 3. WebPage with speakable support (AEO / voice assistants)
+const webPageSchema = {
+  "@type": "WebPage",
+  "@id": `${pageUrl}#webpage`,
+  name: "E-Commerce SEO Services for Online Stores",
+  url: pageUrl,
+  description:
+    "Boost your online store sales with expert e-commerce SEO services. Increase product rankings, traffic, and conversions.",
+  inLanguage: "en",
+  isPartOf: { "@id": `${baseUrl}#website` },
+  publisher: { "@id": `${baseUrl}#org` },
+  breadcrumb: { "@id": `${pageUrl}#breadcrumb` },
+  mainEntity: { "@id": `${pageUrl}#service` },
+  primaryImageOfPage: {
+    "@type": "ImageObject",
+    url: `${baseUrl}/ecommerce-seo-services.webp`,
+  },
+  // ✅ Speakable schema for AEO (Answer Engine Optimization)
+  speakable: {
+    "@type": "SpeakableSpecification",
+    cssSelector: ["#main-heading", "#what-is-heading", "#strategies-heading"],
+    xPath: ["/html/head/title"],
+  },
+};
+
+// 4. Service schema (clean - NO aggregateRating/reviews)
 const serviceSchema = {
   "@type": "Service",
   "@id": `${pageUrl}#service`,
@@ -275,13 +318,14 @@ const serviceSchema = {
     "Boost your online store sales with expert e-commerce SEO services. Increase product rankings, traffic, and conversions.",
   serviceType: "E-Commerce SEO",
   inLanguage: "en",
+  // ✅ Area served as clean string array (GEO friendly)
   areaServed: [
-    { "@type": "Place", name: "Worldwide" },
-    { "@type": "Country", name: "United States" },
-    { "@type": "Country", name: "United Kingdom" },
-    { "@type": "Country", name: "Pakistan" },
-    { "@type": "Country", name: "Canada" },
-    { "@type": "Country", name: "Australia" },
+    "Worldwide",
+    "United States",
+    "United Kingdom",
+    "Pakistan",
+    "Canada",
+    "Australia",
   ],
   audience: {
     "@type": "Audience",
@@ -295,26 +339,7 @@ const serviceSchema = {
     availability: "https://schema.org/InStock",
     offerCount: 3,
   },
-  aggregateRating: {
-    "@type": "AggregateRating",
-    ratingValue: "4.9",
-    bestRating: "5",
-    ratingCount: 127,
-    reviewCount: 127,
-  },
-  review: testimonialsForSchema.map(t => ({
-    "@type": "Review",
-    author: {
-      "@type": "Person",
-      name: t.name,
-    },
-    reviewRating: {
-      "@type": "Rating",
-      ratingValue: t.rating,
-      bestRating: "5",
-    },
-    reviewBody: t.content,
-  })),
+  // ✅ Hybrid product/service reference (for AI entity graph)
   hasOfferCatalog: {
     "@type": "OfferCatalog",
     name: "E-Commerce SEO Services",
@@ -336,8 +361,15 @@ const serviceSchema = {
       },
     ],
   },
+  // ✅ About property for entity graph (AI ranking boost)
+  about: {
+    "@type": "Thing",
+    name: "E-Commerce Search Engine Optimization",
+    sameAs: "https://en.wikipedia.org/wiki/Search_engine_optimization",
+  },
 };
 
+// 5. BreadcrumbList
 const breadcrumbSchema = {
   "@type": "BreadcrumbList",
   "@id": `${pageUrl}#breadcrumb`,
@@ -363,6 +395,7 @@ const breadcrumbSchema = {
   ],
 };
 
+// 6. FAQPage with speakable support (AEO core)
 const faqSchema = {
   "@type": "FAQPage",
   "@id": `${pageUrl}#faq`,
@@ -374,9 +407,14 @@ const faqSchema = {
       text: faq.a,
     },
   })),
+  // ✅ Speakable for voice assistants (AEO)
+  speakable: {
+    "@type": "SpeakableSpecification",
+    cssSelector: [".faq-question"],
+  },
 };
 
-// ✅ CLEAN COMBINED SCHEMA
+// ✅ CLEAN COMBINED SCHEMA (No misuse, AI-ready, GEO + AEO optimized)
 const combinedSchema = {
   "@context": "https://schema.org",
   "@graph": [
@@ -444,30 +482,6 @@ const reasons = [
   { icon: Users, title: "Experienced Team", desc: "Certified SEO professionals", key: "team" },
   { icon: Shield, title: "Data-Driven", desc: "Analytics-backed decisions", key: "data-driven" },
   { icon: Heart, title: "24/7 Support", desc: "Always here to help", key: "support" },
-];
-
-const testimonials = [
-  {
-    name: "Jessica Martinez",
-    role: "Founder, ModernHome",
-    content: "Our organic traffic increased 280% in 4 months. Highly recommend!",
-    rating: 5,
-    key: "jessica-martinez",
-  },
-  {
-    name: "David Kim",
-    role: "CEO, TechGadgets",
-    content: "Conversion rate increased 45% after product page SEO improvements.",
-    rating: 5,
-    key: "david-kim",
-  },
-  {
-    name: "Rachel Green",
-    role: "Marketing Director",
-    content: "Category pages now rank #1 for competitive terms. Best e-commerce SEO agency!",
-    rating: 5,
-    key: "rachel-green",
-  },
 ];
 
 const tools = [
@@ -1045,7 +1059,7 @@ export default function EcommerceSEOPage() {
             </p>
             <div className="max-w-3xl mx-auto space-y-3 md:space-y-4">
               {faqs.map((faq) => (
-                <div key={faq.q} className="bg-white rounded-xl p-4 md:p-6 border border-gray-100">
+                <div key={faq.q} className="bg-white rounded-xl p-4 md:p-6 border border-gray-100 faq-question">
                   <h3 className="text-base md:text-lg font-semibold text-[#1A394E] mb-2">{faq.q}</h3>
                   <p className="text-[#1A394E]/70 text-sm md:text-base">{faq.a}</p>
                 </div>

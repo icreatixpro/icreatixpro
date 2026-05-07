@@ -114,9 +114,13 @@ export const metadata: Metadata = {
     creator: '@iCreatixPRO',
   },
   
-  authors: [{ name: 'John Smith', url: `${SITE_URL}/about/team/john-smith` }],
-  creator: 'iCreatixPRO SEO Team',
-  publisher: 'iCreatixPRO',
+authors: [
+  {
+    name: 'John Smith',
+  },
+],
+creator: 'iCreatixPRO SEO Team',
+publisher: 'iCreatixPRO',
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {
