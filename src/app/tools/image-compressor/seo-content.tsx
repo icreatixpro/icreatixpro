@@ -134,7 +134,7 @@ export function SEOContentSections() {
           </div>
           <div>
             <p className="text-sm font-semibold text-gray-800">
-              Reviewed by <a href="/about/team/john-smith" className="text-[#2C727B] hover:underline">John Smith</a>, SEO Director
+              Reviewed by <a href="/about" className="text-[#2C727B] hover:underline">Sarah Johnson</a>, SEO Director
             </p>
             <p className="text-xs text-gray-500">15+ years optimizing websites for Fortune 500 companies</p>
             <p className="text-[10px] text-gray-400 mt-1">✓ Certified Google Analytics & PageSpeed Expert</p>
