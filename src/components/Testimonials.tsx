@@ -1,382 +1,349 @@
 ﻿"use client";
 
-import { useState, useEffect, useRef } from "react";
-import { Star, Quote, ChevronLeft, ChevronRight, Award, Sparkles, TrendingUp, Users, Clock, Play, Pause, MapPin, CheckCircle2, Zap, Crown, Shield, Briefcase } from "lucide-react";
+import dynamic from "next/dynamic";
+import { useState, useEffect, useRef, memo } from "react";
+import {
+  Star,
+  Quote,
+  ChevronLeft,
+  ChevronRight,
+  Award,
+  TrendingUp,
+  Users,
+  Play,
+  Pause,
+  MapPin,
+  CheckCircle2,
+  Zap,
+  Crown,
+ Shield,
+  Briefcase,
+} from "lucide-react";
 
 const testimonials = [
   {
     id: 1,
     name: "Sarah Johnson",
     role: "CEO, TechStart Inc.",
-    content: "iCreatixPRO transformed our SEO strategy completely. Within 6 months, we saw a 300% increase in organic traffic. Their AI-powered approach is truly game-changing. The team's dedication and expertise exceeded all expectations.",
+    content:
+      "iCreatixPRO transformed our SEO strategy completely. Within 6 months, we saw a massive increase in organic traffic and conversions.",
     rating: 5,
     avatar: "SJ",
     company: "TechStart Inc.",
-    metric: "300% Traffic Increase",
+    metric: "300% Traffic Growth",
     metricIcon: TrendingUp,
     location: "San Francisco, CA",
     projectType: "SEO Strategy",
-    result: "Top 3 rankings for 50+ keywords"
+    result: "Top rankings for competitive keywords",
   },
   {
     id: 2,
     name: "Michael Chen",
     role: "Marketing Director",
-    content: "The team's AI-powered approach is revolutionary. Best investment we've made for our digital presence. Our ROI has never been better. The transparency and regular reporting keep us aligned with our goals.",
+    content:
+      "Their AI-driven SEO system helped us scale faster while lowering acquisition costs significantly.",
     rating: 5,
     avatar: "MC",
     company: "Digital Dynamics",
-    metric: "ROI +245%",
+    metric: "245% ROI",
     metricIcon: TrendingUp,
     location: "New York, NY",
-    projectType: "PPC Management",
-    result: "Reduced CPC by 40%"
+    projectType: "PPC + SEO",
+    result: "40% lower CPC",
   },
   {
     id: 3,
     name: "Emily Davis",
     role: "Founder, EcoBrands",
-    content: "Finally, an SEO agency that delivers real results. Our leads have tripled since working with them. The transparency and reporting are exceptional. They feel like a true partner in our growth.",
+    content:
+      "Finally an agency that actually delivers measurable business growth instead of vanity metrics.",
     rating: 5,
     avatar: "ED",
     company: "EcoBrands",
-    metric: "Leads 3x",
+    metric: "3X Leads",
     metricIcon: Users,
     location: "Austin, TX",
     projectType: "Content Marketing",
-    result: "Featured in 20+ publications"
+    result: "Featured in major publications",
   },
   {
     id: 4,
     name: "David Williams",
     role: "VP of Growth",
-    content: "Working with iCreatixPRO has been transformative. Their data-driven approach and innovative strategies helped us dominate our niche. The team is responsive, strategic, and truly cares about our success.",
+    content:
+      "Their strategic execution and technical SEO expertise completely changed our organic visibility.",
     rating: 5,
     avatar: "DW",
     company: "GrowthLabs",
-    metric: "Market Share +65%",
+    metric: "+65% Market Share",
     metricIcon: Shield,
     location: "Chicago, IL",
-    projectType: "Full SEO Suite",
-    result: "DOMINATED SERP features"
+    projectType: "Technical SEO",
+    result: "Dominated SERP features",
   },
 ];
 
-export default function Testimonials() {
+function Testimonials() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [isHovering, setIsHovering] = useState(false);
-  const [progress, setProgress] = useState(0);
+
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
-  const progressRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     if (isAutoPlaying && !isHovering) {
       intervalRef.current = setInterval(() => {
         setActiveIndex((prev) => (prev + 1) % testimonials.length);
-        setProgress(0);
       }, 6000);
-      
-      progressRef.current = setInterval(() => {
-        setProgress(prev => Math.min(prev + 1, 100));
-      }, 60);
     }
+
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
-      if (progressRef.current) clearInterval(progressRef.current);
     };
   }, [isAutoPlaying, isHovering]);
 
   const handlePrev = () => {
-    setIsAutoPlaying(false);
-    setActiveIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-    setProgress(0);
-    setTimeout(() => setIsAutoPlaying(true), 10000);
+    setActiveIndex(
+      (prev) => (prev - 1 + testimonials.length) % testimonials.length
+    );
   };
 
   const handleNext = () => {
-    setIsAutoPlaying(false);
     setActiveIndex((prev) => (prev + 1) % testimonials.length);
-    setProgress(0);
-    setTimeout(() => setIsAutoPlaying(true), 10000);
   };
 
-  const currentTestimonial = testimonials[activeIndex];
-  const MetricIcon = currentTestimonial.metricIcon;
+  const current = testimonials[activeIndex];
+  const MetricIcon = current.metricIcon;
 
   return (
-    <section className="py-28 px-4 relative overflow-hidden">
-      {/* Premium Animated Background */}
+    <section className="relative overflow-hidden py-20 px-4 md:px-6">
+      {/* Optimized Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#1A394E] via-[#1A394E] to-[#2C727B]" />
-      
-      {/* Animated Gradient Orbs */}
-      <div className="absolute top-0 -left-40 w-[800px] h-[800px] bg-[#2C727B]/30 rounded-full blur-[150px] animate-pulse" />
-      <div className="absolute bottom-0 -right-40 w-[800px] h-[800px] bg-[#1A394E]/50 rounded-full blur-[150px] animate-pulse delay-1000" />
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#2C727B]/10 rounded-full blur-[120px] animate-pulse delay-2000" />
-      
-      {/* Animated Grid Pattern */}
-      <div 
-        className="absolute inset-0 opacity-20"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M40 40L0 0h80L40 40zm0 40L0 40h80L40 80z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-          backgroundRepeat: 'repeat'
-        }}
-      />
-      
-      {/* Floating Particles */}
+
+      {/* Reduced Blur Orbs */}
+      <div className="absolute top-0 -left-20 w-[350px] h-[350px] bg-[#2C727B]/20 rounded-full blur-[80px] animate-float-slow" />
+
+      <div className="absolute bottom-0 -right-20 w-[350px] h-[350px] bg-[#1A394E]/30 rounded-full blur-[80px] animate-float-slow" />
+
+      {/* Reduced Floating Particles */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(20)].map((_, i) => (
-          <div
+        {[...Array(6)].map((_, i) => (
+          <span
             key={i}
-            className="absolute w-1 h-1 bg-white/20 rounded-full animate-float"
+            className="absolute w-1 h-1 rounded-full bg-white/20 animate-float-slow"
             style={{
               top: `${Math.random() * 100}%`,
               left: `${Math.random() * 100}%`,
               animationDelay: `${Math.random() * 5}s`,
-              animationDuration: `${3 + Math.random() * 4}s`
             }}
           />
         ))}
       </div>
-      
+
       <div className="relative z-10 max-w-6xl mx-auto">
-        
-        {/* Section Header with Animation */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 mb-6 shadow-lg animate-in fade-in slide-in-from-top-6 duration-700">
+        {/* Header */}
+        <div className="text-center mb-14">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/20 bg-white/10 backdrop-blur-sm mb-5">
             <Crown className="w-4 h-4 text-yellow-400" />
-            <span className="text-sm uppercase tracking-wider text-white font-semibold">
-              Trusted by Industry Leaders
+
+            <span className="text-sm font-semibold tracking-wide uppercase text-white">
+              Trusted by Businesses
             </span>
+
             <Zap className="w-4 h-4 text-[#2C727B]" />
           </div>
-          
-          <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 animate-in fade-in slide-in-from-bottom-6 duration-700 delay-100">
+
+          <h2 className="text-4xl md:text-6xl font-bold text-white leading-tight">
             What Our{" "}
-            <span className="relative inline-block">
-              <span className="bg-gradient-to-r from-[#2C727B] via-white to-[#2C727B] bg-clip-text text-transparent animate-gradient">
-                Clients Say
-              </span>
-              <svg className="absolute -bottom-3 left-0 w-full" height="6" viewBox="0 0 300 6" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0 3 L300 3" stroke="url(#gradient)" strokeWidth="4" strokeDasharray="8 8"/>
-                <defs>
-                  <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#2C727B"/>
-                    <stop offset="50%" stopColor="#fff"/>
-                    <stop offset="100%" stopColor="#2C727B"/>
-                  </linearGradient>
-                </defs>
-              </svg>
+            <span className="bg-gradient-to-r from-[#2C727B] to-white bg-clip-text text-transparent animate-gradient">
+              Clients Say
             </span>
           </h2>
-          
-          <p className="text-white/80 text-xl max-w-2xl mx-auto animate-in fade-in duration-700 delay-200">
-            Real success stories from businesses that transformed their digital presence
+
+          <p className="mt-5 text-white/70 max-w-2xl mx-auto text-lg">
+            Real business growth stories powered by SEO, AI, and strategic
+            execution.
           </p>
 
-          {/* Stats Row */}
-          <div className="flex justify-center gap-12 mt-10">
-            <div className="text-center group cursor-pointer">
-              <div className="text-3xl font-bold text-[#2C727B] group-hover:scale-110 transition-transform duration-300">500+</div>
-              <div className="text-white/60 text-sm">Happy Clients</div>
+          {/* Stats */}
+          <div className="flex flex-wrap justify-center gap-10 mt-10">
+            <div>
+              <div className="text-3xl font-bold text-white">500+</div>
+              <div className="text-sm text-white/60">Happy Clients</div>
             </div>
-            <div className="w-px h-10 bg-gradient-to-b from-transparent via-white/20 to-transparent" />
-            <div className="text-center group cursor-pointer">
-              <div className="text-3xl font-bold text-[#2C727B] group-hover:scale-110 transition-transform duration-300">98%</div>
-              <div className="text-white/60 text-sm">Client Retention</div>
+
+            <div>
+              <div className="text-3xl font-bold text-white">98%</div>
+              <div className="text-sm text-white/60">Retention Rate</div>
             </div>
-            <div className="w-px h-10 bg-gradient-to-b from-transparent via-white/20 to-transparent" />
-            <div className="text-center group cursor-pointer">
-              <div className="text-3xl font-bold text-[#2C727B] group-hover:scale-110 transition-transform duration-300">4.9</div>
-              <div className="text-white/60 text-sm">Rating (200+ Reviews)</div>
+
+            <div>
+              <div className="text-3xl font-bold text-white">4.9★</div>
+              <div className="text-sm text-white/60">Average Rating</div>
             </div>
           </div>
         </div>
 
-        {/* Main Testimonial Card - Premium Design */}
-        <div 
+        {/* Main Card */}
+        <div
           className="relative"
           onMouseEnter={() => setIsHovering(true)}
           onMouseLeave={() => setIsHovering(false)}
         >
-          {/* Glowing Border Effect */}
-          <div className="absolute -inset-1 bg-gradient-to-r from-[#2C727B] via-white/20 to-[#1A394E] rounded-3xl blur-xl opacity-30 group-hover:opacity-50 transition duration-700" />
-          
-          {/* Main Card */}
-          <div className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-3xl border border-white/20 shadow-2xl overflow-hidden">
-            
-            {/* Decorative Top Bar */}
-            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#2C727B] via-[#2C727B]/50 to-transparent" />
-            
-            <div className="grid lg:grid-cols-2 gap-8 p-8 md:p-12">
-              
-              {/* Left Side - Testimonial Content */}
-              <div className="space-y-6">
-                {/* Quote Mark */}
-                <div className="relative">
-                  <Quote className="w-16 h-16 text-[#2C727B]/30 absolute -top-4 -left-4" />
-                  <div className="relative z-10">
-                    <div className="flex gap-1 mb-4">
-                      {[...Array(currentTestimonial.rating)].map((_, i) => (
-                        <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400 animate-in zoom-in duration-300" style={{ animationDelay: `${i * 100}ms` }} />
-                      ))}
-                    </div>
-                    <p className="text-white text-xl md:text-2xl leading-relaxed relative z-10">
-                      "{currentTestimonial.content}"
-                    </p>
-                  </div>
+          <div className="relative rounded-3xl border border-white/15 bg-white/10 backdrop-blur-md shadow-xl overflow-hidden">
+            <div className="grid lg:grid-cols-2 gap-8 p-6 md:p-10">
+              {/* Left Side */}
+              <div>
+                <Quote className="w-12 h-12 text-[#2C727B]/30 mb-4" />
+
+                <div className="flex gap-1 mb-4">
+                  {[...Array(current.rating)].map((_, i) => (
+                    <Star
+                      key={i}
+                      className="w-5 h-5 fill-yellow-400 text-yellow-400"
+                    />
+                  ))}
                 </div>
 
-                {/* Author Info */}
-                <div className="flex items-center gap-4 pt-4">
-                  <div className="relative">
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#2C727B] to-[#1A394E] rounded-full blur-md opacity-50" />
-                    <div className="relative w-16 h-16 rounded-full bg-gradient-to-r from-[#2C727B] to-[#1A394E] flex items-center justify-center text-white font-bold text-xl shadow-lg">
-                      {currentTestimonial.avatar}
-                    </div>
+                <p className="text-white text-lg md:text-2xl leading-relaxed">
+                  "{current.content}"
+                </p>
+
+                {/* Author */}
+                <div className="flex items-center gap-4 mt-8">
+                  <div className="w-14 h-14 rounded-full bg-gradient-to-r from-[#2C727B] to-[#1A394E] flex items-center justify-center text-white font-bold">
+                    {current.avatar}
                   </div>
+
                   <div>
-                    <h4 className="text-white font-bold text-xl">{currentTestimonial.name}</h4>
-                    <p className="text-[#2C727B] text-sm font-medium">{currentTestimonial.role}</p>
-                    <div className="flex items-center gap-2 mt-1 text-white/50 text-xs">
+                    <h4 className="text-white font-bold text-lg">
+                      {current.name}
+                    </h4>
+
+                    <p className="text-[#2C727B] text-sm">
+                      {current.role}
+                    </p>
+
+                    <div className="flex items-center gap-1 mt-1 text-white/50 text-xs">
                       <MapPin className="w-3 h-3" />
-                      {currentTestimonial.location}
+                      {current.location}
                     </div>
                   </div>
                 </div>
 
-                {/* Trust Badges */}
-                <div className="flex flex-wrap gap-3 pt-2">
-                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-white/70 text-xs">
+                {/* Badges */}
+                <div className="flex flex-wrap gap-3 mt-6">
+                  <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-white/70 text-xs">
                     <CheckCircle2 className="w-3 h-3 text-[#2C727B]" />
                     Verified Client
                   </div>
-                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-white/70 text-xs">
+
+                  <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-white/70 text-xs">
                     <Briefcase className="w-3 h-3 text-[#2C727B]" />
-                    {currentTestimonial.projectType}
+                    {current.projectType}
                   </div>
                 </div>
               </div>
 
-              {/* Right Side - Results & Metrics */}
-              <div className="bg-gradient-to-br from-white/5 to-transparent rounded-2xl p-6 border border-white/10">
-                <h5 className="text-white/70 text-sm uppercase tracking-wider mb-4">Key Achievement</h5>
-                
-                {/* Main Metric */}
-                <div className="text-center mb-6">
-                  <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-r from-[#2C727B]/20 to-[#1A394E]/20 border border-[#2C727B]/30 mb-4">
+              {/* Right Side */}
+              <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
+                <h5 className="text-white/60 text-xs uppercase tracking-wider mb-5">
+                  Key Achievement
+                </h5>
+
+                <div className="text-center">
+                  <div className="w-20 h-20 mx-auto rounded-full bg-[#2C727B]/10 border border-[#2C727B]/20 flex items-center justify-center mb-5">
                     <MetricIcon className="w-10 h-10 text-[#2C727B]" />
                   </div>
-                  <div className="text-4xl md:text-5xl font-bold text-white mb-2">
-                    {currentTestimonial.metric}
+
+                  <div className="text-4xl md:text-5xl font-bold text-white">
+                    {current.metric}
                   </div>
-                  <div className="text-white/60 text-sm">from our partnership</div>
+
+                  <p className="text-white/60 text-sm mt-2">
+                    achieved with our strategies
+                  </p>
                 </div>
 
-                {/* Result Card */}
-                <div className="bg-white/5 rounded-xl p-4">
+                {/* Result */}
+                <div className="mt-8 rounded-xl bg-white/5 p-4 border border-white/10">
                   <div className="flex items-center gap-2 mb-2">
                     <Award className="w-4 h-4 text-yellow-400" />
-                    <span className="text-white/70 text-xs font-semibold uppercase tracking-wider">Result</span>
+
+                    <span className="text-xs uppercase tracking-wide text-white/70">
+                      Result
+                    </span>
                   </div>
-                  <p className="text-white font-semibold">{currentTestimonial.result}</p>
+
+                  <p className="text-white font-medium">
+                    {current.result}
+                  </p>
                 </div>
 
-                {/* Company Info */}
-                <div className="mt-4 pt-4 border-t border-white/10">
-                  <p className="text-white/50 text-xs">{currentTestimonial.company}</p>
+                <div className="mt-5 pt-5 border-t border-white/10">
+                  <p className="text-white/40 text-xs">
+                    {current.company}
+                  </p>
                 </div>
               </div>
             </div>
-
-            {/* Bottom Gradient Bar */}
-            <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-[#2C727B]/50 to-transparent" />
           </div>
 
-          {/* Navigation Controls */}
-          <div className="flex items-center justify-between mt-8 gap-4">
+          {/* Navigation */}
+          <div className="flex items-center justify-between mt-8">
             <button
               onClick={handlePrev}
-              className="group w-14 h-14 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center hover:bg-white/20 hover:scale-110 transition-all duration-300"
+              className="w-12 h-12 rounded-full border border-white/15 bg-white/10 backdrop-blur-sm flex items-center justify-center hover:bg-white/20 transition"
             >
-              <ChevronLeft className="w-6 h-6 text-white group-hover:translate-x-[-3px] transition-transform" />
+              <ChevronLeft className="w-5 h-5 text-white" />
             </button>
 
-            {/* Premium Dots Navigation */}
-            <div className="flex gap-4">
+            {/* Dots */}
+            <div className="flex gap-3">
               {testimonials.map((_, idx) => (
                 <button
                   key={idx}
-                  onClick={() => {
-                    setIsAutoPlaying(false);
-                    setActiveIndex(idx);
-                    setProgress(0);
-                    setTimeout(() => setIsAutoPlaying(true), 10000);
-                  }}
-                  className="group relative"
-                >
-                  <div className={`transition-all duration-500 rounded-full ${
-                    idx === activeIndex 
-                      ? "w-10 h-2.5 bg-gradient-to-r from-[#2C727B] to-[#1A394E] shadow-lg" 
-                      : "w-2 h-2 bg-white/40 group-hover:bg-white/60"
-                  }`} />
-                  {idx === activeIndex && isAutoPlaying && !isHovering && (
-                    <div 
-                      className="absolute -top-4 left-0 h-0.5 bg-gradient-to-r from-[#2C727B] to-[#1A394E] rounded-full"
-                      style={{ width: `${progress}%`, transition: 'width 60ms linear' }}
-                    />
-                  )}
-                </button>
+                  onClick={() => setActiveIndex(idx)}
+                  className={`transition-all duration-300 rounded-full ${
+                    idx === activeIndex
+                      ? "w-8 h-2 bg-[#2C727B]"
+                      : "w-2 h-2 bg-white/40"
+                  }`}
+                />
               ))}
             </div>
 
             <button
               onClick={handleNext}
-              className="group w-14 h-14 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center hover:bg-white/20 hover:scale-110 transition-all duration-300"
+              className="w-12 h-12 rounded-full border border-white/15 bg-white/10 backdrop-blur-sm flex items-center justify-center hover:bg-white/20 transition"
             >
-              <ChevronRight className="w-6 h-6 text-white group-hover:translate-x-[3px] transition-transform" />
+              <ChevronRight className="w-5 h-5 text-white" />
             </button>
           </div>
 
-          {/* Auto-play Toggle */}
+          {/* Auto Play Toggle */}
           <div className="flex justify-center mt-6">
             <button
               onClick={() => setIsAutoPlaying(!isAutoPlaying)}
-              className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-sm border border-white/10 text-white/60 text-sm hover:text-white transition-colors"
+              className="flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 text-white/70 hover:text-white transition"
             >
               {isAutoPlaying ? (
                 <>
-                  <Pause className="w-3 h-3" />
-                  Pause Auto-play
+                  <Pause className="w-4 h-4" />
+                  Pause
                 </>
               ) : (
                 <>
-                  <Play className="w-3 h-3" />
-                  Resume Auto-play
+                  <Play className="w-4 h-4" />
+                  Resume
                 </>
               )}
             </button>
           </div>
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0px) translateX(0px); opacity: 0; }
-          50% { transform: translateY(-20px) translateX(10px); opacity: 0.5; }
-        }
-        @keyframes gradient {
-          0%, 100% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-        }
-        .animate-float {
-          animation: float linear infinite;
-        }
-        .animate-gradient {
-          background-size: 200% auto;
-          animation: gradient 3s linear infinite;
-        }
-      `}</style>
     </section>
   );
 }
+
+export default memo(Testimonials);
