@@ -9,42 +9,43 @@ export default function Hero() {
 
   // lightweight rotation (INP safe)
   useEffect(() => {
-  const interval = setInterval(() => {
-    setActiveFeature((p) => (p + 1) % 3);
-  }, 4500);
+    const interval = setInterval(() => {
+      setActiveFeature((p) => (p + 1) % 3);
+    }, 4500);
 
-  return () => clearInterval(interval);
-}, []);
+    return () => clearInterval(interval);
+  }, []);
 
-const rotatingTexts = [
-  "AI-Powered SEO",
-  "Answer Engine Optimization",
-  "Generative Search Optimization",
-];
+  const rotatingTexts = [
+    "AI-Powered SEO",
+    "Answer Engine Optimization",
+    "Generative Search Optimization",
+  ];
 
-const features = [
-  {
-    icon: TrendingUp,
-    title: "AI SEO",
-    desc: "Rank with predictive AI SEO systems",
-    stat: "+320% Organic Traffic",
-    color: "from-emerald-500 to-teal-500",
-  },
-  {
-    icon: Mic,
-    title: "AEO",
-    desc: "Optimize for AI-generated answers",
-    stat: "90% Featured Snippets",
-    color: "from-blue-500 to-indigo-500",
-  },
-  {
-    icon: Globe,
-    title: "GEO",
-    desc: "Grow visibility across AI search engines",
-    stat: "50K+ AI Search Impressions",
-    color: "from-purple-500 to-pink-500",
-  },
-];
+  const features = [
+    {
+      icon: TrendingUp,
+      title: "AI SEO",
+      desc: "Rank with predictive AI systems",
+      stat: "+320% Traffic",
+      color: "from-emerald-500 to-teal-500",
+    },
+    {
+      icon: Mic,
+      title: "AEO",
+      desc: "Optimize for AI-generated answers",
+      stat: "90% Snippets",
+      color: "from-blue-500 to-indigo-500",
+    },
+    {
+      icon: Globe,
+      title: "GEO",
+      desc: "Grow visibility across AI search engines",
+      stat: "50K+ AI Search Impressions",
+      color: "from-purple-500 to-pink-500",
+    },
+  ];
+
   return (
     <section className="relative min-h-screen flex items-center justify-center px-6 overflow-hidden">
 
@@ -106,7 +107,7 @@ const features = [
 
         {/* description */}
         <p className="mt-6 text-lg text-gray-700 max-w-2xl mx-auto">
-          We build AI-powered SEO systems that increase visibility,
+         We build AI-powered SEO systems that increase visibility,
           traffic, and revenue across Google and AI search engines.
         </p>
 
