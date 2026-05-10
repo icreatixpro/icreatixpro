@@ -23,7 +23,7 @@ keywords:
   - digital marketing ROI
 slug: content-marketing-roi
 ---
-
+# What Is Content Marketing ROI and Why Does It Matter for Your Business?
 ## TL;DR
 
 **Content marketing ROI** measures the revenue generated from your content efforts compared to what you invested in creating, publishing, and distributing that content. It answers one critical business question: *Is your content actually making money?*

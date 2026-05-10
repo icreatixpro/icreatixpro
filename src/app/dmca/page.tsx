@@ -1,4 +1,6 @@
-﻿import type { Metadata } from "next";
+﻿// app/dmca/page.tsx
+import type { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "DMCA Policy | Copyright Protection iCreatixPRO",
@@ -23,13 +25,20 @@ export const metadata: Metadata = {
   },
 };
 
-// Performance caching (stable legal page)
 export const revalidate = 86400;
 
-export default function Page() {
-  const lastUpdated = "2026-04-23";
+// Helper component for consistent sections
+const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
+  <div className="mb-6">
+    <h2 className="text-xl md:text-2xl font-semibold text-[#1A394E] mb-3">{title}</h2>
+    <div className="text-gray-600 leading-relaxed">{children}</div>
+  </div>
+);
 
-  const schema = {
+export default function DMCAPage() {
+  const lastUpdated = "May 2026";
+
+  const structuredData = {
     "@context": "https://schema.org",
     "@type": "WebPage",
     name: "DMCA Policy",
@@ -41,95 +50,131 @@ export default function Page() {
       name: "iCreatixPRO",
       url: "https://icreatixpro.com",
     },
-  };
-
-  const breadcrumb = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: "https://icreatixpro.com/",
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "DMCA",
-        item: "https://icreatixpro.com/dmca/",
-      },
-    ],
+    breadcrumb: {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://icreatixpro.com/" },
+        { "@type": "ListItem", position: 2, name: "DMCA", item: "https://icreatixpro.com/dmca/" },
+      ],
+    },
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-white via-[#f0f7f6] to-white py-24 px-6">
-
-      {/* Schema */}
+    <main className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100">
+      {/* JSON-LD Schema */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
 
-      {/* Breadcrumb */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }}
-      />
-
-      <div className="max-w-4xl mx-auto">
-        <div className="bg-white/40 backdrop-blur-sm rounded-2xl p-8 border border-white/60">
-
-          <h1 className="text-4xl md:text-5xl font-bold text-[#1A394E] mb-6 capitalize">
-            DMCA Policy
+      {/* Hero Section */}
+      <section className="relative overflow-hidden pt-20 pb-16 px-6 md:pt-28 md:pb-20 bg-gradient-to-br from-[#1A394E] via-[#2C727B] to-[#1A394E]">
+        <div className="relative z-10 max-w-4xl mx-auto text-center">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
+            DMCA <span className="text-[#2C727B]">Policy</span>
           </h1>
+          <p className="mt-4 text-lg text-gray-200 max-w-2xl mx-auto">
+            Copyright protection, takedown procedures, and intellectual property rights.
+          </p>
+          <p className="mt-2 text-sm text-gray-300">Last updated: {lastUpdated}</p>
+        </div>
+        <div className="absolute inset-0 flex justify-center items-center pointer-events-none">
+          <div className="w-[500px] h-[500px] bg-white/5 rounded-full blur-3xl"></div>
+        </div>
+      </section>
 
-          <div className="space-y-4 text-[#1A394E]/80">
-
-            <p>
-              At <strong>iCreatixPRO</strong>, we respect intellectual property rights and comply with DMCA regulations.
+      {/* Main Content Card */}
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 -mt-8 relative z-20 pb-20">
+        <div className="bg-white rounded-2xl shadow-xl p-6 md:p-8 border border-gray-100">
+          
+          {/* Introduction */}
+          <div className="bg-gray-50 rounded-xl p-5 mb-8 border-l-4 border-[#2C727B]">
+            <p className="text-gray-700">
+              <strong>iCreatixPRO</strong> respects the intellectual property rights of others and expects our users to do the same. 
+              We comply with the Digital Millennium Copyright Act (DMCA) and respond promptly to valid notices of alleged copyright infringement.
             </p>
-
-            <h2 className="text-xl font-semibold text-[#1A394E]">
-              Copyright Protection
-            </h2>
-
-            <p>
-              We do not tolerate copyright infringement and respond to valid DMCA takedown requests promptly.
-            </p>
-
-            <h2 className="text-xl font-semibold text-[#1A394E]">
-              Reporting Copyright Issues
-            </h2>
-
-            <p>
-              If you believe your copyrighted content has been used improperly, please contact us with proper proof of ownership.
-            </p>
-
-            <h2 className="text-xl font-semibold text-[#1A394E]">
-              Action Process
-            </h2>
-
-            <ul className="list-disc pl-5 space-y-2">
-              <li>Review of DMCA complaint</li>
-              <li>Verification of ownership claim</li>
-              <li>Content removal if valid</li>
-              <li>Notification to involved parties</li>
-            </ul>
-
-            <h2 className="text-xl font-semibold text-[#1A394E]">
-              Contact
-            </h2>
-
-            <p>
-              For DMCA requests, contact us at <strong>legal@icreatixpro.com</strong>
-            </p>
-
-            <p className="text-sm text-[#1A394E]/60 mt-6">
-              Last updated: {lastUpdated}
-            </p>
-
           </div>
+
+          <Section title="1. Copyright Protection">
+            <p>
+              All content published on iCreatixPRO including text, graphics, logos, images, code, and other materials is the property 
+              of iCreatixPRO or its content suppliers and is protected by UAE and international copyright laws. Unauthorized reproduction, 
+              distribution, or modification of this content is strictly prohibited.
+            </p>
+          </Section>
+
+          <Section title="2. DMCA Takedown Process">
+            <p>
+              If you believe that your copyrighted work has been used or displayed on our website in a way that constitutes copyright infringement, 
+              please send a written notice to our designated copyright agent. Your notice must include:
+            </p>
+            <ul className="list-disc pl-5 mt-2 space-y-1 text-gray-600">
+              <li>A physical or electronic signature of the copyright owner or authorised representative.</li>
+              <li>Identification of the copyrighted work claimed to have been infringed.</li>
+              <li>Identification of the material that is claimed to be infringing, with sufficient detail to locate it on our site.</li>
+              <li>Your contact information (address, telephone number, email).</li>
+              <li>A statement that you have a good faith belief that the use is not authorised by the copyright owner.</li>
+              <li>A statement, under penalty of perjury, that the information in your notice is accurate and that you are the copyright owner or authorised to act on their behalf.</li>
+            </ul>
+            <p className="mt-3">
+              Send your notice to: <strong className="text-[#2C727B]">icreatixpro@gmail.com</strong>
+            </p>
+          </Section>
+
+          <Section title="3. Counter-Notice Procedure">
+            <p>
+              If you believe that material you posted on our site was removed or disabled as a result of a mistake or misidentification, 
+              you may file a counter‑notice. Your counter‑notice must include:
+            </p>
+            <ul className="list-disc pl-5 mt-2 space-y-1 text-gray-600">
+              <li>Your physical or electronic signature.</li>
+              <li>Identification of the material that has been removed and its location before removal.</li>
+              <li>A statement under penalty of perjury that you have a good faith belief the material was removed by mistake.</li>
+              <li>Your name, address, telephone number, and a statement that you consent to the jurisdiction of the federal court in your district.</li>
+            </ul>
+            <p className="mt-3">
+              Upon receipt of a valid counter‑notice, we will forward it to the original complainant. If we do not receive notice of a court action within 10–14 business days, we may restore the removed material.
+            </p>
+          </Section>
+
+          <Section title="4. Repeat Infringer Policy">
+            <p>
+              iCreatixPRO maintains a policy of terminating, in appropriate circumstances, the accounts of users who are repeat infringers. 
+              We also reserve the right to remove any content that we believe, in good faith, violates these provisions.
+            </p>
+          </Section>
+
+          <Section title="5. Contact Information">
+            <p>
+              For all DMCA-related inquiries, please contact our designated agent:
+            </p>
+            <div className="mt-2 p-3 bg-gray-50 rounded-lg">
+              <p className="text-gray-700"><strong>Email:</strong> icreatixpro@gmail.com</p>
+              <p className="text-gray-700 mt-1"><strong>Address:</strong> iCreatixPRO, UK, United Kingdom</p>
+              <p className="text-gray-700 mt-1"><strong>Response time:</strong> We aim to respond to all valid notices within 2–3 business days.</p>
+            </div>
+          </Section>
+
+          {/* Additional Legal Reference */}
+          <div className="mt-8 p-5 bg-gray-50 rounded-xl text-center">
+            <p className="text-gray-700">
+              For other legal information, please review our{" "}
+              <Link href="/legal" className="text-[#2C727B] font-semibold hover:underline">Legal Notice</Link>,{" "}
+              <Link href="/disclaimer" className="text-[#2C727B] font-semibold hover:underline">Disclaimer</Link>, and{" "}
+              <Link href="/cookies" className="text-[#2C727B] font-semibold hover:underline">Cookie Policy</Link>.
+            </p>
+          </div>
+        </div>
+
+        {/* Footer internal links (only approved URLs) */}
+        <div className="flex flex-wrap justify-center gap-4 pt-8 text-sm text-gray-400 border-t border-gray-200 mt-8">
+          <Link href="/" className="hover:text-[#2C727B] transition-colors">Home</Link>
+          <span className="text-gray-300">|</span>
+          <Link href="/about" className="hover:text-[#2C727B] transition-colors">About</Link>
+          <span className="text-gray-300">|</span>
+          <Link href="/services" className="hover:text-[#2C727B] transition-colors">Services</Link>
+          <span className="text-gray-300">|</span>
+          <Link href="/contact" className="hover:text-[#2C727B] transition-colors">Contact</Link>
         </div>
       </div>
     </main>

@@ -1,5 +1,6 @@
 import ContactForm from "./ContactForm";
 import type { Metadata } from "next";
+import Link from "next/link";
 
 // ✅ METADATA - Works perfectly in Server Component
 export const metadata: Metadata = {
@@ -26,15 +27,12 @@ export const metadata: Metadata = {
     siteName: "iCreatixPRO",
     locale: "en_US",
     type: "website",
-    // ✅ REMOVED - og-contact.jpg (404 issue fixed)
   },
   twitter: {
     card: "summary_large_image",
     title: "Contact iCreatixPRO | Global Digital Marketing Agency",
     description: "Get expert SEO, Google Ads, and digital marketing services.",
-    // ✅ REMOVED - twitter-image.jpg (404 issue fixed)
   },
-  // ✅ SERVER SIDE SCHEMA - Google 100% pick karega
   other: {
     "application/ld+json": JSON.stringify({
       "@context": "https://schema.org",
@@ -68,5 +66,28 @@ export const metadata: Metadata = {
 };
 
 export default function ContactPage() {
-  return <ContactForm />;
+  return (
+    <div>
+      {/* CONTACT FORM */}
+      <ContactForm />
+
+      {/* 🔗 INTERNAL SEO LINKS SECTION */}
+      <section style={{ marginTop: "40px" }}>
+        <h2>Explore More About iCreatixPRO</h2>
+        <p>Learn more about our agency, services, and mission:</p>
+
+        <ul>
+          <li>
+            <Link href="/">Home - iCreatixPRO Digital Marketing Agency</Link>
+          </li>
+          <li>
+            <Link href="/about">About Us - Who We Are</Link>
+          </li>
+          <li>
+            <Link href="/services">Our Services - SEO, Ads & Marketing Solutions</Link>
+          </li>
+        </ul>
+      </section>
+    </div>
+  );
 }

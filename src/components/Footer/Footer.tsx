@@ -113,6 +113,7 @@ const footerLinks = {
     { name: "GDPR", href: "/gdpr" },
     { name: "Accessibility", href: "/accessibility" },
     { name: "Security", href: "/security" },
+     { name: "Legal Notice", href: "/legal" },
   ],
 };
 

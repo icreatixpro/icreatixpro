@@ -1,136 +1,100 @@
-﻿import type { Metadata } from "next";
+﻿// app/sitemap/page.tsx
+import type { Metadata } from "next";
+import SitemapClient from "./SitemapClient";
+
+const baseUrl = "https://icreatixpro.com";
+const pageUrl = `${baseUrl}/sitemap/`;
 
 export const metadata: Metadata = {
-  title: "Security Policy | iCreatixPRO Data Protection Guide",
+  metadataBase: new URL(baseUrl),
+  title: "Sitemap | Complete Website Navigation & Page Index | iCreatixPRO",
   description:
-    "Learn how iCreatixPRO protects your data with advanced security systems, encryption standards, monitoring, and safe infrastructure practices.",
+    "Explore the complete sitemap of iCreatixPRO find all services pages (SEO, AI SEO, GEO, PPC), blog posts, tools, resources, and legal pages in one structured index for easy navigation.",
   alternates: {
-    canonical: "https://icreatixpro.com/security/",
+    canonical: pageUrl,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-snippet": -1,
+      "max-image-preview": "large",
+    },
   },
   openGraph: {
-    title: "Security Policy | iCreatixPRO Data Protection Guide",
+    title: "Sitemap | Complete Website Navigation | iCreatixPRO",
     description:
-      "Explore how iCreatixPRO ensures platform security using encryption, monitoring systems, and modern web protection standards.",
-    url: "https://icreatixpro.com/security/",
+      "Your complete guide to all pages on iCreatixPRO services, blogs, tools, and legal resources. Find what you need quickly.",
+    url: pageUrl,
     siteName: "iCreatixPRO",
     type: "website",
+    locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Security Policy | iCreatixPRO",
+    title: "Sitemap | iCreatixPRO",
     description:
-      "Understand how iCreatixPRO protects data with strong security and encryption practices.",
+      "Full website navigation index services, blogs, tools, and more.",
   },
 };
 
-// Performance caching (stable policy page)
-export const revalidate = 86400; // 24 hours
+// Schemas
+const webPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": `${pageUrl}#webpage`,
+  name: "Sitemap - iCreatixPRO",
+  url: pageUrl,
+  description: "Complete sitemap of iCreatixPRO website showing all pages and sections.",
+  isPartOf: {
+    "@type": "WebSite",
+    "@id": `${baseUrl}#website`,
+  },
+  breadcrumb: {
+    "@id": `${pageUrl}#breadcrumb`,
+  },
+  publisher: {
+    "@type": "Organization",
+    name: "iCreatixPRO",
+    url: baseUrl,
+  },
+};
 
-const LAST_UPDATED = "April 2026";
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "@id": `${pageUrl}#breadcrumb`,
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: baseUrl },
+    { "@type": "ListItem", position: 2, name: "Sitemap", item: pageUrl },
+  ],
+};
 
-export default function Page() {
+const collectionPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": `${pageUrl}#collection`,
+  name: "Website Sitemap Index",
+  url: pageUrl,
+  description: "Index of all public pages on iCreatixPRO.",
+  isPartOf: { "@id": `${pageUrl}#webpage` },
+};
+
+export default function SitemapPage() {
   return (
-    <main className="min-h-screen bg-gradient-to-br from-white via-[#f0f7f6] to-white py-24 px-6">
-
-      {/* JSON-LD Schema */}
+    <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",
-            "@type": "WebPage",
-            name: "Security Policy",
-            url: "https://icreatixpro.com/security/",
-            description:
-              "Security policy explaining how iCreatixPRO protects user data with encryption and secure infrastructure.",
-            publisher: {
-              "@type": "Organization",
-              name: "iCreatixPRO",
-              url: "https://icreatixpro.com",
-            },
+            "@graph": [webPageSchema, breadcrumbSchema, collectionPageSchema],
           }),
         }}
       />
-
-      {/* Breadcrumb Schema */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            itemListElement: [
-              {
-                "@type": "ListItem",
-                position: 1,
-                name: "Home",
-                item: "https://icreatixpro.com/",
-              },
-              {
-                "@type": "ListItem",
-                position: 2,
-                name: "Security",
-                item: "https://icreatixpro.com/security/",
-              },
-            ],
-          }),
-        }}
-      />
-
-      <div className="max-w-4xl mx-auto">
-        <div className="bg-white/40 backdrop-blur-sm rounded-2xl p-8 border border-white/60">
-
-          <h1 className="text-4xl md:text-5xl font-bold text-[#1A394E] mb-6 capitalize">
-            Security
-          </h1>
-
-          <div className="space-y-5 text-[#1A394E]/80">
-
-            <p>
-              At <strong>iCreatixPRO</strong>, security is a top priority. We implement modern
-              protection systems to ensure your data and interactions remain safe at all times.
-            </p>
-
-            <h2 className="text-xl font-semibold text-[#1A394E]">
-              Data Protection
-            </h2>
-            <p>
-              We use industry-standard encryption and secure protocols to protect sensitive
-              information from unauthorized access.
-            </p>
-
-            <h2 className="text-xl font-semibold text-[#1A394E]">
-              Infrastructure Security
-            </h2>
-            <ul className="list-disc pl-5 space-y-2">
-              <li>Secure hosting environment</li>
-              <li>DDoS protection systems</li>
-              <li>Regular security monitoring</li>
-              <li>Automated threat detection</li>
-            </ul>
-
-            <h2 className="text-xl font-semibold text-[#1A394E]">
-              User Safety
-            </h2>
-            <p>
-              We continuously monitor our platform to prevent malicious activity,
-              ensuring a safe experience for all users.
-            </p>
-
-            <h2 className="text-xl font-semibold text-[#1A394E]">
-              Updates
-            </h2>
-            <p>
-              Our security systems are regularly updated to meet evolving industry standards.
-            </p>
-
-            <p className="text-sm text-[#1A394E]/60 mt-6">
-              Last updated: {LAST_UPDATED}
-            </p>
-
-          </div>
-        </div>
-      </div>
-    </main>
+      <SitemapClient />
+    </>
   );
 }
