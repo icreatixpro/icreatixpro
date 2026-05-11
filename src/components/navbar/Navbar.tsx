@@ -50,25 +50,25 @@ export default function Navbar() {
         >
           {/* Logo only */}
           <Link href="/" className="flex items-center group flex-shrink-0">
-            <Image
-              src="/logo.png"
-              alt="iCreatixPRO"
-              width={110}
-              height={40}
-              priority
-              className="transition-transform duration-300 group-hover:scale-105"
-              onError={(e) => {
-                const target = e.target as HTMLImageElement;
-                target.style.display = "none";
-                const parent = target.parentElement;
-                if (parent) {
-                  const fallbackSpan = document.createElement("span");
-                  fallbackSpan.className = "text-xl font-bold text-gray-800";
-                  fallbackSpan.innerText = "iCreatixPRO";
-                  parent.appendChild(fallbackSpan);
-                }
-              }}
-            />
+          <Image
+            src="/logo.png"
+            alt="iCreatixPRO"
+            width={110}
+            height={40}
+            priority
+            className="w-auto h-auto transition-transform duration-300 group-hover:scale-105"
+            onError={(e) => {
+              const target = e.target as HTMLImageElement;
+              target.style.display = "none";
+              const parent = target.parentElement;
+              if (parent) {
+                const fallbackSpan = document.createElement("span");
+                fallbackSpan.className = "text-xl font-bold text-gray-800";
+                fallbackSpan.innerText = "iCreatixPRO";
+                parent.appendChild(fallbackSpan);
+              }
+            }}
+          />
           </Link>
 
           {/* Desktop navigation - custom order: Home, About, Services, Tools, Blogs, Contact */}

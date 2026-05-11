@@ -138,13 +138,14 @@ export default function Footer() {
             {/* Brand + Logo – exact navbar size (110x40, no extra classes) */}
             <div className="lg:col-span-4 space-y-4">
               <Link href="/" className="inline-block">
-                <Image
-                  src="/logo.png"
-                  alt="iCreatixPRO"
-                  width={110}
-                  height={40}
-                  priority={false}
-                />
+              <Image
+                src="/logo.png"
+                alt="iCreatixPRO"
+                width={110}
+                height={40}
+                className="h-8 w-auto"
+                priority={false}
+              />
               </Link>
               <p className="text-[#1A394E]/70 text-sm leading-relaxed">
                 We help businesses grow with powerful SEO strategies, data-driven

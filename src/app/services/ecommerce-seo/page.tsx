@@ -639,7 +639,7 @@ export default function EcommerceSEOPage() {
                 height={420}
                 priority
                 fetchPriority="high"
-                quality={80}
+                quality={75}
                 alt="E-commerce SEO services - optimize your online store for product rankings and sales growth"
                 className="rounded-xl shadow-lg w-full max-w-4xl h-auto"
                 sizes="(max-width: 768px) 100vw, 800px"
