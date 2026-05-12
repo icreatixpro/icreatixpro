@@ -1,117 +1,119 @@
-import { categories, getAllBlogs } from "@/lib/blog-helpers";
+import { getAllCategories, getCategoryBySlug, getAllBlogs } from "@/lib/blog-helpers";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { Calendar, Clock, ArrowLeft, FolderOpen } from "lucide-react";
 
-// Generate static params for all categories
+// ─── Static Params ────────────────────────────────────────────────────────────
+//
+// getAllCategories() scans all blog files at build time, so any `category:`
+// value in a post's frontmatter automatically produces a static route here —
+// no manual registration required.
+
 export async function generateStaticParams() {
-  return categories.map((category) => ({ category: category.slug }));
+  const allCategories = getAllCategories();
+  return allCategories.map((cat) => ({ category: cat.slug }));
 }
 
-// Generate metadata dynamically
-export async function generateMetadata({ 
-  params 
-}: { 
-  params: Promise<{ category: string }> 
+// ─── Metadata ─────────────────────────────────────────────────────────────────
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ category: string }>;
 }): Promise<Metadata> {
   const { category } = await params;
-  const categoryData = categories.find(c => c.slug === category);
-  
-  if (!categoryData) {
-    return { title: "Category Not Found" };
-  }
-  
-  const categoryDescription = `Explore our collection of ${categoryData.name} articles. Learn expert strategies, best practices, and actionable tips to improve your ${categoryData.name.toLowerCase()} efforts.`;
-  
+  const cat = getCategoryBySlug(category);
+
+  if (!cat) return { title: "Category Not Found" };
+
+  const description = buildDescription(cat.name);
+
   return {
-    title: `${categoryData.name} Articles | iCreatixPRO Blog`,
-    description: categoryDescription,
+    title: `${cat.name} Articles | iCreatixPRO Blog`,
+    description,
     openGraph: {
-      title: `${categoryData.name} | iCreatixPRO Blog`,
-      description: categoryDescription,
+      title: `${cat.name} | iCreatixPRO Blog`,
+      description,
       type: "website",
     },
   };
 }
 
+// ─── Helpers ──────────────────────────────────────────────────────────────────
+
+function buildDescription(categoryName: string): string {
+  return `Explore our collection of ${categoryName} articles. Learn expert strategies, best practices, and actionable tips to improve your ${categoryName.toLowerCase()} efforts.`;
+}
+
 /**
- * Filter blogs by category with multiple matching strategies
- * This handles:
- * 1. Exact category slug match
- * 2. Category ID/name match (case-insensitive)
- * 3. Fallback to inferred category from content
+ * Matches blog posts to a category with three fallback strategies:
+ *
+ * 1. Direct slug match          — post.category === categorySlug
+ * 2. Name match                 — case-insensitive match against cat.name
+ * 3. Keyword inference          — scan tags and title+description for cat.keywords
+ *    (only applied when post.category is empty/missing)
  */
-function getCategoryBlogs(allBlogs: any[], categorySlug: string, categoryData: any) {
-  return allBlogs.filter(blog => {
-    // Strategy 1: Direct slug match
-    if (blog.category?.toLowerCase() === categorySlug.toLowerCase()) {
-      return true;
-    }
-    
-    // Strategy 2: Match against category ID or display name
-    if (blog.category?.toLowerCase() === categoryData.id?.toLowerCase() || 
-        blog.category?.toLowerCase() === categoryData.name?.toLowerCase()) {
-      return true;
-    }
-    
-    // Strategy 3: If blog.category is empty/undefined, infer from other fields
-    // This allows auto-categorization for articles without explicit category set
-    if (!blog.category || blog.category === "") {
-      // Option A: Infer from tags (if tags include category-related keywords)
-      if (blog.tags && Array.isArray(blog.tags)) {
-        const categoryKeywords = categoryData.keywords || [categoryData.name.toLowerCase()];
-        const hasRelevantTag = blog.tags.some(tag => 
-          categoryKeywords.some(keyword => 
-            tag.toLowerCase().includes(keyword.toLowerCase())
-          )
-        );
-        if (hasRelevantTag) return true;
-      }
-      
-      // Option B: Infer from content/description keywords
+function getPostsForCategory(
+  allBlogs: ReturnType<typeof getAllBlogs>,
+  categorySlug: string,
+  categoryName: string,
+  categoryKeywords: string[]
+) {
+  return allBlogs.filter((blog) => {
+    const blogCat = blog.category?.toLowerCase() ?? "";
+
+    // Strategy 1: exact slug match (primary — covers 99% of posts)
+    if (blogCat === categorySlug.toLowerCase()) return true;
+
+    // Strategy 2: match against the display name (handles legacy data)
+    if (blogCat === categoryName.toLowerCase()) return true;
+
+    // Strategy 3: inference for posts with no category set at all
+    if (!blogCat) {
       const content = `${blog.title} ${blog.description}`.toLowerCase();
-      const categoryKeywords = categoryData.keywords || [categoryData.name.toLowerCase()];
-      const hasRelevantContent = categoryKeywords.some(keyword => 
-        content.includes(keyword.toLowerCase())
+      const hasKeyword = categoryKeywords.some(
+        (kw) =>
+          content.includes(kw.toLowerCase()) ||
+          (blog.tags ?? []).some((tag: string) =>
+            tag.toLowerCase().includes(kw.toLowerCase())
+          )
       );
-      if (hasRelevantContent) return true;
+      if (hasKeyword) return true;
     }
-    
+
     return false;
   });
 }
 
-export default async function CategoryPage({ 
-  params 
-}: { 
-  params: Promise<{ category: string }> 
+// ─── Page ─────────────────────────────────────────────────────────────────────
+
+export default async function CategoryPage({
+  params,
+}: {
+  params: Promise<{ category: string }>;
 }) {
   const { category } = await params;
-  
-  // Find category data
-  const categoryData = categories.find(c => c.slug === category);
-  
-  if (!categoryData) {
-    notFound();
-  }
-  
-  // Get all blogs
+
+  // getCategoryBySlug handles both predefined AND auto-generated categories.
+  // Returns undefined only if the slug never appeared in any blog post
+  // and is not in PREDEFINED_CATEGORIES — i.e. a genuinely invalid URL.
+  const cat = getCategoryBySlug(category);
+
+  if (!cat) notFound();
+
   const allBlogs = getAllBlogs();
-  
-  // Get posts for this category using smart filtering
-  const categoryBlogs = getCategoryBlogs(allBlogs, category, categoryData);
-  
-  // Create dynamic description
-  const categoryDescription = `Explore our collection of ${categoryData.name} articles. Learn expert strategies, best practices, and actionable tips to improve your ${categoryData.name.toLowerCase()} efforts.`;
-  
+  const posts = getPostsForCategory(allBlogs, cat.slug, cat.name, cat.keywords);
+  const description = buildDescription(cat.name);
+
   return (
     <main className="min-h-screen bg-white">
-      
-      {/* Category Header */}
+
+      {/* ── Category Header ──────────────────────────────────────────────── */}
       <section className="border-b border-gray-100 bg-gradient-to-b from-gray-50 to-white py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
           <Link
             href="/blogs"
             className="inline-flex items-center gap-2 text-[#2C727B] hover:text-[#1A394E] transition-colors mb-6 group"
@@ -119,32 +121,38 @@ export default async function CategoryPage({
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
             Back to Blog
           </Link>
-          
+
           <div className="flex items-center gap-3 mb-2">
-            <span className="text-4xl">{categoryData.icon}</span>
+            <span className="text-4xl">{cat.icon}</span>
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
-              {categoryData.name}
+              {cat.name}
             </h1>
           </div>
-          <p className="text-gray-600 max-w-2xl">{categoryDescription}</p>
+
+          <p className="text-gray-600 max-w-2xl">{description}</p>
+
           <div className="flex items-center gap-2 mt-3 text-sm text-gray-500">
             <FolderOpen className="w-4 h-4" />
             <span>
-              {categoryBlogs.length} {categoryBlogs.length === 1 ? "article" : "articles"}
+              {posts.length} {posts.length === 1 ? "article" : "articles"}
             </span>
           </div>
         </div>
       </section>
-      
-      {/* Posts Grid */}
+
+      {/* ── Posts Grid ───────────────────────────────────────────────────── */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {categoryBlogs.length === 0 ? (
+        {posts.length === 0 ? (
           <div className="text-center py-16 bg-gray-50 rounded-xl">
             <FolderOpen className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-            <p className="text-gray-500 text-lg">No articles found in this category yet.</p>
-            <p className="text-gray-400 text-sm mt-1">Check back soon for new content!</p>
-            <Link 
-              href="/blogs" 
+            <p className="text-gray-500 text-lg">
+              No articles found in this category yet.
+            </p>
+            <p className="text-gray-400 text-sm mt-1">
+              Check back soon for new content!
+            </p>
+            <Link
+              href="/blogs"
               className="text-[#2C727B] hover:underline text-sm mt-4 inline-block font-medium"
             >
               Browse all articles →
@@ -152,7 +160,7 @@ export default async function CategoryPage({
           </div>
         ) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {categoryBlogs.map((post) => (
+            {posts.map((post) => (
               <Link
                 key={post.slug}
                 href={`/blogs/${post.slug}`}
@@ -167,10 +175,11 @@ export default async function CategoryPage({
                   />
                   <div className="absolute top-3 left-3">
                     <span className="px-2 py-0.5 bg-[#2C727B]/90 text-white text-xs rounded font-medium">
-                      {post.category || categoryData.name}
+                      {cat.name}
                     </span>
                   </div>
                 </div>
+
                 <div className="p-4">
                   <div className="flex items-center gap-3 text-xs text-gray-500 mb-2">
                     <div className="flex items-center gap-1">
@@ -182,6 +191,7 @@ export default async function CategoryPage({
                       <span>{post.readingTime || "5 min read"}</span>
                     </div>
                   </div>
+
                   <h3 className="text-lg font-bold text-gray-900 group-hover:text-[#2C727B] transition-colors line-clamp-2">
                     {post.title}
                   </h3>
@@ -194,7 +204,7 @@ export default async function CategoryPage({
           </div>
         )}
       </section>
-      
+
     </main>
   );
 }
