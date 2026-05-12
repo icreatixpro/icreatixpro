@@ -1,4 +1,4 @@
-import { getPostsByCategory, categories, getAllBlogs } from "@/lib/blog-helpers";
+import { categories, getAllBlogs } from "@/lib/blog-helpers";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -11,7 +11,11 @@ export async function generateStaticParams() {
 }
 
 // Generate metadata dynamically
-export async function generateMetadata({ params }: { params: Promise<{ category: string }> }): Promise<Metadata> {
+export async function generateMetadata({ 
+  params 
+}: { 
+  params: Promise<{ category: string }> 
+}): Promise<Metadata> {
   const { category } = await params;
   const categoryData = categories.find(c => c.slug === category);
   
@@ -19,22 +23,71 @@ export async function generateMetadata({ params }: { params: Promise<{ category:
     return { title: "Category Not Found" };
   }
   
-  // Create a description dynamically since categoryData doesn't have description
   const categoryDescription = `Explore our collection of ${categoryData.name} articles. Learn expert strategies, best practices, and actionable tips to improve your ${categoryData.name.toLowerCase()} efforts.`;
   
   return {
     title: `${categoryData.name} Articles | iCreatixPRO Blog`,
-    description: categoryDescription, // ✅ FIXED: Use dynamic description instead of categoryData.description
+    description: categoryDescription,
     openGraph: {
       title: `${categoryData.name} | iCreatixPRO Blog`,
-      description: categoryDescription, // ✅ FIXED: Use dynamic description
+      description: categoryDescription,
       type: "website",
     },
   };
 }
 
-export default async function CategoryPage({ params }: { params: Promise<{ category: string }> }) {
-  // ✅ FIX: Await the params Promise
+/**
+ * Filter blogs by category with multiple matching strategies
+ * This handles:
+ * 1. Exact category slug match
+ * 2. Category ID/name match (case-insensitive)
+ * 3. Fallback to inferred category from content
+ */
+function getCategoryBlogs(allBlogs: any[], categorySlug: string, categoryData: any) {
+  return allBlogs.filter(blog => {
+    // Strategy 1: Direct slug match
+    if (blog.category?.toLowerCase() === categorySlug.toLowerCase()) {
+      return true;
+    }
+    
+    // Strategy 2: Match against category ID or display name
+    if (blog.category?.toLowerCase() === categoryData.id?.toLowerCase() || 
+        blog.category?.toLowerCase() === categoryData.name?.toLowerCase()) {
+      return true;
+    }
+    
+    // Strategy 3: If blog.category is empty/undefined, infer from other fields
+    // This allows auto-categorization for articles without explicit category set
+    if (!blog.category || blog.category === "") {
+      // Option A: Infer from tags (if tags include category-related keywords)
+      if (blog.tags && Array.isArray(blog.tags)) {
+        const categoryKeywords = categoryData.keywords || [categoryData.name.toLowerCase()];
+        const hasRelevantTag = blog.tags.some(tag => 
+          categoryKeywords.some(keyword => 
+            tag.toLowerCase().includes(keyword.toLowerCase())
+          )
+        );
+        if (hasRelevantTag) return true;
+      }
+      
+      // Option B: Infer from content/description keywords
+      const content = `${blog.title} ${blog.description}`.toLowerCase();
+      const categoryKeywords = categoryData.keywords || [categoryData.name.toLowerCase()];
+      const hasRelevantContent = categoryKeywords.some(keyword => 
+        content.includes(keyword.toLowerCase())
+      );
+      if (hasRelevantContent) return true;
+    }
+    
+    return false;
+  });
+}
+
+export default async function CategoryPage({ 
+  params 
+}: { 
+  params: Promise<{ category: string }> 
+}) {
   const { category } = await params;
   
   // Find category data
@@ -44,10 +97,13 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
     notFound();
   }
   
-  // Get posts for this category
-  const categoryBlogs = getAllBlogs().filter(blog => blog.category === category);
+  // Get all blogs
+  const allBlogs = getAllBlogs();
   
-  // Create a description dynamically
+  // Get posts for this category using smart filtering
+  const categoryBlogs = getCategoryBlogs(allBlogs, category, categoryData);
+  
+  // Create dynamic description
   const categoryDescription = `Explore our collection of ${categoryData.name} articles. Learn expert strategies, best practices, and actionable tips to improve your ${categoryData.name.toLowerCase()} efforts.`;
   
   return (
@@ -66,12 +122,16 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
           
           <div className="flex items-center gap-3 mb-2">
             <span className="text-4xl">{categoryData.icon}</span>
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900">{categoryData.name}</h1>
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
+              {categoryData.name}
+            </h1>
           </div>
-          <p className="text-gray-600 max-w-2xl">{categoryDescription}</p> {/* ✅ FIXED: Use dynamic description */}
+          <p className="text-gray-600 max-w-2xl">{categoryDescription}</p>
           <div className="flex items-center gap-2 mt-3 text-sm text-gray-500">
             <FolderOpen className="w-4 h-4" />
-            <span>{categoryBlogs.length} articles</span>
+            <span>
+              {categoryBlogs.length} {categoryBlogs.length === 1 ? "article" : "articles"}
+            </span>
           </div>
         </div>
       </section>
@@ -80,8 +140,13 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {categoryBlogs.length === 0 ? (
           <div className="text-center py-16 bg-gray-50 rounded-xl">
-            <p className="text-gray-500">No articles found in this category yet.</p>
-            <Link href="/blogs" className="text-[#2C727B] hover:underline text-sm mt-2 inline-block">
+            <FolderOpen className="w-12 h-12 text-gray-300 mx-auto mb-3" />
+            <p className="text-gray-500 text-lg">No articles found in this category yet.</p>
+            <p className="text-gray-400 text-sm mt-1">Check back soon for new content!</p>
+            <Link 
+              href="/blogs" 
+              className="text-[#2C727B] hover:underline text-sm mt-4 inline-block font-medium"
+            >
               Browse all articles →
             </Link>
           </div>
@@ -101,8 +166,8 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                   <div className="absolute top-3 left-3">
-                    <span className="px-2 py-0.5 bg-[#2C727B]/90 text-white text-xs rounded">
-                      {post.category}
+                    <span className="px-2 py-0.5 bg-[#2C727B]/90 text-white text-xs rounded font-medium">
+                      {post.category || categoryData.name}
                     </span>
                   </div>
                 </div>
@@ -114,7 +179,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
                     </div>
                     <div className="flex items-center gap-1">
                       <Clock className="w-3 h-3" />
-                      <span>{post.readingTime}</span>
+                      <span>{post.readingTime || "5 min read"}</span>
                     </div>
                   </div>
                   <h3 className="text-lg font-bold text-gray-900 group-hover:text-[#2C727B] transition-colors line-clamp-2">

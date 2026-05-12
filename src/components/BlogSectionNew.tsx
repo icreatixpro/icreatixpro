@@ -7,7 +7,7 @@ export default async function BlogSectionNew() {
   let posts: any[] = [];
   try {
     const allPosts = getAllBlogs();
-    posts = allPosts.slice(0, 6);
+    posts = allPosts.slice(0, 4);
   } catch (err) {
     console.error(err);
   }
