@@ -30,6 +30,14 @@ const organizationSchema = {
   contactPoint: { "@type": "ContactPoint", contactType: "sales", availableLanguage: ["English"], areaServed: "Worldwide" },
   knowsAbout: ["AI SEO", "GEO", "SaaS Technical SEO", "B2B SEO", "Search Engine Optimization", "PPC", "Digital Marketing", "Content Marketing", "Local SEO"],
   hasOfferCatalog: { "@id": `${pageUrl}#offers` },
+  // ✅ FIX: Embed rating inside Organization (Google GSC error fix)
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: 4.9,
+    bestRating: 5,
+    ratingCount: 127,
+    reviewCount: 127
+  }
 };
 
 const webSiteSchema = {
@@ -144,16 +152,6 @@ const breadcrumbSchema = {
   ],
 };
 
-const aggregateRatingSchema = {
-  "@type": "AggregateRating",
-  "@id": `${pageUrl}#rating`,
-  ratingValue: "4.9",
-  bestRating: "5",
-  ratingCount: 127,
-  reviewCount: 127,
-  itemReviewed: { "@id": `${baseUrl}#org` },
-};
-
 // ✅ Expanded FAQ (10 questions)
 const faqSchema = {
   "@type": "FAQPage",
@@ -192,7 +190,6 @@ const combinedSchema = {
     offerCatalogSchema,
     ...servicesGraph,
     breadcrumbSchema,
-    aggregateRatingSchema,
     authorSchema,
     faqSchema,
   ],
