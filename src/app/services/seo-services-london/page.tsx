@@ -68,6 +68,7 @@ export const metadata: Metadata = {
 const breadcrumbSchema = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
+  "@id": "https://icreatixpro.com/services/seo-services-london#breadcrumb",
   itemListElement: [
     {
       "@type": "ListItem",
@@ -114,7 +115,7 @@ const localBusinessSchema = {
     latitude: 51.5049,
     longitude: -0.0195,
   },
-  telephone: "+44-20-0000-0000",
+  telephone: "+44 7348 153162",
   priceRange: "££££",
   openingHoursSpecification: [
     {
@@ -128,13 +129,6 @@ const localBusinessSchema = {
     { "@type": "City", name: "London" },
     { "@type": "Country", name: "United Kingdom" },
   ],
-  aggregateRating: {
-    "@type": "AggregateRating",
-    ratingValue: "4.9",
-    reviewCount: "200",
-    bestRating: "5",
-    worstRating: "1",
-  },
   sameAs: [
     "https://www.linkedin.com/company/icreatixpro",
     "https://twitter.com/icreatixpro",
