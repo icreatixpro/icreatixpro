@@ -8,13 +8,24 @@ export const metadata: Metadata = {
   description:
     "Learn how iCreatixPRO ensures GDPR compliance, user data protection, privacy rights, and secure handling of personal information.",
   alternates: {
-    canonical: "https://icreatixpro.com/gdpr/",
+    canonical: "https://icreatixpro.com/gdpr",
   },
+  robots: {
+  index: true,
+  follow: true,
+  googleBot: {
+    index: true,
+    follow: true,
+    "max-snippet": -1,
+    "max-image-preview": "large",
+    "max-video-preview": -1,
+  },
+},
   openGraph: {
     title: "GDPR Compliance Policy | iCreatixPRO",
     description:
       "Understand how iCreatixPRO protects user data with GDPR compliance, privacy standards, and secure data practices.",
-    url: "https://icreatixpro.com/gdpr/",
+    url: "https://icreatixpro.com/gdpr",
     siteName: "iCreatixPRO",
     type: "website",
   },
@@ -46,7 +57,7 @@ export default function GDPRPage() {
     "@context": "https://schema.org",
     "@type": "WebPage",
     name: "GDPR Compliance Policy",
-    url: "https://icreatixpro.com/gdpr/",
+    url: "https://icreatixpro.com/gdpr",
     description:
       "GDPR compliance policy explaining how iCreatixPRO protects user data and privacy rights.",
     publisher: {
@@ -58,7 +69,7 @@ export default function GDPRPage() {
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: "https://icreatixpro.com/" },
-        { "@type": "ListItem", position: 2, name: "GDPR", item: "https://icreatixpro.com/gdpr/" },
+        { "@type": "ListItem", position: 2, name: "GDPR", item: "https://icreatixpro.com/gdpr" },
       ],
     },
   };

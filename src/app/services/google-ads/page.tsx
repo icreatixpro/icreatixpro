@@ -5,7 +5,7 @@ import GoogleAdsClient from "./GoogleAdsClient";
 // ✅ CONSTANTS
 // ===============================
 const baseUrl = "https://icreatixpro.com";
-const pageUrl = `${baseUrl}/services/google-ads/`;
+const pageUrl = `${baseUrl}/services/google-ads`;
 
 // ✅ Optimized Meta Title (55 chars)
 const seoTitle = "Google Ads Management Services & PPC Experts Online";
@@ -105,7 +105,7 @@ const breadcrumbSchema = {
   "@id": `${pageUrl}#breadcrumb`,
   itemListElement: [
     { "@type": "ListItem", position: 1, name: "Home", item: baseUrl },
-    { "@type": "ListItem", position: 2, name: "Services", item: `${baseUrl}/services/` },
+{ "@type": "ListItem", position: 2, name: "Services", item: `${baseUrl}/services` },
     { "@type": "ListItem", position: 3, name: "Google Ads", item: pageUrl },
   ],
 };
@@ -172,9 +172,9 @@ export const metadata: Metadata = {
     "Google Shopping Ads", "Display Advertising", "PPC Management",
     "SEO vs Google Ads", "Google Ads for Small Business",
   ],
-  alternates: {
-    canonical: pageUrl,
-  },
+alternates: {
+  canonical: "/services/google-ads",
+},
   robots: {
     index: true,
     follow: true,

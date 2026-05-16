@@ -2,26 +2,46 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+const baseUrl = "https://icreatixpro.com";
+const pageUrl = `${baseUrl}/disclaimer/`;
+
 export const metadata: Metadata = {
-  title: "Disclaimer | iCreatixPRO Legal & Usage Information",
+  metadataBase: new URL(baseUrl),
+
+  title: "Legal Disclaimer | iCreatixPRO Legal & Usage Information",
   description:
     "Read the disclaimer of iCreatixPRO outlining website content usage, accuracy limits, and liability terms for users and visitors.",
+
   alternates: {
-    canonical: "https://icreatixpro.com/disclaimer/",
+    canonical: pageUrl,
   },
+
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-snippet": -1,
+      "max-image-preview": "large",
+      "max-video-preview": -1,
+    },
+  },
+
   openGraph: {
-    title: "Disclaimer | iCreatixPRO Legal & Usage Information",
+    title: "Legal Disclaimer | iCreatixPRO Legal & Usage Information",
     description:
-      "Understand the disclaimer of iCreatixPRO including content accuracy, liability limits, and website usage terms for visitors.",
-    url: "https://icreatixpro.com/disclaimer/",
+      "Important disclaimer explaining usage terms, content accuracy, and liability limitations of iCreatixPRO.",
+    url: pageUrl,
     siteName: "iCreatixPRO",
     type: "website",
   },
+
   twitter: {
     card: "summary_large_image",
-    title: "Disclaimer | iCreatixPRO",
+    title: "Legal Disclaimer | iCreatixPRO",
     description:
-      "Important disclaimer explaining usage terms, content accuracy, and liability limitations of iCreatixPRO.",
+      "Important disclaimer explaining usage terms, content accuracy, and liability limitations.",
   },
 };
 

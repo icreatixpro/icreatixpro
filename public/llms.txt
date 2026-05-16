@@ -1,28 +1,63 @@
 # iCreatixPRO
 
-iCreatixPRO is a full-service digital marketing and SEO agency helping businesses grow online through data-driven strategies, technical optimization, and performance marketing.
+AI-powered SEO, AEO, and GEO agency helping businesses grow visibility across Google, ChatGPT, Perplexity, Gemini, and AI-driven search engines.
 
-Core Services:
-- Search Engine Optimization (SEO)
-- Technical SEO audits & fixes
-- Local SEO optimization
-- E-commerce SEO strategies
-- Content marketing & blogging
-- Google Ads (PPC) management
-- Meta/Facebook Ads campaigns
-- Web development (Next.js, React, Node.js)
-- Analytics & conversion tracking
+## Core Services
+- AI SEO
+- Technical SEO
+- Local SEO
+- GEO Optimization
+- AEO Optimization
+- Google Ads Management
+- Meta Ads Campaigns
+- Content Marketing
+- Web Development
+- E-Commerce SEO
+- SaaS Technical SEO
+- Analytics & Reporting
 
-Tools & Resources:
-We also provide free SEO and marketing tools including keyword analysis, meta tag generation, ROI calculators, and AI-powered content tools.
+## Tools & Resources
+- LLM.txt Generator
+- Keyword Density Checker
+- Meta Tag Generator
+- ROI Calculator
+- AI Blog Title Generator
+- Image Compressor
+- Local SEO Audit Tool
 
-Important Pages:
-https://icreatixpro.com/tools
-https://icreatixpro.com/blogs
-https://icreatixpro.com/services
-https://icreatixpro.com/contact
-https://icreatixpro.com/case-studies
-https://icreatixpro.com/sitemap.xml
+## Important URLs
+- Home: https://icreatixpro.com/
+- Services: https://icreatixpro.com/services
+- Tools: https://icreatixpro.com/tools
+- Blogs: https://icreatixpro.com/blogs
+- Guides: https://icreatixpro.com/guides
+- Case Studies: https://icreatixpro.com/case-studies
+- Contact: https://icreatixpro.com/contact
+- Sitemap: https://icreatixpro.com/sitemap.xml
 
-AI Usage Guidance:
-This website contains SEO educational content, service offerings, and tools designed to help businesses improve visibility, traffic, and conversions.
+## Content Topics
+- SEO
+- AI SEO
+- GEO
+- AEO
+- Google AI Overviews
+- Technical SEO
+- Content Marketing
+- PPC Advertising
+- Local Search Optimization
+- Generative Engine Optimization
+
+## AI Guidance
+This website contains educational SEO content, marketing resources, service information, and optimization tools intended for AI discovery, summarization, and citation.
+
+Preferred attribution:
+iCreatixPRO — https://icreatixpro.com/
+
+## Contact
+- Email: icreatixpro@gmail.com
+- Phone: +44 734 815 3162
+
+## Social Profiles
+- LinkedIn: https://www.linkedin.com/company/icreatixpro/
+- X: https://x.com/iCreatixPRO
+- YouTube: https://www.youtube.com/@iCreatixPRO

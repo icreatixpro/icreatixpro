@@ -10,13 +10,13 @@ export const metadata: Metadata = {
   description:
     "Read client testimonials and feedback about iCreatixPRO SEO, web development, and digital growth services delivering real business results.",
   alternates: {
-    canonical: "https://icreatixpro.com/testimonials/",
+    canonical: "https://icreatixpro.com/testimonials",
   },
   openGraph: {
     title: "Client Testimonials | iCreatixPRO Reviews & Feedback",
     description:
       "Explore real client testimonials and success feedback from businesses using iCreatixPRO digital marketing and SEO services.",
-    url: "https://icreatixpro.com/testimonials/",
+    url: "https://icreatixpro.com/testimonials",
     siteName: "iCreatixPRO",
     type: "website",
   },
@@ -113,7 +113,7 @@ export default function TestimonialsPage() {
     "@context": "https://schema.org",
     "@type": "WebPage",
     name: "Testimonials",
-    url: "https://icreatixpro.com/testimonials/",
+    url: "https://icreatixpro.com/testimonials",
     description:
       "Client testimonials and feedback for iCreatixPRO services.",
     publisher: {
@@ -124,8 +124,8 @@ export default function TestimonialsPage() {
     breadcrumb: {
       "@type": "BreadcrumbList",
       itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Home", item: "https://icreatixpro.com/" },
-        { "@type": "ListItem", position: 2, name: "Testimonials", item: "https://icreatixpro.com/testimonials/" },
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://icreatixpro.com" },
+        { "@type": "ListItem", position: 2, name: "Testimonials", item: "https://icreatixpro.com/testimonials" },
       ],
     },
   };

@@ -32,9 +32,9 @@ export const metadata: Metadata = {
   title: "Content Marketing Services | iCreatixPRO",
   description:
     "Strategic content marketing that drives traffic, generates leads, and builds brand authority. Get data-driven content that converts.",
-  alternates: {
-    canonical: "/services/content-marketing/",
-  },
+alternates: {
+  canonical: "/services/content-marketing",
+},
   openGraph: {
     title: "Content Marketing Services | iCreatixPRO",
     description:

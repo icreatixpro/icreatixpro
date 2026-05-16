@@ -17,13 +17,45 @@ import {
   Home,
 } from "lucide-react";
 
+const baseUrl = "https://icreatixpro.com";
+const pageUrl = `${baseUrl}/services/analytics/`;
+
 export const metadata: Metadata = {
+  metadataBase: new URL(baseUrl),
+
   title: "SEO Analytics Services for Data-Driven Growth",
   description:
     "Boost growth with SEO analytics services by iCreatixPRO. Track traffic, conversions & user behavior with data-driven insights for better ROI.",
+
   alternates: {
-    canonical: "https://icreatixpro.com/services/analytics/",
+    canonical: pageUrl,
   },
+
+  openGraph: {
+    title: "SEO Analytics Services for Data-Driven Growth",
+    description:
+      "Boost growth with SEO analytics services by iCreatixPRO. Track traffic, conversions & user behavior for better ROI.",
+    url: pageUrl, // ✅ must match canonical exactly
+    siteName: "iCreatixPRO",
+    type: "website",
+    images: [
+      {
+        url: `${baseUrl}/og/analytics-og.jpg`,
+        width: 1200,
+        height: 630,
+        alt: "iCreatixPRO SEO Analytics Services",
+      },
+    ],
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "SEO Analytics Services for Data-Driven Growth",
+    description:
+      "Boost growth with SEO analytics services by iCreatixPRO.",
+    images: [`${baseUrl}/og/analytics-og.jpg`],
+  },
+
   robots: {
     index: true,
     follow: true,
@@ -34,42 +66,6 @@ export const metadata: Metadata = {
       "max-image-preview": "large",
       "max-video-preview": -1,
     },
-  },
-  keywords: [
-    "SEO analytics",
-    "data-driven growth",
-    "website analytics",
-    "conversion tracking",
-    "user behavior analytics",
-    "SEO tracking",
-    "google analytics integration",
-    "GA4 tracking",
-    "conversion optimization services",
-    "website performance tracking",
-    "iCreatixPRO analytics",
-  ],
-  openGraph: {
-    title: "SEO Analytics Services for Data-Driven Growth",
-    description:
-      "Boost growth with SEO analytics services by iCreatixPRO. Track traffic, conversions & user behavior for better ROI.",
-    url: "https://icreatixpro.com/services/analytics/",
-    siteName: "iCreatixPRO",
-    type: "website",
-    images: [
-      {
-        url: "https://icreatixpro.com/og/analytics-og.jpg",
-        width: 1200,
-        height: 630,
-        alt: "iCreatixPRO SEO Analytics Services",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "SEO Analytics Services for Data-Driven Growth",
-    description:
-      "Boost growth with SEO analytics services by iCreatixPRO. Track traffic, conversions & user behavior.",
-    images: ["https://icreatixpro.com/og/analytics-og.jpg"],
   },
 };
 

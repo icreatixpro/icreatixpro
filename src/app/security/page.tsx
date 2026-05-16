@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   description:
     "Learn how iCreatixPRO protects your data with advanced security systems, encryption standards, monitoring, and safe infrastructure practices.",
   alternates: {
-    canonical: "https://icreatixpro.com/security/",
+    canonical: "https://icreatixpro.com/security",
   },
   robots: {
     index: true,
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     title: "Security Policy | iCreatixPRO Data Protection Guide",
     description:
       "Explore how iCreatixPRO ensures platform security using encryption, monitoring systems, and modern web protection standards.",
-    url: "https://icreatixpro.com/security/",
+    url: "https://icreatixpro.com/security",
     siteName: "iCreatixPRO",
     type: "website",
   },
@@ -60,7 +60,7 @@ export default function SecurityPage() {
     "@context": "https://schema.org",
     "@type": "WebPage",
     name: "Security Policy",
-    url: "https://icreatixpro.com/security/",
+    url: "https://icreatixpro.com/security",
     description:
       "Security policy explaining how iCreatixPRO protects user data with encryption and secure infrastructure.",
     publisher: {
@@ -72,7 +72,7 @@ export default function SecurityPage() {
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: "https://icreatixpro.com/" },
-        { "@type": "ListItem", position: 2, name: "Security", item: "https://icreatixpro.com/security/" },
+        { "@type": "ListItem", position: 2, name: "Security", item: "https://icreatixpro.com/security" },
       ],
     },
   };
@@ -156,7 +156,7 @@ export default function SecurityPage() {
             <ul className="list-disc pl-5 mt-2 space-y-1">
               <li>Use strong, unique passwords.</li>
               <li>Enable MFA where available.</li>
-              <li>Report suspicious activity to <strong className="text-[#2C727B]">icreatixpro@gmail.com.com</strong>.</li>
+              <li>Report suspicious activity to <strong className="text-[#2C727B]">icreatixpro@gmail.com</strong>.</li>
             </ul>
           </Section>
 
@@ -177,13 +177,21 @@ export default function SecurityPage() {
           <Section title="10. Policy Updates">
             <p>This Security Policy may be updated from time to time. The “Last updated” date indicates when the policy was last revised. Please review this page periodically.</p>
           </Section>
-
           <div className="mt-8 p-5 bg-gray-50 rounded-xl text-center">
             <p className="text-gray-700">
               For more information, please also review our{" "}
-              <Link href="/privacy-policy" className="text-[#2C727B] font-semibold hover:underline">Privacy Policy</Link>,{" "}
-              <Link href="/cookies" className="text-[#2C727B] font-semibold hover:underline">Cookie Policy</Link>, and{" "}
-              <Link href="/legal" className="text-[#2C727B] font-semibold hover:underline">Legal Notice</Link>.
+              <Link href="/privacy-policy" className="text-[#2C727B] font-semibold hover:underline">
+                Privacy Policy
+              </Link>,{" "}
+              <Link href="/cookies" className="text-[#2C727B] font-semibold hover:underline">
+                Cookie Policy
+              </Link>,{" "}
+              <Link href="/gdpr" className="text-[#2C727B] font-semibold hover:underline">
+                GDPR Policy
+              </Link>, and{" "}
+              <Link href="/legal" className="text-[#2C727B] font-semibold hover:underline">
+                Legal Notice
+              </Link>.
             </p>
           </div>
         </div>

@@ -1,37 +1,24 @@
 import type { Metadata, Viewport } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { Suspense } from "react";
 import {
   CheckCircle,
   Sparkles,
   Star,
   Home,
-  BarChart3,
-  Globe,
-  ThumbsUp,
   Users,
   Shield,
-  Heart,
   Eye,
   Target,
   ArrowRight,
-  Award,
-  TrendingUp,
-  DollarSign,
-  Facebook,
-  Instagram,
-  Video,
-  Image as ImageIcon,
-  Layout,
-  ShoppingBag,
-  Film,
-  Tv,
   Calendar,
   UserCheck,
   BadgeCheck,
   Download,
   ChevronRight,
+  Facebook,
+  ThumbsUp,
+  TrendingUp,
 } from "lucide-react";
 
 // Import client components
@@ -42,17 +29,16 @@ import FAQItem from "./FAQItem";
 // ✅ CONSTANTS
 // ===============================
 const baseUrl = "https://icreatixpro.com";
-const pageUrl = `${baseUrl}/services/meta-ads/`;
+const pageUrl = `${baseUrl}/services/meta-ads`;
 const CURRENT_YEAR = 2026;
 const LAST_UPDATED = "April 2026";
-const DATE_PUBLISHED = "2024-01-15";
-const DATE_MODIFIED = "2026-04-01";
+const DATE_PUBLISHED = "2026-04-21";
+const DATE_MODIFIED = "2026-05-16";
 
-// ✅ Optimized Meta Title (55 chars)
-const seoTitle = "Meta Ads Management | Facebook & Instagram Experts";
-
-// ✅ Optimized Meta Description
-const seoDescription = "Boost ROI with Meta advertising experts offering Facebook and Instagram ads, conversion-focused campaigns, audience targeting, testing, and optimization.";
+// Optimized Meta Title & Description (slightly improved for CTR)
+const seoTitle = "Meta Ads Agency | Facebook & Instagram ROI Experts – Maximize ROAS";
+const seoDescription =
+  "Boost ROI with Meta advertising experts offering Facebook and Instagram ads, conversion-focused campaigns, audience targeting, testing, and optimization.";
 
 // ===============================
 // ✅ TESTIMONIALS DATA
@@ -61,7 +47,8 @@ const testimonialsData = [
   {
     name: "Amanda Lee",
     role: "E-commerce Owner",
-    content: "Our Facebook ROAS went from 2x to 5x in just 2 months. The creative testing strategy was game-changing!",
+    content:
+      "Our Facebook ROAS went from 2x to 5x in just 2 months. The creative testing strategy was game-changing!",
     rating: 5,
     result: "5x ROAS achieved",
     verified: true,
@@ -69,7 +56,8 @@ const testimonialsData = [
   {
     name: "Brian Foster",
     role: "Marketing Director",
-    content: "They helped us scale from $20k to $100k monthly ad spend profitably. Best Meta Ads agency out there.",
+    content:
+      "They helped us scale from $20k to $100k monthly ad spend profitably. Best Meta Ads agency out there.",
     rating: 5,
     result: "400% revenue growth",
     verified: true,
@@ -77,7 +65,8 @@ const testimonialsData = [
   {
     name: "Jessica Park",
     role: "Small Business Owner",
-    content: "Instagram has become our #1 revenue channel. Their creative strategy and audience targeting are exceptional.",
+    content:
+      "Instagram has become our #1 revenue channel. Their creative strategy and audience targeting are exceptional.",
     rating: 5,
     result: "3x Instagram revenue",
     verified: true,
@@ -85,7 +74,7 @@ const testimonialsData = [
 ];
 
 // ===============================
-// ✅ ORIGINAL BENCHMARK DATA
+// ✅ BENCHMARK DATA
 // ===============================
 const benchmarkData = [
   { metric: "Average CPC", value: "$1.42", industry: "$0.80-2.50" },
@@ -95,45 +84,84 @@ const benchmarkData = [
 ];
 
 // ===============================
-// ✅ EXPANDED FAQ DATA (16 questions)
+// ✅ FAQ DATA (16 questions)
 // ===============================
 const faqs = [
-  { q: "What's the minimum budget for Meta Ads?", a: "We recommend starting with at least $1,500-2,500/month for effective testing and optimization." },
-  { q: "How much do Meta Ads cost?", a: "Small businesses typically spend $1,500-3,000/month, mid-size $5,000-15,000/month, and enterprise $25,000+/month. Management fees start at $1,299/month." },
-  { q: "Is Meta Ads good for ecommerce?", a: "Yes, Meta Ads are excellent for ecommerce. Dynamic product ads and Advantage+ Shopping campaigns deliver strong ROAS." },
-  { q: "How long do Meta Ads take to work?", a: "Initial results appear within 3-5 days. Meaningful optimization typically takes 14-30 days." },
-  { q: "What ROAS is considered good?", a: "Ecommerce typically targets 3-5x (300-500%). Our clients average 350%+ ROAS." },
-  { q: "What is the Meta Pixel?", a: "The Meta Pixel is a tracking code that tracks conversions, builds audiences, and provides analytics." },
-  { q: "How do Lookalike Audiences work?", a: "Lookalike audiences find new people similar to your best customers based on source audience analysis." },
-  { q: "What are Advantage+ Shopping Campaigns?", a: "AI-powered ecommerce solution that automates targeting, creative optimization, and bidding." },
-  { q: "How does retargeting work?", a: "Retargeting shows ads to people who previously visited your website or engaged with your content." },
-  { q: "What is a good CTR for Facebook Ads?", a: "Average CTR across all industries is 0.9-1.5%. Top-performing accounts achieve 3-5% CTR." },
-  { q: "How often should I refresh Meta ad creatives?", a: "We recommend testing new creatives every 2-4 weeks to prevent ad fatigue and maintain performance." },
-  { q: "Are Meta Ads worth it in 2026?", a: "Yes. With 3.8B+ monthly active users, businesses see average ROAS of 3-5x when properly optimized." },
-  { q: "What's the difference between Meta Pixel and Conversion API?", a: "Pixel tracks browser-side events, while Conversion API sends server-side data. Using both provides the most accurate tracking." },
-  { q: "How do I set up retargeting campaigns?", a: "Retargeting requires Meta Pixel installation, event tracking, audience building, and customized creative. Our team handles the entire setup." },
-  { q: "What industries benefit most from Meta Ads?", a: "Ecommerce, retail, consumer goods, travel, hospitality, real estate, education, lead generation, and B2C services see exceptional results." },
-  { q: "Can I run Meta Ads without a website?", a: "Yes! You can run lead ads, event response ads, and page like ads without a website. However, having a website improves tracking and conversion optimization." },
+  {
+    q: "What's the minimum budget for Meta Ads?",
+    a: "We recommend starting with at least $1,500-2,500/month for effective testing and optimization.",
+  },
+  {
+    q: "How much do Meta Ads cost?",
+    a: "Small businesses typically spend $1,500-3,000/month, mid-size $5,000-15,000/month, and enterprise $25,000+/month. Management fees start at $1,299/month.",
+  },
+  {
+    q: "Is Meta Ads good for ecommerce?",
+    a: "Yes, Meta Ads are excellent for ecommerce. Dynamic product ads and Advantage+ Shopping campaigns deliver strong ROAS.",
+  },
+  {
+    q: "How long do Meta Ads take to work?",
+    a: "Initial results appear within 3-5 days. Meaningful optimization typically takes 14-30 days.",
+  },
+  {
+    q: "What ROAS is considered good?",
+    a: "Ecommerce typically targets 3-5x (300-500%). Our clients average 350%+ ROAS.",
+  },
+  {
+    q: "What is the Meta Pixel?",
+    a: "The Meta Pixel is a tracking code that tracks conversions, builds audiences, and provides analytics.",
+  },
+  {
+    q: "How do Lookalike Audiences work?",
+    a: "Lookalike audiences find new people similar to your best customers based on source audience analysis.",
+  },
+  {
+    q: "What are Advantage+ Shopping Campaigns?",
+    a: "AI-powered ecommerce solution that automates targeting, creative optimization, and bidding.",
+  },
+  {
+    q: "How does retargeting work?",
+    a: "Retargeting shows ads to people who previously visited your website or engaged with your content.",
+  },
+  {
+    q: "What is a good CTR for Facebook Ads?",
+    a: "Average CTR across all industries is 0.9-1.5%. Top-performing accounts achieve 3-5% CTR.",
+  },
+  {
+    q: "How often should I refresh Meta ad creatives?",
+    a: "We recommend testing new creatives every 2-4 weeks to prevent ad fatigue and maintain performance.",
+  },
+  {
+    q: "Are Meta Ads worth it in 2026?",
+    a: "Yes. With 3.8B+ monthly active users, businesses see average ROAS of 3-5x when properly optimized.",
+  },
+  {
+    q: "What's the difference between Meta Pixel and Conversion API?",
+    a: "Pixel tracks browser-side events, while Conversion API sends server-side data. Using both provides the most accurate tracking.",
+  },
+  {
+    q: "How do I set up retargeting campaigns?",
+    a: "Retargeting requires Meta Pixel installation, event tracking, audience building, and customized creative. Our team handles the entire setup.",
+  },
+  {
+    q: "What industries benefit most from Meta Ads?",
+    a: "Ecommerce, retail, consumer goods, travel, hospitality, real estate, education, lead generation, and B2C services see exceptional results.",
+  },
+  {
+    q: "Can I run Meta Ads without a website?",
+    a: "Yes! You can run lead ads, event response ads, and page like ads without a website. However, having a website improves tracking and conversion optimization.",
+  },
 ];
 
 // ===============================
-// ✅ SCHEMAS
+// ✅ ALL SCHEMAS (properly defined)
 // ===============================
-
 const organizationSchema = {
   "@type": "Organization",
   "@id": `${baseUrl}#org`,
   name: "iCreatixPRO",
   url: baseUrl,
-  logo: { "@type": "ImageObject", url: `${baseUrl}/logo.webp` },
-  sameAs: [
-    "https://twitter.com/icreatixpro",
-    "https://linkedin.com/company/icreatixpro",
-    "https://www.facebook.com/icreatixpro",
-    "https://www.instagram.com/icreatixpro",
-  ],
-  contactPoint: { "@type": "ContactPoint", contactType: "sales", availableLanguage: ["English"], areaServed: "Worldwide" },
-  inLanguage: "en",
+  logo: `${baseUrl}/logo.png`,
 };
 
 const webSiteSchema = {
@@ -141,10 +169,6 @@ const webSiteSchema = {
   "@id": `${baseUrl}#website`,
   name: "iCreatixPRO",
   url: baseUrl,
-  inLanguage: "en",
-  publisher: { "@id": `${baseUrl}#org` },
-  datePublished: DATE_PUBLISHED,
-  dateModified: DATE_MODIFIED,
 };
 
 const webPageSchema = {
@@ -153,61 +177,40 @@ const webPageSchema = {
   name: seoTitle,
   url: pageUrl,
   description: seoDescription,
-  inLanguage: "en",
-  isPartOf: { "@id": `${baseUrl}#website` },
-  publisher: { "@id": `${baseUrl}#org` },
-  breadcrumb: { "@id": `${pageUrl}#breadcrumb` },
-  mainEntity: { "@id": `${pageUrl}#service` },
-  mainEntityOfPage: pageUrl,
   datePublished: DATE_PUBLISHED,
   dateModified: DATE_MODIFIED,
-  primaryImageOfPage: { "@type": "ImageObject", url: `${baseUrl}/meta-ads-management-facebook-instagram-services.webp` },
 };
 
 const serviceSchema = {
   "@type": "Service",
   "@id": `${pageUrl}#service`,
-  name: "Meta Ads Management Services",
-  provider: { "@id": `${baseUrl}#org` },
+  name: "Meta Ads Management",
   url: pageUrl,
   description: seoDescription,
-  serviceType: "Social Media Advertising",
-  category: "Digital Marketing",
-  brand: "Meta",
-  providerMobility: "remote",
-  serviceOutput: "Leads, Sales Growth, ROAS Improvement",
-  inLanguage: "en",
-  areaServed: [
-    { "@type": "Country", name: "United States" },
-    { "@type": "Country", name: "United Kingdom" },
-    { "@type": "Country", name: "Pakistan" },
-  ],
-  audience: { "@type": "Audience", audienceType: "Businesses" },
-  offers: { "@type": "Offer", availability: "https://schema.org/InStock", priceCurrency: "USD", price: "1299" },
-  hasOfferCatalog: {
-    "@type": "OfferCatalog",
-    name: "Meta Ads Management Plans",
-    itemListElement: [
-      { "@type": "Offer", name: "Starter Meta", price: "1299", priceCurrency: "USD" },
-      { "@type": "Offer", name: "Professional Meta", price: "2499", priceCurrency: "USD" },
-    ],
-  },
-  aggregateRating: { "@type": "AggregateRating", ratingValue: "4.9", bestRating: "5", ratingCount: 67 },
-  review: testimonialsData.slice(0, 2).map(r => ({
-    "@type": "Review",
-    author: { "@type": "Person", name: r.name },
-    reviewRating: { "@type": "Rating", ratingValue: r.rating, bestRating: "5" },
-    reviewBody: r.content,
-  })),
 };
 
 const breadcrumbSchema = {
   "@type": "BreadcrumbList",
   "@id": `${pageUrl}#breadcrumb`,
   itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home", item: baseUrl },
-    { "@type": "ListItem", position: 2, name: "Services", item: `${baseUrl}/services/` },
-    { "@type": "ListItem", position: 3, name: "Meta Ads", item: pageUrl },
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: baseUrl,
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Services",
+      item: `${baseUrl}/services`,
+    },
+    {
+      "@type": "ListItem",
+      position: 3,
+      name: "Meta Ads",
+      item: pageUrl,
+    },
   ],
 };
 
@@ -216,47 +219,75 @@ const authorSchema = {
   "@id": `${baseUrl}#author`,
   name: "Michael Stewart",
   jobTitle: "Head of Social Advertising",
-  worksFor: { "@type": "Organization", "@id": `${baseUrl}#org` },
-  knowsAbout: ["Meta Ads", "Facebook Advertising", "Instagram Advertising", "Paid Social"],
+  worksFor: {
+    "@type": "Organization",
+    name: "iCreatixPRO",
+  },
 };
 
 const faqSchema = {
   "@type": "FAQPage",
   "@id": `${pageUrl}#faq`,
-  mainEntity: faqs.map((faq) => ({ "@type": "Question", name: faq.q, acceptedAnswer: { "@type": "Answer", text: faq.a } })),
+  mainEntity: faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.q,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: faq.a,
+    },
+  })),
 };
 
 const combinedSchema = {
   "@context": "https://schema.org",
-  "@graph": [organizationSchema, webSiteSchema, webPageSchema, serviceSchema, breadcrumbSchema, authorSchema, faqSchema],
+  "@graph": [
+    organizationSchema,
+    webSiteSchema,
+    webPageSchema,
+    serviceSchema,
+    breadcrumbSchema,
+    authorSchema,
+    faqSchema,
+  ],
 };
 
 // ===============================
-// ✅ METADATA
+// ✅ METADATA & VIEWPORT
 // ===============================
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: seoTitle,
   description: seoDescription,
-  alternates: { canonical: pageUrl },
-  robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-snippet": -1, "max-image-preview": "large" } },
-  authors: [{ name: "Michael Stewart" }],
-  creator: "Michael Stewart",
-  publisher: "iCreatixPRO",
+  alternates: {
+    canonical: "/services/meta-ads",
+  },
   openGraph: {
     title: seoTitle,
     description: seoDescription,
     url: pageUrl,
     siteName: "iCreatixPRO",
     type: "website",
-    locale: "en_US",
-    alternateLocale: ["en_GB", "en_PK"],
-    images: [{ url: `${baseUrl}/meta-ads-management-facebook-instagram-services.webp`, width: 1200, height: 630, alt: "Meta Ads management services including Facebook and Instagram advertising by iCreatixPRO", type: "image/webp" }],
+    images: [
+      {
+        url: `${baseUrl}/meta-ads-og.webp`,
+        width: 1200,
+        height: 630,
+        alt: "Meta Ads Management - iCreatixPRO",
+      },
+    ],
   },
-  twitter: { card: "summary_large_image", title: "Meta Ads Management | Facebook & Instagram Advertising", description: "Drive results with professional Meta Ads management. Get free audit today!", images: [`${baseUrl}/meta-ads-management-facebook-instagram-services.webp`], site: "@icreatixpro" },
+  twitter: {
+    card: "summary_large_image",
+    title: seoTitle,
+    description: seoDescription,
+  },
 };
 
-export const viewport: Viewport = { themeColor: "#1A394E", width: "device-width", initialScale: 1 };
+export const viewport: Viewport = {
+  themeColor: "#1A394E",
+  width: "device-width",
+  initialScale: 1,
+};
 
 // ===============================
 // ✅ STATIC DATA
@@ -292,18 +323,63 @@ const adTypes = [
 ];
 
 const servicesList = [
-  { title: "Audience Targeting", description: "Reach the right people with precision audience targeting strategies.", features: ["Custom Audiences", "Lookalike Audiences", "Interest Targeting", "Behavioral Targeting", "Retargeting Campaigns"], link: "/services/digital-marketing" },
-  { title: "Creative Strategy", description: "Compelling ad creatives that stop the scroll and drive engagement.", features: ["Ad Copywriting", "Visual Design", "Video Production", "Creative Testing", "Performance Analysis"], link: "/services/digital-marketing" },
-  { title: "Campaign Management", description: "Expert management of your Meta ad campaigns for optimal performance.", features: ["Bid Optimization", "Budget Allocation", "Ad Scheduling", "Placement Optimization", "A/B Testing"], link: "/services/digital-marketing" },
-  { title: "Conversion Tracking", description: "Accurate tracking and attribution for all conversions.", features: ["Meta Pixel Setup", "Conversion API", "Event Tracking", "Attribution Modeling", "ROI Analysis"], link: "/services/analytics" },
-  { title: "Messenger & WhatsApp", description: "Engage customers directly through messaging platforms.", features: ["Click-to-Messenger Ads", "WhatsApp Business", "Chatbot Integration", "Automated Responses", "Lead Qualification"], link: "/services/digital-marketing" },
-  { title: "Analytics & Reporting", description: "Data-driven insights and transparent performance reporting.", features: ["Custom Dashboards", "Real-time Analytics", "Competitor Insights", "Monthly Reports", "Strategic Recommendations"], link: "/services/analytics" },
+  {
+    title: "Audience Targeting",
+    description: "Reach the right people with precision audience targeting strategies.",
+    features: ["Custom Audiences", "Lookalike Audiences", "Interest Targeting", "Behavioral Targeting", "Retargeting Campaigns"],
+    link: "/services/digital-marketing",
+  },
+  {
+    title: "Creative Strategy",
+    description: "Compelling ad creatives that stop the scroll and drive engagement.",
+    features: ["Ad Copywriting", "Visual Design", "Video Production", "Creative Testing", "Performance Analysis"],
+    link: "/services/digital-marketing",
+  },
+  {
+    title: "Campaign Management",
+    description: "Expert management of your Meta ad campaigns for optimal performance.",
+    features: ["Bid Optimization", "Budget Allocation", "Ad Scheduling", "Placement Optimization", "A/B Testing"],
+    link: "/services/digital-marketing",
+  },
+  {
+    title: "Conversion Tracking",
+    description: "Accurate tracking and attribution for all conversions.",
+    features: ["Meta Pixel Setup", "Conversion API", "Event Tracking", "Attribution Modeling", "ROI Analysis"],
+    link: "/services/analytics",
+  },
+  {
+    title: "Messenger & WhatsApp",
+    description: "Engage customers directly through messaging platforms.",
+    features: ["Click-to-Messenger Ads", "WhatsApp Business", "Chatbot Integration", "Automated Responses", "Lead Qualification"],
+    link: "/services/digital-marketing",
+  },
+  {
+    title: "Analytics & Reporting",
+    description: "Data-driven insights and transparent performance reporting.",
+    features: ["Custom Dashboards", "Real-time Analytics", "Competitor Insights", "Monthly Reports", "Strategic Recommendations"],
+    link: "/services/analytics",
+  },
 ];
 
 const plans = [
-  { title: "Starter Meta", price: "$1,299", features: ["Up to $15K Ad Spend", "Facebook & Instagram Ads", "Campaign Setup", "Creative Design (2 variants)", "Monthly Optimization", "Monthly Reports"], isPopular: false },
-  { title: "Professional Meta", price: "$2,499", features: ["Up to $50K Ad Spend", "Full Platform Coverage", "Advanced Creative Strategy", "Weekly Optimization", "A/B Creative Testing", "Conversion Tracking", "Priority Support"], isPopular: true },
-  { title: "Enterprise Meta", price: "Custom", features: ["Unlimited Ad Spend", "Multi-Account Management", "Dedicated Creative Team", "Daily Optimization", "Advanced Analytics", "Real-time Dashboard", "24/7 Priority Support"], isPopular: false },
+  {
+    title: "Starter Meta",
+    price: "$1,299",
+    features: ["Up to $15K Ad Spend", "Facebook & Instagram Ads", "Campaign Setup", "Creative Design (2 variants)", "Monthly Optimization", "Monthly Reports"],
+    isPopular: false,
+  },
+  {
+    title: "Professional Meta",
+    price: "$2,499",
+    features: ["Up to $50K Ad Spend", "Full Platform Coverage", "Advanced Creative Strategy", "Weekly Optimization", "A/B Creative Testing", "Conversion Tracking", "Priority Support"],
+    isPopular: true,
+  },
+  {
+    title: "Enterprise Meta",
+    price: "Custom",
+    features: ["Unlimited Ad Spend", "Multi-Account Management", "Dedicated Creative Team", "Daily Optimization", "Advanced Analytics", "Real-time Dashboard", "24/7 Priority Support"],
+    isPopular: false,
+  },
 ];
 
 const reasons = [
@@ -317,15 +393,14 @@ const relatedServices = [
   { name: "Google Ads Management", href: "/services/google-ads" },
   { name: "Digital Marketing", href: "/services/digital-marketing" },
   { name: "Analytics & Reporting", href: "/services/analytics" },
-  { name: "Content Marketing", href: "/services/content-marketing" },
-  { name: "SEO Services", href: "/services/search-engine-optimization" },
+  { name: "SaaS Technical SEO", href: "/services/saas-technical-seo" },
+  { name: "SEO Services London", href: "/services/seo-services-london" },
   { name: "E-commerce SEO", href: "/services/ecommerce-seo" },
 ];
 
 // ===============================
 // ✅ COMPONENTS
 // ===============================
-
 function SkipLink() {
   return (
     <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:bg-white focus:text-[#1A394E] focus:px-4 focus:py-2 focus:rounded-lg focus:shadow-lg">
@@ -535,7 +610,11 @@ function BenchmarkSection() {
       <div className="overflow-x-auto">
         <table className="w-full bg-white rounded-xl border border-gray-100 shadow-sm">
           <thead className="bg-[#1A394E]/5">
-            <tr><th className="text-left p-4 font-semibold text-[#1A394E]">Metric</th><th className="text-left p-4 font-semibold text-[#1A394E]">Our Average</th><th className="text-left p-4 font-semibold text-[#1A394E]">Industry Benchmark</th></tr>
+            <tr>
+              <th className="text-left p-4 font-semibold text-[#1A394E]">Metric</th>
+              <th className="text-left p-4 font-semibold text-[#1A394E]">Our Average</th>
+              <th className="text-left p-4 font-semibold text-[#1A394E]">Industry Benchmark</th>
+            </tr>
           </thead>
           <tbody>
             {benchmarkData.map((item, idx) => (
@@ -562,6 +641,7 @@ function BenchmarkSection() {
     </section>
   );
 }
+
 function EntitySections() {
   return (
     <>
@@ -638,7 +718,11 @@ function ComparisonTable() {
       <div className="overflow-x-auto">
         <table className="w-full bg-white rounded-xl border border-gray-100 shadow-sm">
           <thead className="bg-[#1A394E]/5">
-            <tr><th className="text-left p-4 font-semibold text-[#1A394E]">Feature</th><th className="text-left p-4 font-semibold text-[#1A394E]">Meta Ads</th><th className="text-left p-4 font-semibold text-[#1A394E]">Google Ads</th></tr>
+            <tr>
+              <th className="text-left p-4 font-semibold text-[#1A394E]">Feature</th>
+              <th className="text-left p-4 font-semibold text-[#1A394E]">Meta Ads</th>
+              <th className="text-left p-4 font-semibold text-[#1A394E]">Google Ads</th>
+            </tr>
           </thead>
           <tbody>
             <tr className="border-t border-gray-100"><td className="p-4 font-medium">Primary Intent</td><td className="p-4">Social / Discovery</td><td className="p-4">Search / Active</td></tr>
@@ -860,9 +944,6 @@ function PricingPlansSection() {
   );
 }
 
-// ===============================
-// ✅ FAQ Section Component (Using imported FAQItem)
-// ===============================
 function FAQSection() {
   return (
     <section id="faq" aria-labelledby="faq-heading" className="mb-12 md:mb-16">
@@ -874,9 +955,7 @@ function FAQSection() {
       </p>
       <div className="max-w-3xl mx-auto space-y-3 md:space-y-4">
         {faqs.map((faq, idx) => (
-          <Suspense key={idx} fallback={<div className="h-20 bg-gray-100 rounded-xl animate-pulse" />}>
-            <FAQItem faq={faq} idx={idx} />
-          </Suspense>
+          <FAQItem key={idx} faq={faq} idx={idx} />
         ))}
       </div>
     </section>
@@ -966,10 +1045,7 @@ export default function MetaAdsPage() {
             ))}
           </section>
 
-          {/* What Is Meta Ads Section */}
           <WhatIsMetaAdsSection />
-
-          {/* Cost Section */}
           <CostSection />
 
           {/* Platforms Section */}
@@ -1002,7 +1078,6 @@ export default function MetaAdsPage() {
             </div>
           </section>
 
-          {/* Entity Sections */}
           <EntitySections />
 
           {/* Services Section */}
@@ -1020,34 +1095,15 @@ export default function MetaAdsPage() {
             </div>
           </section>
 
-          {/* Process Section */}
           <ProcessSection />
-
-          {/* Why Choose Us Section */}
           <WhyChooseUsSection />
-
-          {/* ROI Calculator */}
           <ROICalculator />
-
-          {/* Benchmark Section */}
           <BenchmarkSection />
-
-          {/* Comparison Table */}
           <ComparisonTable />
-
-          {/* Partner Section */}
           <PartnerSection />
-
-          {/* Pricing Plans */}
           <PricingPlansSection />
-
-          {/* Related Services Section */}
           <RelatedServicesSection />
-
-          {/* EEAT Section */}
           <EEATSection />
-
-          {/* FAQ Section */}
           <FAQSection />
 
           {/* CTA Section */}

@@ -1,21 +1,34 @@
 ﻿import SitemapClient from "./SitemapClient";
 import type { Metadata } from "next";
 
+// ===============================
+// ✅ CONSTANTS
+// ===============================
+const baseUrl = "https://icreatixpro.com";
+const pagePath = "/sitemap"; // 🔥 choose ONE standard (recommended: no trailing slash)
+const pageUrl = `${baseUrl}${pagePath}`;
+
+// ===============================
+// ✅ METADATA
+// ===============================
 export const metadata: Metadata = {
   title: "Sitemap | iCreatixPRO - Complete Website Navigation",
   description:
-    "Explore all pages of iCreatixPRO including services, blogs, tools, and resources in one structured sitemap for easy and quick website navigation. ",
+    "Explore all pages of iCreatixPRO including services, blogs, tools, and resources in one structured sitemap for easy navigation.",
+
   alternates: {
-    canonical: "https://icreatixpro.com/sitemap/",
+    canonical: pageUrl,
   },
+
   openGraph: {
     title: "Sitemap | iCreatixPRO",
     description:
       "Complete navigation guide of iCreatixPRO website including all pages and resources.",
-    url: "https://icreatixpro.com/sitemap/",
+    url: pageUrl,
     siteName: "iCreatixPRO",
     type: "website",
   },
+
   twitter: {
     card: "summary_large_image",
     title: "Sitemap | iCreatixPRO",
@@ -24,62 +37,62 @@ export const metadata: Metadata = {
   },
 };
 
-// ============================================
+// ===============================
 // ✅ SCHEMA - WebPage
-// ============================================
+// ===============================
 const schema = {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  "@id": "https://icreatixpro.com/sitemap/#webpage",
+  "@id": `${pageUrl}#webpage`,
   name: "Sitemap - iCreatixPRO",
-  url: "https://icreatixpro.com/sitemap/",
+  url: pageUrl,
   description:
     "Complete sitemap of iCreatixPRO website showing all pages and sections.",
   publisher: {
     "@type": "Organization",
     name: "iCreatixPRO",
-    url: "https://icreatixpro.com",
+    url: baseUrl,
   },
 };
 
-// ============================================
-// ✅ SCHEMA - BreadcrumbList (VERY IMPORTANT)
-// ============================================
+// ===============================
+// ✅ SCHEMA - Breadcrumb
+// ===============================
 const breadcrumbSchema = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
+  "@id": `${pageUrl}#breadcrumb`,
   itemListElement: [
     {
       "@type": "ListItem",
       position: 1,
       name: "Home",
-      item: "https://icreatixpro.com/",
+      item: `${baseUrl}/`,
     },
     {
       "@type": "ListItem",
       position: 2,
       name: "Sitemap",
-      item: "https://icreatixpro.com/sitemap/",
+      item: pageUrl,
     },
   ],
 };
 
+// ===============================
+// ✅ PAGE
+// ===============================
 export default function Page() {
   return (
     <>
-      {/* ✅ Schema Markup */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(schema),
-        }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(breadcrumbSchema),
-        }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
+
       <SitemapClient />
     </>
   );

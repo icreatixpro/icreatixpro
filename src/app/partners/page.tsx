@@ -12,13 +12,13 @@ export const metadata: Metadata = {
   description:
     "Discover iCreatixPRO partners and collaborations driving SEO innovation, AI marketing solutions, and digital growth strategies.",
   alternates: {
-    canonical: "https://icreatixpro.com/partners/",
+    canonical: "https://icreatixpro.com/partners",
   },
   openGraph: {
     title: "Partners & Collaborations | iCreatixPRO",
     description:
       "Explore our trusted partners helping deliver AI SEO, marketing automation, and digital growth solutions at iCreatixPRO.",
-    url: "https://icreatixpro.com/partners/",
+    url: "https://icreatixpro.com/partners",
     siteName: "iCreatixPRO",
     type: "website",
   },
@@ -135,8 +135,8 @@ export default function PartnersPage() {
     breadcrumb: {
       "@type": "BreadcrumbList",
       itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Home", item: "https://icreatixpro.com/" },
-        { "@type": "ListItem", position: 2, name: "Partners", item: "https://icreatixpro.com/partners/" },
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://icreatixpro.com" },
+        { "@type": "ListItem", position: 2, name: "Partners", item: "https://icreatixpro.com/partners" },
       ],
     },
   };

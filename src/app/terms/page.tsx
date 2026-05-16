@@ -10,9 +10,9 @@ export const metadata: Metadata = {
   title: "Terms & Conditions | iCreatixPRO Legal Guide",
   description:
     "Read iCreatixPRO terms and conditions covering website usage, legal rights, user responsibilities, and platform policies for safe usage.",
-  alternates: {
-    canonical: "https://icreatixpro.com/terms/",
-  },
+alternates: {
+  canonical: "/terms",
+},
   openGraph: {
     title: "Terms & Conditions | iCreatixPRO Legal Guide",
     description:

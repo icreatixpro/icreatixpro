@@ -34,13 +34,13 @@ export const metadata: Metadata = {
     "section 508",
   ],
   alternates: {
-    canonical: "https://icreatixpro.com/accessibility/",
+    canonical: "https://icreatixpro.com/accessibility",
   },
   openGraph: {
     title: "Accessibility Standards & Inclusive Web Design | iCreatixPRO",
     description:
       "iCreatixPRO is committed to WCAG 2.2 compliance, inclusive design, and accessible user experiences for all. Learn about our accessibility standards and practices.",
-    url: "https://icreatixpro.com/accessibility/",
+    url: "https://icreatixpro.com/accessibility",
     siteName: "iCreatixPRO",
     type: "website",
     images: [
@@ -70,7 +70,7 @@ const schema = {
   "@context": "https://schema.org",
   "@type": "WebPage",
   name: "Accessibility Standards & Inclusive Web Design",
-  url: "https://icreatixpro.com/accessibility/",
+  url: "https://icreatixpro.com/accessibility",
   description:
     "iCreatixPRO accessibility guide explaining WCAG standards and inclusive web design practices.",
   publisher: {
@@ -80,7 +80,7 @@ const schema = {
   },
   mainEntityOfPage: {
     "@type": "WebPage",
-    "@id": "https://icreatixpro.com/accessibility/",
+    "@id": "https://icreatixpro.com/accessibility",
   },
 };
 
@@ -92,13 +92,13 @@ const breadcrumbSchema = {
       "@type": "ListItem",
       position: 1,
       name: "Home",
-      item: "https://icreatixpro.com/",
+      item: "https://icreatixpro.com",
     },
     {
       "@type": "ListItem",
       position: 2,
       name: "Accessibility",
-      item: "https://icreatixpro.com/accessibility/",
+      item: "https://icreatixpro.com/accessibility",
     },
   ],
 };

@@ -5,7 +5,7 @@ import WebDevelopmentClient from "./WebDevelopmentClient";
 // ✅ CONSTANTS
 // ===============================
 const baseUrl = "https://icreatixpro.com";
-const pageUrl = `${baseUrl}/services/web-development/`;
+const pageUrl = `${baseUrl}/services/web-development`;
 
 // ✅ Optimized Meta Title (52 chars - Stronger CTR)
 const seoTitle = "Web Development Services Custom Websites Built to Rank";

@@ -5,7 +5,7 @@ import SEOClient from "./SEOClient";
 // ✅ CONSTANTS
 // ===============================
 const baseUrl = "https://icreatixpro.com";
-const pageUrl = `${baseUrl}/services/search-engine-optimization/`;
+const pageUrl = `${baseUrl}/services/search-engine-optimization`;
 
 // ✅ Optimized Meta Title (55 chars)
 const seoTitle = "SEO Services | Expert SEO Agency for Google Rankings";
@@ -137,7 +137,7 @@ const breadcrumbSchema = {
   "@id": `${pageUrl}#breadcrumb`,
   itemListElement: [
     { "@type": "ListItem", position: 1, name: "Home", item: baseUrl },
-    { "@type": "ListItem", position: 2, name: "Services", item: `${baseUrl}/services/` },
+    { "@type": "ListItem", position: 3, name: "SEO", item: `${pageUrl}/` },
     { "@type": "ListItem", position: 3, name: "SEO", item: pageUrl },
   ],
 };
@@ -180,7 +180,9 @@ export const metadata: Metadata = {
     "organic traffic",
     "Google rankings",
   ],
-  alternates: { canonical: pageUrl },
+  alternates: {
+  canonical: `${pageUrl}/`,
+},
   robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-snippet": -1, "max-image-preview": "large" } },
   authors: [{ name: "Michael Stewart" }],
   creator: "Michael Stewart",
@@ -188,7 +190,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: seoTitle,
     description: seoDescription,
-    url: pageUrl,
+    url: `${pageUrl}/`,
     siteName: "iCreatixPRO",
     type: "website",
     locale: "en_US",

@@ -6,17 +6,29 @@ export const metadata: Metadata = {
   title: "Cookie Policy | iCreatixPRO – Global Privacy & Data Transparency",
   description:
     "iCreatixPRO’s Cookie Policy explains our use of essential, analytics, and marketing cookies for enhanced performance and user experience. Learn more about your rights under GDPR, CCPA, and UAE PDPL.",
+
   alternates: {
-    canonical: "https://icreatixpro.com/cookies/",
+    canonical: "https://icreatixpro.com/cookies",
   },
+
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
+  },
+
   openGraph: {
     title: "Cookie Policy | iCreatixPRO – Global Privacy & Data Transparency",
     description:
       "iCreatixPRO uses cookies to enhance security, analyze performance, and personalize content on our website. Full transparency on how we manage user data globally.",
-    url: "https://icreatixpro.com/cookies/",
+    url: "https://icreatixpro.com/cookies",
     siteName: "iCreatixPRO",
     type: "website",
   },
+
   twitter: {
     card: "summary_large_image",
     title: "Cookie Policy | iCreatixPRO",
@@ -64,35 +76,35 @@ export default function Page() {
 
   // ==================== STRUCTURED DATA ====================
   const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    name: "Cookie Policy",
-    url: "https://icreatixpro.com/cookies/",
-    description:
-      "Cookies policy explaining how iCreatixPRO uses cookies for analytics, personalization, and performance improvement.",
-    publisher: {
-      "@type": "Organization",
-      name: "iCreatixPRO",
-      url: "https://icreatixpro.com",
-    },
-    breadcrumb: {
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: "Home",
-          item: "https://icreatixpro.com/",
-        },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: "Cookie Policy",
-          item: "https://icreatixpro.com/cookies/",
-        },
-      ],
-    },
-  };
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: "Cookie Policy",
+  url: "https://icreatixpro.com/cookies",
+  description:
+    "Cookies policy explaining how iCreatixPRO uses cookies for analytics, personalization, and performance improvement.",
+  publisher: {
+    "@type": "Organization",
+    name: "iCreatixPRO",
+    url: "https://icreatixpro.com",
+  },
+  breadcrumb: {
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://icreatixpro.com/",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Cookie Policy",
+        item: "https://icreatixpro.com/cookies",
+      },
+    ],
+  },
+};
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100">
@@ -213,7 +225,7 @@ export default function Page() {
 
         {/* Related Documents (Internal Linking) */}
         <div className="flex flex-wrap justify-center gap-4 pt-4 text-sm text-gray-500 border-t border-gray-200">
-          <Link href="/privacy" className="hover:text-[#2C727B] transition-colors">Privacy Policy</Link>
+          <Link href="/privacy-policy" className="hover:text-[#2C727B] transition-colors">Privacy Policy</Link>
           <span className="text-gray-300">|</span>
           <Link href="/legal" className="hover:text-[#2C727B] transition-colors">Legal Notice</Link>
           <span className="text-gray-300">|</span>

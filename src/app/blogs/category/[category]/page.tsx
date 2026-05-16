@@ -204,7 +204,30 @@ export default async function CategoryPage({
           </div>
         )}
       </section>
+      {/* Related Pages */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+        <div className="border-t border-gray-100 pt-8">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">
+            Related Pages
+          </h3>
 
+          <div className="flex flex-col gap-2">
+            <Link
+              href="/services/email-marketing"
+              className="text-[#2C727B] hover:underline"
+            >
+              Email Marketing Service
+            </Link>
+
+            <Link
+              href="/blogs/archive"
+              className="text-[#2C727B] hover:underline"
+            >
+              Blog Archive
+            </Link>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }

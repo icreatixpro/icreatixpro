@@ -845,15 +845,35 @@ export default function EmailMarketingPage() {
               </Link>
             </div>
           </section>
-
           {/* Footer */}
           <footer className="mt-8 md:mt-12 pt-6 md:pt-8 border-t border-white/50 text-center">
+            
             <p className="text-[10px] md:text-xs text-[#1A394E]/40">
               © {CURRENT_YEAR} iCreatixPRO. Email marketing specialists.
             </p>
+
+            <div className="mt-4 md:mt-6">
+              <h3 className="text-sm md:text-base font-semibold text-[#1A394E] mb-2">
+                Related Services
+              </h3>
+
+              <div className="flex flex-col items-center gap-1 text-sm">
+                <Link href="/services/seo-services" className="text-[#2C727B] hover:underline">
+                  SEO Services
+                </Link>
+
+                <Link href="/services/content-marketing" className="text-[#2C727B] hover:underline">
+                  Content Marketing
+                </Link>
+              </div>
+            </div>
+
           </footer>
-        </div>
+
+        </div>   {/* max-w-7xl container */}
+
       </main>
+
     </>
   );
 }

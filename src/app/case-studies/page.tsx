@@ -10,14 +10,14 @@ export const metadata: Metadata = {
   title: "Case Studies | AI SEO & SaaS Growth Results iCreatixPRO",
   description:
     "Real SEO, AI & GEO case studies from iCreatixPRO. See how we boosted rankings, AI citations, and revenue for global SaaS, e‑commerce & enterprise brands.",
-  alternates: {
-    canonical: "https://icreatixpro.com/case-studies/",
-  },
+alternates: {
+  canonical: "/case-studies",
+},
   openGraph: {
     title: "Case Studies | AI SEO & SaaS Growth Results",
     description:
       "Proven case studies: +189% traffic, 97% AI visibility, 120% organic signups. See our work for USA, UK, UAE brands.",
-    url: "https://icreatixpro.com/case-studies/",
+    url: "https://icreatixpro.com/case-studies",
     siteName: "iCreatixPRO",
     type: "website",
   },
@@ -178,8 +178,8 @@ export default function CaseStudiesPage() {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://icreatixpro.com/" },
-      { "@type": "ListItem", position: 2, name: "Case Studies", item: "https://icreatixpro.com/case-studies/" },
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://icreatixpro.com" },
+      { "@type": "ListItem", position: 2, name: "Case Studies", item: "https://icreatixpro.com/case-studies" },
     ],
   };
 

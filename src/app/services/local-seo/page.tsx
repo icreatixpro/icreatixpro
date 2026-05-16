@@ -5,7 +5,7 @@ import LocalSEOClient from "./LocalSEOClient";
 // ✅ CONSTANTS
 // ===============================
 const baseUrl = "https://icreatixpro.com";
-const pageUrl = `${baseUrl}/services/local-seo/`;
+const pageUrl = `${baseUrl}/services/local-seo`;
 
 // ✅ Optimized Meta Title (53 chars)
 const seoTitle = "Local SEO Services | Google Maps Ranking Experts";
@@ -80,7 +80,6 @@ const organizationSchema = {
   inLanguage: "en",
 };
 
-// LocalBusiness Schema (For agency itself)
 const localBusinessSchema = {
   "@type": "LocalBusiness",
   "@id": `${baseUrl}#localbusiness`,
@@ -88,13 +87,10 @@ const localBusinessSchema = {
   url: baseUrl,
   logo: `${baseUrl}/logo.webp`,
   priceRange: "$$",
-  servesCuisine: "Local SEO Services",
-  address: {
-    "@type": "PostalAddress",
-    addressCountry: "PK",
-  },
-  areaServed: serviceAreas.map(area => ({ "@type": "City", name: area })),
-  hasMap: "https://maps.google.com",
+  areaServed: serviceAreas.map(area => ({
+    "@type": "Country",
+    name: area,
+  })),
 };
 
 const webSiteSchema = {
@@ -216,7 +212,7 @@ const breadcrumbSchema = {
   "@id": `${pageUrl}#breadcrumb`,
   itemListElement: [
     { "@type": "ListItem", position: 1, name: "Home", item: baseUrl },
-    { "@type": "ListItem", position: 2, name: "Services", item: `${baseUrl}/services/` },
+    { "@type": "ListItem", position: 2, name: "Services", item: `${baseUrl}/services` },
     { "@type": "ListItem", position: 3, name: "Local SEO", item: pageUrl },
   ],
 };
@@ -282,9 +278,9 @@ export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: seoTitle,
   description: seoDescription,
-  alternates: {
-    canonical: pageUrl,
-  },
+alternates: {
+  canonical: "/services/local-seo",
+},
   robots: {
     index: true,
     follow: true,

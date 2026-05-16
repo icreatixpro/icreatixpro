@@ -12,13 +12,24 @@ export const metadata: Metadata = {
   description:
     "Download free ebooks and expert SEO guides from iCreatixPRO covering AI SEO, GEO optimization, digital marketing, and SaaS growth strategies.",
   alternates: {
-    canonical: "https://icreatixpro.com/ebooks/",
+    canonical: "https://icreatixpro.com/ebooks",
   },
+  robots: {
+  index: true,
+  follow: true,
+  googleBot: {
+    index: true,
+    follow: true,
+    "max-snippet": -1,
+    "max-image-preview": "large",
+    "max-video-preview": -1,
+  },
+},
   openGraph: {
     title: "Free Ebooks & SEO Guides | iCreatixPRO",
     description:
       "Explore free ebooks from iCreatixPRO on AI SEO, digital marketing, and growth strategies for better rankings and traffic.",
-    url: "https://icreatixpro.com/ebooks/",
+    url: "https://icreatixpro.com/ebooks",
     siteName: "iCreatixPRO",
     type: "website",
   },
@@ -95,7 +106,7 @@ export default function EbooksPage() {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     name: "Ebooks & SEO Guides",
-    url: "https://icreatixpro.com/ebooks/",
+    url: "https://icreatixpro.com/ebooks",
     description:
       "Free ebooks and SEO guides from iCreatixPRO covering AI SEO, digital marketing, and growth strategies.",
     publisher: {
@@ -107,7 +118,7 @@ export default function EbooksPage() {
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: "https://icreatixpro.com/" },
-        { "@type": "ListItem", position: 2, name: "Ebooks", item: "https://icreatixpro.com/ebooks/" },
+        { "@type": "ListItem", position: 2, name: "Ebooks", item: "https://icreatixpro.com/ebooks" },
       ],
     },
   };

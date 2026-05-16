@@ -31,24 +31,30 @@ const footerLinks = {
     { name: "Local SEO", href: "/services/local-seo" },
     { name: "Google Ads", href: "/services/google-ads" },
     { name: "Content Marketing", href: "/services/content-marketing" },
+    { name: "Careers", href: "/careers" },
   ],
   company: [
     { name: "About", href: "/about" },
     { name: "Blog", href: "/blogs" },
     { name: "Case Studies", href: "/case-studies" },
     { name: "Contact", href: "/contact" },
+    { name: "Glossary", href: "/glossary" },
   ],
   resources: [
     { name: "SEO Tools", href: "/tools" },
+    { name: "Ebooks", href: "/ebooks" },
     { name: "Guides", href: "/guides" },
     { name: "Sitemap", href: "/sitemap" },
     { name: "FAQs", href: "/faqs" },
+    { name: "GDPR Policy", href: "/gdpr" },
+    
   ],
   legal: [
     { name: "Privacy Policy", href: "/privacy-policy" },
     { name: "Terms", href: "/terms" },
     { name: "Cookies", href: "/cookies" },
     { name: "DMCA", href: "/dmca" },
+    { name: "Security Policy", href: "/security" },
   ],
 };
 

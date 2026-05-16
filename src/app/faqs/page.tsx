@@ -10,14 +10,14 @@ export const metadata: Metadata = {
   title: "FAQs | SEO, AI & Digital Growth Answers | iCreatixPRO",
   description:
     "Find answers to common questions about AI SEO, GEO optimization, SaaS marketing, and digital growth strategies from our experts.",
-  alternates: {
-    canonical: "https://icreatixpro.com/faqs/",
-  },
+alternates: {
+  canonical: "/faqs",
+},
   openGraph: {
     title: "FAQs | SEO, AI & Digital Growth Answers | iCreatixPRO",
     description:
       "Get expert answers to frequently asked questions about AI SEO, GEO optimization, and website growth strategies.",
-    url: "https://icreatixpro.com/faqs/",
+    url: "https://icreatixpro.com/faqs",
     siteName: "iCreatixPRO",
     type: "website",
   },

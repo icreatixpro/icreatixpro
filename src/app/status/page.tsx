@@ -12,13 +12,13 @@ export const metadata: Metadata = {
   description:
     "Check real-time system status of iCreatixPRO services, uptime updates, performance monitoring, and platform health information.",
   alternates: {
-    canonical: "https://icreatixpro.com/status/",
+    canonical: "https://icreatixpro.com/status",
   },
   openGraph: {
     title: "System Status | iCreatixPRO Platform Updates",
     description:
       "View live system status, uptime reports, and service health updates for iCreatixPRO platform and tools.",
-    url: "https://icreatixpro.com/status/",
+    url: "https://icreatixpro.com/status",
     siteName: "iCreatixPRO",
     type: "website",
   },
@@ -72,8 +72,8 @@ export default function StatusPage() {
     breadcrumb: {
       "@type": "BreadcrumbList",
       itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Home", item: "https://icreatixpro.com/" },
-        { "@type": "ListItem", position: 2, name: "Status", item: "https://icreatixpro.com/status/" },
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://icreatixpro.com" },
+        { "@type": "ListItem", position: 2, name: "Status", item: "https://icreatixpro.com/status" },
       ],
     },
   };

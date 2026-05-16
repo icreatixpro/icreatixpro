@@ -7,14 +7,14 @@ export const metadata: Metadata = {
   title: "Privacy Policy | iCreatixPRO Data & Security Guide",
   description:
     "Learn how iCreatixPRO collects, uses, and protects your personal data with strong security, privacy practices, and transparent user policies.",
-  alternates: {
-    canonical: "https://icreatixpro.com/privacy-policy/",
-  },
+alternates: {
+  canonical: "/privacy-policy",
+},
   openGraph: {
     title: "Privacy Policy | iCreatixPRO Data & Security Guide",
     description:
       "Understand how iCreatixPRO handles user data, privacy protection, cookies usage, and security practices for a safe digital experience.",
-    url: "https://icreatixpro.com/privacy-policy/",
+    url: "https://icreatixpro.com/privacy-policy",
     siteName: "iCreatixPRO",
     type: "website",
   },
@@ -46,7 +46,7 @@ export default function PrivacyPolicyPage() {
     "@context": "https://schema.org",
     "@type": "WebPage",
     name: "Privacy Policy",
-    url: "https://icreatixpro.com/privacy-policy/",
+    url: "https://icreatixpro.com/privacy-policy",
     description:
       "Privacy policy explaining how iCreatixPRO collects, uses, and protects user data securely and transparently.",
     publisher: {
@@ -57,8 +57,8 @@ export default function PrivacyPolicyPage() {
     breadcrumb: {
       "@type": "BreadcrumbList",
       itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Home", item: "https://icreatixpro.com/" },
-        { "@type": "ListItem", position: 2, name: "Privacy Policy", item: "https://icreatixpro.com/privacy-policy/" },
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://icreatixpro.com" },
+        { "@type": "ListItem", position: 2, name: "Privacy Policy", item: "https://icreatixpro.com/privacy-policy" },
       ],
     },
   };

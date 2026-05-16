@@ -8,13 +8,24 @@ export const metadata: Metadata = {
   description:
     "Explore a complete glossary of SEO, AI marketing, GEO, and digital growth terms explained simply by iCreatixPRO experts. Over 30 key definitions.",
   alternates: {
-    canonical: "https://icreatixpro.com/glossary/",
+    canonical: "https://icreatixpro.com/glossary",
   },
+  robots: {
+  index: true,
+  follow: true,
+  googleBot: {
+    index: true,
+    follow: true,
+    "max-snippet": -1,
+    "max-image-preview": "large",
+    "max-video-preview": -1,
+  },
+},
   openGraph: {
     title: "SEO & AI Marketing Glossary | iCreatixPRO",
     description:
       "Understand SEO, AI, GEO, and digital marketing terms with easy explanations from iCreatixPRO experts.",
-    url: "https://icreatixpro.com/glossary/",
+    url: "https://icreatixpro.com/glossary",
     siteName: "iCreatixPRO",
     type: "website",
   },
@@ -80,7 +91,7 @@ export default function GlossaryPage() {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     name: "SEO & AI Marketing Glossary",
-    url: "https://icreatixpro.com/glossary/",
+    url: "https://icreatixpro.com/glossary",
     description:
       "A comprehensive glossary of SEO, AI marketing, GEO, and digital growth terms.",
     publisher: {
@@ -92,7 +103,7 @@ export default function GlossaryPage() {
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: "https://icreatixpro.com/" },
-        { "@type": "ListItem", position: 2, name: "Glossary", item: "https://icreatixpro.com/glossary/" },
+        { "@type": "ListItem", position: 2, name: "Glossary", item: "https://icreatixpro.com/glossary" },
       ],
     },
   };

@@ -11,13 +11,13 @@ export const metadata: Metadata = {
   description:
     "Join iCreatixPRO internship program for SEO, web development, and graphic design. Learn AI-powered digital marketing and grow your career with real projects.",
   alternates: {
-    canonical: "https://icreatixpro.com/careers/",
+    canonical: "https://icreatixpro.com/careers",
   },
   openGraph: {
     title: "Careers at iCreatixPRO | Join Digital Growth Team",
     description:
       "We are hiring interns in SEO, Web Development, and Graphic Design to build AI-driven digital solutions.",
-    url: "https://icreatixpro.com/careers/",
+    url: "https://icreatixpro.com/careers",
     siteName: "iCreatixPRO",
     type: "website",
   },
@@ -106,15 +106,25 @@ export default function CareersPage() {
     ],
   };
 
-  const jobsSchema = {
-    "@context": "https://schema.org",
-    "@type": "JobPosting",
-    title: "Internships at iCreatixPRO",
-    description: "SEO, Web Development, and Graphic Design internship opportunities.",
-    hiringOrganization: { "@type": "Organization", name: "iCreatixPRO", url: "https://icreatixpro.com" },
-    jobLocationType: "TELECOMMUTE",
-    employmentType: "INTERN",
-  };
+const jobsSchema = {
+  "@context": "https://schema.org",
+  "@type": "JobPosting",
+  title: "Digital Internship Program - SEO, Web Development, Design",
+  description: "Join iCreatixPRO internship program in SEO, Web Development, and Graphic Design.",
+  datePosted: "2026-05-01",
+  validThrough: "2026-12-31",
+  employmentType: "INTERN",
+  hiringOrganization: {
+    "@type": "Organization",
+    name: "iCreatixPRO",
+    url: "https://icreatixpro.com",
+  },
+  jobLocationType: "TELECOMMUTE",
+  applicantLocationRequirements: {
+    "@type": "Country",
+    name: "Worldwide",
+  },
+};
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100">

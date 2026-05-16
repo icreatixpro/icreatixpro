@@ -30,13 +30,13 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: "https://icreatixpro.com/webinars/",
+    canonical: "https://icreatixpro.com/webinars",
   },
   openGraph: {
     title: "Webinars & Training Sessions | iCreatixPRO",
     description:
       "Discover SEO and AI marketing webinars from iCreatixPRO. Get notified when new sessions are announced.",
-    url: "https://icreatixpro.com/webinars/",
+    url: "https://icreatixpro.com/webinars",
     siteName: "iCreatixPRO",
     type: "website",
   },
@@ -57,7 +57,7 @@ export default function WebinarsPage() {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     name: "Webinars & Training Sessions",
-    url: "https://icreatixpro.com/webinars/",
+    url: "https://icreatixpro.com/webinars",
     description:
       "webinars and training sessions by iCreatixPRO on SEO, AI marketing, and digital growth.",
     publisher: {
@@ -68,8 +68,8 @@ export default function WebinarsPage() {
     breadcrumb: {
       "@type": "BreadcrumbList",
       itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Home", item: "https://icreatixpro.com/" },
-        { "@type": "ListItem", position: 2, name: "Webinars", item: "https://icreatixpro.com/webinars/" },
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://icreatixpro.com" },
+        { "@type": "ListItem", position: 2, name: "Webinars", item: "https://icreatixpro.com/webinars" },
       ],
     },
   };

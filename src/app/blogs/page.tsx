@@ -40,22 +40,23 @@ export const metadata: Metadata = {
     "AI SEO, SEO strategies, content marketing, technical SEO, growth marketing, digital marketing blog",
 
   alternates: {
-    canonical: "https://icreatixpro.com/blogs/",
+    canonical: "https://icreatixpro.com/blogs",
   },
-robots: {
-  index: true,
-  follow: true,
-  googleBot: {
+
+  robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
   },
-},
 
   openGraph: {
     title: "AI SEO Blog & Digital Marketing Insights Hub | AI SEO",
     description:
       "Discover expert SEO strategies, AI marketing insights, and proven growth tactics to scale your business online with AI-driven SEO tips & growth guide.",
-url: "https://icreatixpro.com/blogs/",
+    url: "https://icreatixpro.com/blogs",
     siteName: "iCreatixPRO",
     images: [
       {
@@ -83,26 +84,25 @@ export default function BlogsPage() {
   const hasBlogs = allPosts.length > 0;
   
   // JSON-LD Schema for Blog
- const blogSchema = {
-    "@context": "https://schema.org",
-    "@type": "Blog",
-    name: "iCreatixPRO Blog",
-    url: "https://icreatixpro.com/blogs/",
-    description:
-      "AI SEO insights, digital marketing strategies, and growth-focused content.",
-    publisher: {
-      "@type": "Organization",
-      name: "iCreatixPRO",
-      url: "https://icreatixpro.com",
-      
-    },
-  };
+const blogSchema = {
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  name: "iCreatixPRO Blog",
+  url: "https://icreatixpro.com/blogs",
+  description:
+    "AI SEO insights, digital marketing strategies, and growth-focused content.",
+  publisher: {
+    "@type": "Organization",
+    name: "iCreatixPRO",
+    url: "https://icreatixpro.com",
+  },
+};
 
   // Breadcrumb Schema
 const breadcrumbSchema = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
-  "@id": "https://icreatixpro.com/blogs/#breadcrumb",
+  "@id": "https://icreatixpro.com/blogs#breadcrumb",
   itemListElement: [
     {
       "@type": "ListItem",
@@ -114,7 +114,7 @@ const breadcrumbSchema = {
       "@type": "ListItem",
       position: 2,
       name: "Blog",
-      item: "https://icreatixpro.com/blogs/",
+      item: "https://icreatixpro.com/blogs",
     },
   ],
 };
