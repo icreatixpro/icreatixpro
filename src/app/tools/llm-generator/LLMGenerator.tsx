@@ -22,7 +22,7 @@ import {
 import { formatLLMsTxt } from "@/lib/llm/llms-formatter";
 import { trimToTokens } from "@/lib/llm/token-counter";
 
-import type { PageData, GenerateOptions } from "@/types/llm";
+import type { ExtractedContent, LLMOptions } from "@/types/llm";
 
 export default function LLMGenerator() {
   const [url, setUrl] = useState("");
@@ -36,7 +36,7 @@ export default function LLMGenerator() {
     "output"
   );
 
-  const [options, setOptions] = useState<GenerateOptions>({
+  const [options, setOptions] = useState<LLMOptions>({
     includeHeadings: true,
     includeMeta: true,
     includeLinks: true,
@@ -66,13 +66,15 @@ export default function LLMGenerator() {
         `/api/fetch-page?url=${encodeURIComponent(url)}`
       );
 
-      const data: PageData = await response.json();
+const data = await response.json();
 
-      if (!response.ok) {
-        throw new Error(
-          (data as any).error || "Failed to fetch page"
-        );
-      }
+if (!response.ok) {
+  throw new Error(
+    data?.error || "Failed to fetch page"
+  );
+}
+
+const typedData: ExtractedContent = data;
 
       const trimmedContent = trimToTokens(
         data.content || "",
