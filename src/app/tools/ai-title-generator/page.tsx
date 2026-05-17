@@ -1,9 +1,7 @@
-// app/tools/ai-title-generator/page.tsx
 "use client";
 
-import { Suspense } from "react";
 import { useState, useRef, useEffect, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { LazyMotion, domAnimation, m, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 
@@ -284,7 +282,7 @@ function TitleLengthIndicator({ length }: { length: number }) {
         <span className="text-[10px] font-semibold" style={{ color: status.color }}>{length} / 55 chars (optimal)</span>
       </div>
       <div className="h-1.5 w-full bg-gray-100 rounded-full overflow-hidden">
-        <motion.div 
+        <m.div 
           initial={{ width: 0 }}
           animate={{ width: `${percent}%` }}
           className="h-full rounded-full transition-all"
@@ -316,7 +314,7 @@ function TitleCard({ item, keyword, isSaved, isCopied, onSave, onCopy }: {
   const isOptimalLength = item.title.length >= 50 && item.title.length <= 55;
 
   return (
-    <motion.div layout initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.97 }} whileHover={{ y: -2 }}
+    <m.div layout initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.97 }} whileHover={{ y: -2 }}
       className="group relative rounded-xl bg-white border border-gray-200 shadow-sm hover:shadow-md hover:border-[#AEC7C8] transition-all p-4">
       <div className="flex items-start justify-between gap-3">
         <div className="flex-1 min-w-0">
@@ -335,7 +333,7 @@ function TitleCard({ item, keyword, isSaved, isCopied, onSave, onCopy }: {
               <span className="font-bold" style={{ color }}>{score}/100</span>
             </div>
             <div className="h-1 rounded-full bg-gray-100 overflow-hidden">
-              <motion.div initial={{ width: 0 }} animate={{ width: `${score}%` }} className="h-full rounded-full" style={{ backgroundColor: color }} />
+              <m.div initial={{ width: 0 }} animate={{ width: `${score}%` }} className="h-full rounded-full" style={{ backgroundColor: color }} />
             </div>
           </div>
           <p className={`text-[9px] mt-1.5 ${isOptimalLength ? "text-emerald-600 font-medium" : "text-gray-400"}`}>
@@ -347,7 +345,7 @@ function TitleCard({ item, keyword, isSaved, isCopied, onSave, onCopy }: {
           <button onClick={onSave} className={`p-1.5 rounded-lg shadow-sm border text-xs transition-all ${isSaved ? "bg-amber-50 border-amber-200 text-amber-500" : "bg-white border-gray-200 text-gray-400 hover:text-amber-500"}`} title={isSaved ? "Unsave" : "Save"}>{isSaved ? "★" : "☆"}</button>
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -355,8 +353,7 @@ function SectionH2({ id, children }: { id: string; children: React.ReactNode }) 
   return <h2 id={id} className="text-lg font-bold text-[#1A394E] mb-3 scroll-mt-6">{children}</h2>;
 }
 
-// ─── Main Content Component (uses useSearchParams) ───────────────────
-function TitleGeneratorContent() {
+export default function AITitleGeneratorClient() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -375,6 +372,7 @@ function TitleGeneratorContent() {
   const [previewTitle, setPreviewTitle] = useState("");
 
   const inputRef = useRef<HTMLInputElement>(null);
+  const resultsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     try {
@@ -406,6 +404,8 @@ function TitleGeneratorContent() {
       setTitles(withIds);
       setSummary(generateSummary(keyword));
       setLoading(false);
+      // Smooth scroll to results
+      resultsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     }, 400);
   }, [keyword, selectedTone, count, updateShareURL]);
 
@@ -419,6 +419,7 @@ function TitleGeneratorContent() {
       setTitles(withIds);
       setSummary(generateSummary(keyword));
       setLoading(false);
+      resultsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     }, 400);
   }, [keyword, selectedTone, count]);
 
@@ -459,24 +460,24 @@ function TitleGeneratorContent() {
   const hasResults = titles.length > 0;
 
   const FAQS = [
-    { q: "What is the ideal SEO title length for 2026?", a: "Based on latest SERP analysis, the optimal title length is 50-55 characters. This range ensures full display on all devices and maximum click-through rates. Use the live analyzer below the search bar to test any title length instantly." },
+    { q: "What is the ideal SEO title length for Google rankings in 2026?", a: "Based on latest SERP analysis, the optimal title length is 50-55 characters. This range ensures full display on all devices and maximum click-through rates. Use the live analyzer below the search bar to test any title length instantly." },
     { q: "How do I start with a new keyword?", a: "Click the 'New Keyword' button (🔄 Reset Everything) next to the generate button. This clears all current results and lets you start fresh with a different keyword immediately." },
     { q: "How do I generate fresh titles for the same keyword?", a: "After your initial generation, click the 'Generate Fresh Titles' button below your results to get a completely new set of AI-powered titles without changing your keyword or tone settings." },
     { q: "How is the SEO score calculated?", a: "Scores factor in keyword placement (20pts), optimal length 50-55 chars (25pts), numbers (10pts), power words (3pts each), questions (5pts), and more. Scores above 80 are considered excellent." },
-    { q: "Is this tool really free?", a: "Yes, completely free. No signup, no credit card, no usage limits. Everything runs locally in your browser." },
+    { q: "Is this AI SEO title generator free to use?", a: "Yes, completely free. No signup, no credit card, no usage limits. Everything runs locally in your browser." },
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#F5F7FA] to-white">
+    <LazyMotion features={domAnimation}>
       <div className="max-w-5xl mx-auto px-4 py-6 md:py-10">
 
         {/* Breadcrumbs */}
-        <nav className="flex items-center gap-1.5 text-xs text-gray-400 mb-4">
+        <nav className="flex items-center gap-1.5 text-xs text-gray-400 mb-4" aria-label="Breadcrumb">
           <Link href="/" className="hover:text-[#2C727B] transition-colors">Home</Link>
           <span>/</span>
           <Link href="/tools" className="hover:text-[#2C727B] transition-colors">Tools</Link>
           <span>/</span>
-          <span className="text-[#1A394E] font-medium">AI Title Generator</span>
+          <span className="text-[#1A394E] font-medium" aria-current="page">AI Title Generator</span>
         </nav>
 
         {/* Hero - Strong H1 */}
@@ -488,15 +489,29 @@ function TitleGeneratorContent() {
           </div>
           
           <h1 className="text-3xl md:text-4xl font-bold text-[#1A394E] tracking-tight leading-tight">
-            AI Title Generator 
-            <span className="text-[#2C727B]"> That Gets Clicks</span>
-            <span className="block text-base md:text-lg font-medium text-gray-500 mt-1">Rank Higher • Drive More Traffic in 2026</span>
+            Free AI Title Generator for SEO Headlines & Blog Titles
+            <span className="text-[#2C727B] block mt-2">
+              Generate High CTR Titles That Rank Higher in Google
+            </span>
           </h1>
           
-          <p className="text-gray-500 text-sm mt-3 max-w-2xl leading-relaxed">
-            Generate high-CTR, SEO-optimized blog titles with our advanced AI. Get real-time SEO scoring, 
-            type classification, and optimization tips. Trusted by 10,000+ content creators and SEO professionals.
+          <p className="text-gray-600 text-sm mt-4 max-w-3xl leading-relaxed">
+            Generate SEO-optimized blog titles, YouTube titles, headlines, and meta titles
+            using our free AI Title Generator. Improve click-through rate (CTR), boost
+            rankings, and create engaging headlines with real-time SEO scoring,
+            keyword optimization, and AI-powered title formulas designed for Google SEO in 2026.
           </p>
+          
+          {/* Trust section */}
+          <div className="flex flex-wrap items-center gap-4 mt-5 opacity-70">
+            <span className="text-xs font-semibold text-gray-400 uppercase">
+              Trusted by SEO professionals & content creators
+            </span>
+            <div className="text-xs text-gray-500">Bloggers</div>
+            <div className="text-xs text-gray-500">YouTubers</div>
+            <div className="text-xs text-gray-500">SEO Agencies</div>
+            <div className="text-xs text-gray-500">SaaS Marketers</div>
+          </div>
           
           <div className="flex flex-wrap items-center gap-4 mt-3">
             <div className="flex items-center gap-2">
@@ -612,11 +627,11 @@ function TitleGeneratorContent() {
         {/* AI Insight Summary */}
         <AnimatePresence>
           {summary && (
-            <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
+            <m.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
               className="mb-5 px-4 py-3 rounded-xl bg-gradient-to-r from-[#1A394E]/5 to-[#2C727B]/5 border-l-4 border-[#2C727B] text-sm text-gray-700 flex items-start gap-3">
               <span className="text-[#2C727B] text-base shrink-0">🎯</span>
               <span><strong className="text-[#1A394E]">AI Keyword Insight:</strong> {summary}</span>
-            </motion.div>
+            </m.div>
           )}
         </AnimatePresence>
 
@@ -648,7 +663,7 @@ function TitleGeneratorContent() {
         {/* Loading Skeleton */}
         <AnimatePresence>
           {loading && (
-            <motion.div className="space-y-2.5 mb-6">
+            <m.div className="space-y-2.5 mb-6">
               {[1, 2, 3, 4].map(i => (
                 <div key={i} className="h-24 rounded-xl bg-white border border-gray-200 p-4 animate-pulse">
                   <div className="flex gap-2 mb-2"><div className="h-4 w-16 bg-gray-100 rounded-full"></div><div className="h-4 w-8 bg-gray-100 rounded-full"></div></div>
@@ -656,27 +671,29 @@ function TitleGeneratorContent() {
                   <div className="h-2 w-full bg-gray-100 rounded"></div>
                 </div>
               ))}
-            </motion.div>
+            </m.div>
           )}
         </AnimatePresence>
 
         {/* Results with Fresh Generation Button */}
-        {!loading && displayTitles.length > 0 && (
-          <>
-            <div className="space-y-2.5 mb-4">
-              {displayTitles.map(item => (
-                <TitleCard key={item.id} item={item} keyword={keyword} isSaved={savedIds.has(item.id)} isCopied={copiedId === item.id} onSave={() => handleSave(item)} onCopy={() => handleCopy(item)} />
-              ))}
-            </div>
-            
-            <button 
-              onClick={generateFresh}
-              className="w-full mt-2 py-2.5 rounded-xl bg-gray-100 border border-gray-200 text-gray-600 hover:text-[#2C727B] hover:bg-gray-200 text-sm font-medium transition-all flex items-center justify-center gap-2"
-            >
-              🔄 Generate Fresh Titles (Same Keyword)
-            </button>
-          </>
-        )}
+        <div ref={resultsRef} id="results" className="scroll-mt-24">
+          {!loading && displayTitles.length > 0 && (
+            <>
+              <div className="space-y-2.5 mb-4">
+                {displayTitles.map(item => (
+                  <TitleCard key={item.id} item={item} keyword={keyword} isSaved={savedIds.has(item.id)} isCopied={copiedId === item.id} onSave={() => handleSave(item)} onCopy={() => handleCopy(item)} />
+                ))}
+              </div>
+              
+              <button 
+                onClick={generateFresh}
+                className="w-full mt-2 py-2.5 rounded-xl bg-gray-100 border border-gray-200 text-gray-600 hover:text-[#2C727B] hover:bg-gray-200 text-sm font-medium transition-all flex items-center justify-center gap-2"
+              >
+                🔄 Generate Fresh Titles (Same Keyword)
+              </button>
+            </>
+          )}
+        </div>
 
         {/* Empty State */}
         {!loading && !hasResults && (
@@ -703,17 +720,29 @@ function TitleGeneratorContent() {
         </div>
 
         {/* SEO Content Sections */}
-        <div className="space-y-8 text-gray-600">
-          <section id="how-to-use"><SectionH2 id="how-to-use-h2">📘 How to Use This AI Title Generator</SectionH2>
+        <article className="space-y-8 text-gray-600">
+          <section id="how-to-use">
+            <SectionH2 id="how-to-use-h2">📘 How to Use This AI Title Generator</SectionH2>
             <p className="text-sm leading-relaxed">1. Enter your target keyword → 2. Select from 11 professional writing tones → 3. Click Generate to get AI-powered titles with SEO scores. Need fresh titles for the same keyword? Click "Generate Fresh Titles" below results. Want to start with a new keyword? Click the "New Keyword" button next to the search bar.</p>
           </section>
           
-          <section id="why-titles"><SectionH2 id="why-titles-h2">🎯 Why 50-55 Characters Is the New SEO Sweet Spot for 2026</SectionH2>
+          <section id="why-titles">
+            <SectionH2 id="why-titles-h2">🎯 Why 50-55 Characters Is the New SEO Sweet Spot for 2026</SectionH2>
             <p className="text-sm leading-relaxed">Based on analysis of 50,000+ top-ranking titles, headlines between <strong className="text-[#1A394E]">50-55 characters</strong> achieve the highest click-through rates across all devices. This length ensures full display on mobile (Chrome truncates at ~55-60 chars) while providing enough space for keyword placement and emotional triggers. Combine optimal length with strategic keyword placement to improve CTR by <strong className="text-[#2C727B]">20-40%</strong>.</p>
           </section>
           
-          <section id="vs-chatgpt"><SectionH2 id="vs-chatgpt-h2">🆚 Why Our AI Title Generator Beats ChatGPT</SectionH2>
-            <div className="overflow-x-auto rounded-xl border border-gray-200 bg-white"><table className="w-full text-sm"><thead><tr className="border-b bg-gray-50"><th className="text-left p-3 text-[#1A394E] text-xs">Feature</th><th className="text-center p-3 text-[#2C727B] text-xs">iCreatixPRO</th><th className="text-center p-3 text-gray-400 text-xs">ChatGPT</th><th className="text-center p-3 text-gray-400 text-xs">CoSchedule</th></tr></thead><tbody>{[["50-55 Char Optimization","✓","✗","✗"],["SEO Score (0-100)","✓","✗","✓"],["Type Classification","✓","✗","✗"],["11 Professional Tones","✓","Prompt","✗"],["Fresh Generation Mode","✓","✗","✗"],["New Keyword Reset Button","✓","✗","✗"],["Per-Title SEO Tips","✓","✗","✗"],["Save & Export","✓","✗","✗"],["100% Free Forever","✓","Limited","Limited"]].map(([f,a,b,c]) => <tr key={f} className="border-b"><td className="p-3 text-xs font-medium text-gray-600">{f}</td><td className="p-3 text-center text-[#2C727B] text-xs font-semibold">{a}</td><td className="p-3 text-center text-gray-400 text-xs">{b}</td><td className="p-3 text-center text-gray-400 text-xs">{c}</td></tr>)}</tbody></table></div>
+          <section id="vs-chatgpt">
+            <SectionH2 id="vs-chatgpt-h2">🆚 Why Our AI Title Generator Beats ChatGPT</SectionH2>
+            <div className="overflow-x-auto rounded-xl border border-gray-200 bg-white">
+              <table className="w-full text-sm">
+                <thead><tr className="border-b bg-gray-50"><th className="text-left p-3 text-[#1A394E] text-xs">Feature</th><th className="text-center p-3 text-[#2C727B] text-xs">iCreatixPRO</th><th className="text-center p-3 text-gray-400 text-xs">ChatGPT</th><th className="text-center p-3 text-gray-400 text-xs">CoSchedule</th></tr></thead>
+                <tbody>
+                  {[["50-55 Char Optimization","✓","✗","✗"],["SEO Score (0-100)","✓","✗","✓"],["Type Classification","✓","✗","✗"],["11 Professional Tones","✓","Prompt","✗"],["Fresh Generation Mode","✓","✗","✗"],["New Keyword Reset Button","✓","✗","✗"],["Per-Title SEO Tips","✓","✗","✗"],["Save & Export","✓","✗","✗"],["100% Free Forever","✓","Limited","Limited"]].map(([f,a,b,c]) => (
+                    <tr key={f} className="border-b"><td className="p-3 text-xs font-medium text-gray-600">{f}</td><td className="p-3 text-center text-[#2C727B] text-xs font-semibold">{a}</td><td className="p-3 text-center text-gray-400 text-xs">{b}</td><td className="p-3 text-center text-gray-400 text-xs">{c}</td></tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </section>
           
           <section id="methodology" className="p-5 rounded-xl bg-gradient-to-r from-gray-50 to-white border border-gray-200">
@@ -727,29 +756,63 @@ function TitleGeneratorContent() {
               <div className="flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-[#2C727B]"></div><span>Fresh generation & reset modes: <strong className="text-[#1A394E]">Unlimited</strong></span></div>
             </div>
           </section>
-          
-          <section id="faq"><SectionH2 id="faq-h2">❓ Frequently Asked Questions</SectionH2>
-            <div className="space-y-2.5">{FAQS.map((faq, i) => <div key={i} className="rounded-xl bg-white border border-gray-200 overflow-hidden"><button onClick={() => setOpenFaq(openFaq === i ? null : i)} className="w-full text-left px-5 py-3.5 flex justify-between items-center hover:bg-gray-50 transition-colors"><span className="text-sm font-semibold text-[#1A394E]">{faq.q}</span><span className={`text-[#2C727B] transition-transform duration-200 ${openFaq === i ? "rotate-180" : ""}`}>▼</span></button><AnimatePresence>{openFaq === i && <motion.div initial={{ height: 0 }} animate={{ height: "auto" }} exit={{ height: 0 }} className="overflow-hidden"><div className="px-5 pb-4 text-sm text-gray-600 leading-relaxed border-t border-gray-100 pt-4">{faq.a}</div></motion.div>}</AnimatePresence></div>)}</div>
+
+          {/* Internal Links Section */}
+          <section id="tools">
+            <SectionH2 id="related-tools">🔗 Related SEO Tools</SectionH2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              <Link href="/tools/meta-tag-generator" className="p-4 rounded-xl border border-gray-200 bg-white hover:border-[#2C727B] transition-all">
+                <h3 className="font-semibold text-[#1A394E] text-sm">SEO Meta Tag Generator</h3>
+                <p className="text-xs text-gray-500 mt-1">Generate optimized meta titles and descriptions.</p>
+              </Link>
+              <Link href="/tools/keyword-density-checker" className="p-4 rounded-xl border border-gray-200 bg-white hover:border-[#2C727B] transition-all">
+                <h3 className="font-semibold text-[#1A394E] text-sm">Keyword Density Checker</h3>
+                <p className="text-xs text-gray-500 mt-1">Analyze keyword frequency for SEO optimization.</p>
+              </Link>
+              <Link href="/tools/llms-txt-generator" className="p-4 rounded-xl border border-gray-200 bg-white hover:border-[#2C727B] transition-all">
+                <h3 className="font-semibold text-[#1A394E] text-sm">LLMs.txt Generator</h3>
+                <p className="text-xs text-gray-500 mt-1">Create AI crawler optimization files instantly.</p>
+              </Link>
+            </div>
           </section>
-        </div>
 
+          {/* Strong CTA Section */}
+          <section className="rounded-2xl bg-gradient-to-r from-[#1A394E] to-[#2C727B] p-6 text-white">
+            <h2 className="text-2xl font-bold">Start Generating SEO-Friendly Titles Now</h2>
+            <p className="text-sm text-white/80 mt-2 max-w-2xl">
+              Create click-worthy blog titles, YouTube headlines, and SEO meta titles
+              optimized for Google rankings, higher CTR, and more organic traffic.
+            </p>
+            <button
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              className="mt-5 px-5 py-3 rounded-xl bg-white text-[#1A394E] font-semibold hover:shadow-lg transition-all"
+            >
+              Generate AI Titles
+            </button>
+          </section>
+          
+          <section id="faq">
+            <SectionH2 id="faq-h2">❓ Frequently Asked Questions</SectionH2>
+            <div className="space-y-2.5">
+              {FAQS.map((faq, i) => (
+                <div key={i} className="rounded-xl bg-white border border-gray-200 overflow-hidden">
+                  <button onClick={() => setOpenFaq(openFaq === i ? null : i)} className="w-full text-left px-5 py-3.5 flex justify-between items-center hover:bg-gray-50 transition-colors">
+                    <span className="text-sm font-semibold text-[#1A394E]">{faq.q}</span>
+                    <span className={`text-[#2C727B] transition-transform duration-200 ${openFaq === i ? "rotate-180" : ""}`}>▼</span>
+                  </button>
+                  <AnimatePresence>
+                    {openFaq === i && (
+                      <m.div initial={{ height: 0 }} animate={{ height: "auto" }} exit={{ height: 0 }} className="overflow-hidden">
+                        <div className="px-5 pb-4 text-sm text-gray-600 leading-relaxed border-t border-gray-100 pt-4">{faq.a}</div>
+                      </m.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              ))}
+            </div>
+          </section>
+        </article>
       </div>
-    </div>
-  );
-}
-
-// ─── Main Export with Suspense Boundary ─────────────────────────
-export default function AITitleGeneratorPage() {
-  return (
-    <Suspense fallback={
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#F5F7FA] to-white">
-        <div className="text-center">
-          <div className="w-10 h-10 border-3 border-[#2C727B] border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-gray-500 text-sm">Loading AI Title Generator...</p>
-        </div>
-      </div>
-    }>
-      <TitleGeneratorContent />
-    </Suspense>
+    </LazyMotion>
   );
 }

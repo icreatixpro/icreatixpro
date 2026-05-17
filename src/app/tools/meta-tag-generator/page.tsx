@@ -24,7 +24,6 @@ import {
   FiSearch,
   FiBarChart2,
 } from "react-icons/fi";
-import Head from "next/head";
 
 // =========================
 // UTILITIES
@@ -181,6 +180,67 @@ export default function SEOMetadataOptimizer() {
   const [toast, setToast] = useState<{ message: string; type: "success" | "error" | "info" } | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  // =====================================================
+  // JSON-LD FAQPage Schema (Inject on Mount)
+  // =====================================================
+  useEffect(() => {
+    const faqSchema = {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: "What is an ideal meta title length?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "The ideal meta title length is 50–60 characters for best Google SERP display. Titles between 50-55 characters are optimal for maximum visibility without truncation.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "What is the best meta description length?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Meta descriptions should be between 150–160 characters for optimal CTR. This ensures your full description displays in search results without being cut off.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Does keyword placement matter in SEO titles?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes, placing the primary keyword near the beginning improves ranking relevance. Google gives more weight to keywords that appear early in the title tag.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "How do meta tags affect Google rankings?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Meta tags impact CTR and user engagement. While not direct ranking factors, optimized titles and descriptions increase click-through rates, which indirectly helps rankings.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Can I use special characters in meta titles?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes, special characters like pipes (|), dashes (-), colons (:), and ampersands (&) are acceptable. However, avoid symbols that may be replaced by Google.",
+          },
+        },
+      ],
+    };
+
+    const script = document.createElement("script");
+    script.type = "application/ld+json";
+    script.innerHTML = JSON.stringify(faqSchema);
+    document.head.appendChild(script);
+
+    return () => {
+      document.head.removeChild(script);
+    };
+  }, []);
+
   // Optimized calculations
   const titleStats = useMemo(() => {
     const length = title.length;
@@ -288,17 +348,12 @@ export default function SEOMetadataOptimizer() {
 
   return (
     <>
-      <Head>
-        <title>SEO Metadata Optimizer | iCreatixPRO</title>
-        <meta name="description" content="Optimize your meta titles and descriptions for better SEO rankings. Real-time preview, character counter, and SEO scoring." />
-      </Head>
+      <ToastMessage />
 
       <main className={`min-h-screen transition-colors duration-300 ${
         darkMode ? "bg-gray-900" : "bg-[#F8FAFA]"
       }`}>
         
-        <ToastMessage />
-
         <div className="max-w-6xl mx-auto px-4 py-6 md:py-10">
           
           {/* ============================================ */}
@@ -327,10 +382,10 @@ export default function SEOMetadataOptimizer() {
           {/* ============================================ */}
           <div className="text-center mb-8">
             <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-[#1A394E]">
-              SEO Metadata Optimizer
+              Free SEO Meta Tag Generator Tool Create Meta Titles & Descriptions for Higher Rankings
             </h1>
             <p className="text-[#1A394E]/60 text-sm mt-2">
-              Optimize your titles & descriptions for higher search rankings
+              Create SEO-Optimized Meta Titles & Descriptions to Improve Google Rankings & CTR
             </p>
           </div>
 
@@ -610,6 +665,101 @@ export default function SEOMetadataOptimizer() {
               <p className="text-xs text-[#1A394E]/60">Titles with numbers, power words, and emotional triggers get 40% higher CTR.</p>
             </div>
           </div>
+
+          {/* FAQS */}
+          <section className="mt-16 space-y-6 text-[#1A394E]">
+            <h2 className="text-2xl font-bold">
+              What is a Meta Tag Generator Tool?
+            </h2>
+
+            <p className="text-sm text-[#1A394E]/70 leading-relaxed">
+              A meta tag generator helps you create SEO-optimized title tags and meta descriptions
+              that improve search visibility, click-through rates (CTR), and overall ranking performance
+              on Google and other search engines.
+            </p>
+
+            <h2 className="text-xl font-semibold mt-6">
+              Why Meta Tags Matter for SEO
+            </h2>
+
+            <ul className="list-disc pl-5 text-sm text-[#1A394E]/70 space-y-1">
+              <li>Improve search engine rankings through keyword optimization</li>
+              <li>Increase CTR with compelling meta descriptions</li>
+              <li>Help Google understand page relevance (topical SEO)</li>
+              <li>Support rich snippet visibility</li>
+            </ul>
+          </section>
+
+          {/* E-E-A-T SECTION */}
+          <section className="mt-12 p-6 rounded-xl bg-white/50 border border-white/50">
+            <h2 className="text-xl font-bold mb-2">Why Trust iCreatixPRO SEO Tools?</h2>
+
+            <p className="text-sm text-[#1A394E]/70">
+              Our SEO tools are built using real search engine guidelines from Google,
+              focusing on ranking factors like keyword relevance, CTR optimization,
+              and technical SEO best practices.
+            </p>
+
+            <div className="mt-4 grid md:grid-cols-3 gap-3 text-xs text-[#1A394E]/70">
+              <div>✔ SEO Industry Standards Based</div>
+              <div>✔ Real-time Optimization Logic</div>
+              <div>✔ Built for SaaS & Agencies</div>
+            </div>
+          </section>
+
+          {/* FAQ schema */}
+          <section className="mt-12">
+            <h2 className="text-xl font-bold mb-4">Frequently Asked Questions</h2>
+
+            <div className="space-y-4 text-sm text-[#1A394E]/70">
+
+              <div>
+                <h3 className="font-semibold text-[#1A394E]">
+                  What is an ideal meta title length?
+                </h3>
+                <p>
+                  The ideal meta title length is 50–60 characters for best Google SERP display.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold text-[#1A394E]">
+                  What is the best meta description length?
+                </h3>
+                <p>
+                  Meta descriptions should be between 150–160 characters for optimal CTR.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold text-[#1A394E]">
+                  Does keyword placement matter in SEO titles?
+                </h3>
+                <p>
+                  Yes, placing the primary keyword near the beginning improves ranking relevance.
+                </p>
+              </div>
+
+            </div>
+          </section>
+
+          <section className="mt-10 text-sm">
+            <h2 className="text-lg font-semibold mb-2">Related SEO Tools</h2>
+
+            <div className="flex flex-wrap gap-3 text-[#2C727B]">
+              <a href="/tools/keyword-density-checker" className="hover:underline">
+                Keyword Density Checker
+              </a>
+
+              <a href="/tools/local-seo-audit" className="hover:underline">
+                Local SEO Audit Tool
+              </a>
+
+              <a href="/tools/ai-title-generator" className="hover:underline">
+                AI Title Generator
+              </a>
+            </div>
+          </section>
 
           {/* Footer */}
           <div className="mt-8 pt-6 border-t border-gray-200 text-center">
