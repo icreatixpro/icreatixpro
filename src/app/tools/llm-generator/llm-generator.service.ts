@@ -113,6 +113,7 @@ export async function extractPageContent(
   // Word Count
   // ------------------------------------
   const wordCount = content.split(/\s+/).filter(Boolean).length;
+  const readingTime = Math.ceil(wordCount / 200);
 
   // ------------------------------------
   // Final Clean Object
@@ -129,6 +130,7 @@ export async function extractPageContent(
     externalLinks,
     images,
     wordCount,
+    readingTime,
   };
 
   return baseData;

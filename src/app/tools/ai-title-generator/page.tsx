@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect, useCallback, Suspense } from "react";
 import { LazyMotion, domAnimation, m, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -353,7 +353,7 @@ function SectionH2({ id, children }: { id: string; children: React.ReactNode }) 
   return <h2 id={id} className="text-lg font-bold text-[#1A394E] mb-3 scroll-mt-6">{children}</h2>;
 }
 
-export default function AITitleGeneratorClient() {
+function AITitleGeneratorClient() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -814,5 +814,14 @@ export default function AITitleGeneratorClient() {
         </article>
       </div>
     </LazyMotion>
+  );
+}
+
+// Wrap with Suspense for useSearchParams()
+export default function Page() {
+  return (
+    <Suspense fallback={<div className="flex items-center justify-center min-h-screen">Loading...</div>}>
+      <AITitleGeneratorClient />
+    </Suspense>
   );
 }

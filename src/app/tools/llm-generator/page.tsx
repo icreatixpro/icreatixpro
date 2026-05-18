@@ -8,7 +8,7 @@ import FAQSection from "./components/FAQSection";
 import FAQSchema from "./components/FAQSchema";
 import HowToSchema from "./components/HowToSchema";
 import ToolSchema from "./components/ToolSchema";
-
+export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title:
     "Free LLM.txt Generator Tool for AI SEO & ChatGPT Optimization | iCreatixPRO",
