@@ -22,7 +22,7 @@ import {
 import { formatLLMsTxt } from "@/lib/llm/llms-formatter";
 import { trimToTokens } from "@/lib/llm/token-counter";
 
-import type { ExtractedContent, LLMOptions } from "@/types/llm";
+import type { ExtractedContent, GenerateOptions } from "@/types/llm";
 
 export default function LLMGenerator() {
   const [url, setUrl] = useState("");
@@ -36,7 +36,7 @@ export default function LLMGenerator() {
     "output"
   );
 
-  const [options, setOptions] = useState<LLMOptions>({
+  const [options, setOptions] = useState<GenerateOptions>({
     includeHeadings: true,
     includeMeta: true,
     includeLinks: true,
