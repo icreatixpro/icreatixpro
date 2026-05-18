@@ -1,113 +1,135 @@
-import { fetchHTML } from "@/lib/fetch/fetch-html";
-import { sanitizeContent } from "@/lib/llm/sanitizer";
-import { extractMetadata } from "@/lib/llm/metadata-extractor";
-import { extractContent } from "@/lib/llm/content-extractor";
-import { trimToTokens } from "@/lib/llm/token-counter";
-import { estimateReadingTime } from "@/lib/utils/estimate-reading-time";
-import { formatLLMsTxt } from "@/lib/llm/llms-formatter";
-import { protectAgainstSSRF } from "@/lib/security/ssrf-protection";
-import { validateUrl } from "@/lib/security/url-validator";
-import { checkRobots } from "@/lib/llm/robots-checker";
+// src/app/tools/llm-generator/llm-generator.service.ts
 
-import type { LLMOptions, ExtractedContent } from "@/types/llm";
+import * as cheerio from "cheerio";
+import { JSDOM } from "jsdom";
+import { Readability } from "@mozilla/readability";
 
-type GeneratedLLMResult = ExtractedContent & {
-  llmsText: string;
-};
+import type { ExtractedContent } from "@/types/llm";
 
-export async function generateLLMFile(
-  url: string,
-  options: LLMOptions
-): Promise<GeneratedLLMResult> {
-  // ----------------------------
-  // URL validation
-  // ----------------------------
-  validateUrl(url);
+interface Metadata {
+  title?: string;
+  description?: string;
+  author?: string;
+  siteName?: string;
+}
 
-  // ----------------------------
-  // SSRF protection
-  // ----------------------------
-  await protectAgainstSSRF(url);
+export async function extractPageContent(
+  html: string,
+  pageUrl: string
+): Promise<ExtractedContent> {
+  // ------------------------------------
+  // Load HTML
+  // ------------------------------------
+  const $ = cheerio.load(html);
 
-  // ----------------------------
-  // robots.txt check
-  // ----------------------------
-  const robotsAllowed = await checkRobots(url);
+  // ------------------------------------
+  // Metadata Extraction
+  // ------------------------------------
+  const metadata: Metadata = {
+    title:
+      $("title").text().trim() ||
+      $('meta[property="og:title"]').attr("content") ||
+      "",
 
-  if (!robotsAllowed) {
-    throw new Error("Blocked by robots.txt");
-  }
-
-  // ----------------------------
-  // fetch HTML
-  // ----------------------------
-  const html = await fetchHTML(url);
-
-  if (!html || typeof html !== "string") {
-    throw new Error("Failed to fetch HTML content");
-  }
-
-  // ----------------------------
-  // sanitize HTML
-  // ----------------------------
-  const sanitized = sanitizeContent(html);
-
-  // ----------------------------
-  // extract data
-  // ----------------------------
-  const metadata = extractMetadata(sanitized);
-  const extracted = extractContent(sanitized, url);
-
-  // ----------------------------
-  // safe options handling
-  // ----------------------------
-  const safeOptions: LLMOptions = {
-    includeHeadings: options?.includeHeadings ?? true,
-    includeMeta: options?.includeMeta ?? true,
-    includeLinks: options?.includeLinks ?? true,
-    includeImages: options?.includeImages ?? false,
-    maxTokens: options?.maxTokens ?? 4000,
-  };
-
-  const maxTokens = safeOptions.maxTokens;
-
-  // ----------------------------
-  // trim content safely
-  // ----------------------------
-  const trimmedContent = trimToTokens(
-    extracted?.content ?? "",
-    maxTokens
-  );
-
-  // ----------------------------
-  // build final data (safe merge)
-  // ----------------------------
-  const baseData: ExtractedContent = {
-    title: metadata?.title ?? extracted?.title ?? "",
     description:
-      metadata?.description ?? extracted?.description ?? "",
-    author: metadata?.author,
-    siteName: metadata?.siteName,
-    content: trimmedContent,
-    headings: extracted?.headings ?? [],
-    internalLinks: extracted?.internalLinks ?? [],
-    externalLinks: extracted?.externalLinks ?? [],
-    images: extracted?.images ?? [],
-    wordCount: extracted?.wordCount ?? 0,
-    readingTime: estimateReadingTime(extracted?.wordCount ?? 0),
+      $('meta[name="description"]').attr("content") ||
+      $('meta[property="og:description"]').attr("content") ||
+      "",
+
+    author:
+      $('meta[name="author"]').attr("content") ||
+      "",
+
+    siteName:
+      $('meta[property="og:site_name"]').attr("content") ||
+      "",
   };
 
-  // ----------------------------
-  // format LLM output
-  // ----------------------------
-  const llmsText = formatLLMsTxt(
-    baseData,
-    url,
-    safeOptions
-  );
+  // ------------------------------------
+  // Readability Extraction
+  // ------------------------------------
+  const dom = new JSDOM(html, {
+    url: pageUrl,
+  });
 
-  return {
-    ...baseData,
-    llmsText,
+  const reader = new Readability(dom.window.document);
+  const article = reader.parse();
+
+  // ------------------------------------
+  // Main Content
+  // ------------------------------------
+  const content =
+    article?.textContent?.trim() ||
+    $("body").text().replace(/\s+/g, " ").trim();
+
+  // ------------------------------------
+  // Headings
+  // ------------------------------------
+  const headings = $("h1, h2, h3")
+    .map((_, el) => $(el).text().trim())
+    .get()
+    .filter(Boolean);
+
+  // ------------------------------------
+  // Links
+  // ------------------------------------
+  const internalLinks: string[] = [];
+  const externalLinks: string[] = [];
+
+  $("a[href]").each((_, el) => {
+    const href = $(el).attr("href");
+
+    if (!href) return;
+
+    try {
+      const absoluteUrl = new URL(href, pageUrl).toString();
+
+      if (absoluteUrl.includes(new URL(pageUrl).hostname)) {
+        internalLinks.push(absoluteUrl);
+      } else {
+        externalLinks.push(absoluteUrl);
+      }
+    } catch {
+      // Ignore invalid URLs
+    }
+  });
+
+  // ------------------------------------
+  // Images
+  // ------------------------------------
+  const images = $("img[src]")
+    .map((_, el) => $(el).attr("src"))
+    .get()
+    .filter(Boolean)
+    .map((src) => {
+      try {
+        return new URL(src!, pageUrl).toString();
+      } catch {
+        return src!;
+      }
+    });
+
+  // ------------------------------------
+  // Word Count
+  // ------------------------------------
+  const wordCount = content.split(/\s+/).filter(Boolean).length;
+
+  // ------------------------------------
+  // Final Clean Object
+  // ------------------------------------
+  const baseData: ExtractedContent = {
+    title: metadata.title ?? "",
+    description: metadata.description ?? "",
+    author: metadata.author ?? "",
+    siteName: metadata.siteName ?? "",
+
+    content,
+    headings,
+    internalLinks,
+    externalLinks,
+    images,
+    wordCount,
   };
+
+  return baseData;
 }
